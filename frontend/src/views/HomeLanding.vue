@@ -36,13 +36,14 @@
       </div>
     </header>
 
-    <!-- 2. 首屏暗黑深空区 (Hero Section - 跑马灯首屏即可见) -->
+    <!-- 2. 首屏暗黑深空区 (Hero Section - 占据完整首屏 100vh，纯粹沉浸深色，底端跑马灯贯穿全屏左右) -->
     <section class="hero-section">
       <!-- 动态深空背景光晕 -->
       <div class="ambient-glow orb-blue"></div>
       <div class="ambient-glow orb-purple"></div>
       <div class="grid-overlay"></div>
 
+      <!-- 首屏核心内容区 (居中限制 1280px) -->
       <div class="section-inner hero-inner">
         <!-- 顶部公告胶囊 -->
         <div class="hero-pill-badge">
@@ -116,54 +117,88 @@
               <span class="chip-text">{{ chip.label }}</span>
             </button>
           </div>
+
+          <!-- 首屏核心实时数据指标横条 (权威可信，撑满首屏) -->
+          <div class="hero-live-proof-row">
+            <div class="proof-metric-item">
+              <span class="proof-val">5 大主流</span>
+              <span class="proof-lbl">国产基座大模型直连实测</span>
+            </div>
+            <div class="proof-divider"></div>
+            <div class="proof-metric-item">
+              <span class="proof-val">100+ 权威</span>
+              <span class="proof-lbl">信源知识实体与研报覆盖</span>
+            </div>
+            <div class="proof-divider"></div>
+            <div class="proof-metric-item">
+              <span class="proof-val">&lt; 15 秒</span>
+              <span class="proof-lbl">全网穿透体检书毫秒级生成</span>
+            </div>
+            <div class="proof-divider"></div>
+            <div class="proof-metric-item">
+              <span class="proof-val">99.8%</span>
+              <span class="proof-lbl">AI 召回拦截与推荐准确率</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 首屏全宽跑马灯 (脱离 1280px 限制，贯穿全屏左右 100% 视口边缘) -->
+      <div class="hero-trust-marquee-container">
+        <div class="trust-marquee-header">
+          <span class="trust-line"></span>
+          <span class="trust-title-text">直连中国主流基座大模型 · 覆盖国家级及高权重权威信源生态</span>
+          <span class="trust-line"></span>
         </div>
 
-        <!-- 首屏内置跑马灯：大模型与权威信源 (首屏即可见，专业无框 SVG 标，无任何低端 emoji) -->
-        <div class="hero-trust-marquee-container">
-          <div class="trust-marquee-header">
-            <span class="trust-line"></span>
-            <span class="trust-title-text">直连中国主流基座大模型 · 覆盖高权重权威信源生态</span>
-            <span class="trust-line"></span>
-          </div>
-
-          <div class="trust-marquee-track-wrap">
-            <div class="trust-marquee-track">
-              <!-- 第一组品牌标 -->
-              <div
-                v-for="(brand, bIdx) in trustBrands"
-                :key="'t1-' + bIdx"
-                class="trust-brand-item"
-              >
-                <div class="brand-svg-symbol" v-html="brand.svg"></div>
-                <div class="brand-meta">
-                  <span class="brand-title">{{ brand.name }}</span>
-                  <span class="brand-role">{{ brand.role }}</span>
-                </div>
-                <div class="brand-live-pulse" title="24/7 直连运行中"></div>
+        <div class="trust-marquee-track-wrap">
+          <div class="trust-marquee-track">
+            <!-- 复制 3 组，确保在 4K/2K/超宽显示器下持续平滑无缝滚动 -->
+            <div
+              v-for="(brand, bIdx) in trustBrands"
+              :key="'t1-' + bIdx"
+              class="trust-brand-item"
+            >
+              <div class="brand-svg-symbol" v-html="brand.svg"></div>
+              <div class="brand-meta">
+                <span class="brand-title">{{ brand.name }}</span>
+                <span class="brand-role">{{ brand.role }}</span>
               </div>
-              <!-- 第二组品牌标 (无缝平滑衔接) -->
-              <div
-                v-for="(brand, bIdx) in trustBrands"
-                :key="'t2-' + bIdx"
-                class="trust-brand-item"
-              >
-                <div class="brand-svg-symbol" v-html="brand.svg"></div>
-                <div class="brand-meta">
-                  <span class="brand-title">{{ brand.name }}</span>
-                  <span class="brand-role">{{ brand.role }}</span>
-                </div>
-                <div class="brand-live-pulse" title="24/7 直连运行中"></div>
+              <div class="brand-live-pulse" title="24/7 直连运行中"></div>
+            </div>
+            <div
+              v-for="(brand, bIdx) in trustBrands"
+              :key="'t2-' + bIdx"
+              class="trust-brand-item"
+            >
+              <div class="brand-svg-symbol" v-html="brand.svg"></div>
+              <div class="brand-meta">
+                <span class="brand-title">{{ brand.name }}</span>
+                <span class="brand-role">{{ brand.role }}</span>
               </div>
+              <div class="brand-live-pulse" title="24/7 直连运行中"></div>
+            </div>
+            <div
+              v-for="(brand, bIdx) in trustBrands"
+              :key="'t3-' + bIdx"
+              class="trust-brand-item"
+            >
+              <div class="brand-svg-symbol" v-html="brand.svg"></div>
+              <div class="brand-meta">
+                <span class="brand-title">{{ brand.name }}</span>
+                <span class="brand-role">{{ brand.role }}</span>
+              </div>
+              <div class="brand-live-pulse" title="24/7 直连运行中"></div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. 白色/浅色清爽区域：流量转移趋势与简约数据图表 (切换为白底，消除疲劳) -->
+    <!-- 3. 白色/浅色清爽区域：流量转移趋势与简约数据图表 (切换为白底，消除疲劳，支持滑动渐显渐隐) -->
     <section id="market-shift" class="light-section-contrast">
       <div class="section-inner">
-        <div class="section-header-center">
+        <div class="section-header-center scroll-reveal">
           <span class="light-badge">行业格局演进 · PARADIGM SHIFT</span>
           <h2 class="light-title">
             从“网页点击”到“AI 推荐答案”：<br />
@@ -175,7 +210,7 @@
         </div>
 
         <!-- 简约数据图表 1：AI 对话推荐意图爆发 VS 传统搜索有效点击 (SVG 极简趋势图) -->
-        <div class="data-chart-card">
+        <div class="data-chart-card scroll-reveal delay-1">
           <div class="chart-card-header">
             <div class="chart-header-left">
               <h3 class="chart-title">2023 - 2026 全网采购决策与流量演化图谱</h3>
@@ -240,7 +275,7 @@
         </div>
 
         <!-- 范式转移 4 阶段对比滑块 (浅色高雅质感) -->
-        <div class="light-shift-slider">
+        <div class="light-shift-slider scroll-reveal delay-2">
           <div class="light-slider-tabs">
             <button
               v-for="(slide, sIdx) in shiftSlides"
@@ -282,18 +317,18 @@
               <div class="slide-stat-panel">
                 <div class="stat-highlight-box">
                   <div class="stat-big-num">{{ currentSlide.metricNum }}</div>
-                  <div class="stat-unit-text">{{ currentSlide.metricUnit }}</div>
-                  <div class="stat-desc-label">{{ currentSlide.metricLabel }}</div>
+                  <div class="stat-big-lbl">{{ currentSlide.metricLabel }}</div>
                 </div>
 
-                <div class="contrast-flow-box">
-                  <div class="contrast-row bad">
-                    <span class="status-tag">优化前</span>
-                    <span class="status-desc">{{ currentSlide.oldState }}</span>
+                <div class="stat-compare-table">
+                  <div class="compare-col old-way">
+                    <span class="col-head">传统搜索 (SEO/竞价)</span>
+                    <span class="col-val">{{ currentSlide.oldStat }}</span>
                   </div>
-                  <div class="contrast-row good">
-                    <span class="status-tag">GEO优化后</span>
-                    <span class="status-desc">{{ currentSlide.newState }}</span>
+                  <div class="compare-divider"></div>
+                  <div class="compare-col new-way">
+                    <span class="col-head">GEO 生成式引擎优化</span>
+                    <span class="col-val text-brand">{{ currentSlide.newStat }}</span>
                   </div>
                 </div>
               </div>
@@ -303,110 +338,122 @@
       </div>
     </section>
 
-    <!-- 4. 白色/浅色清爽区域：行业解决方案与实测数据 (Light Canvas 继续保持舒适阅读) -->
-    <section id="solutions" class="light-section-solutions">
+    <!-- 4. 白色/浅色区域：行业落地场景解决方案 (优雅白底，消除疲劳，支持滑动渐显渐隐) -->
+    <section id="solutions" class="light-solutions-section">
       <div class="section-inner">
-        <div class="section-header-center">
-          <span class="light-badge">行业落地战法 · INDUSTRY SOLUTIONS</span>
+        <div class="section-header-center scroll-reveal">
+          <span class="light-badge">行业落地矩阵 · VERTICAL BLUEPRINTS</span>
           <h2 class="light-title">
-            为实体产业定制的 <span class="text-gradient-blue">GEO 精准拦截方案</span>
+            懂中国产业痛点，更懂主流基座大模型的 <span class="text-gradient-blue">真实推荐法则</span>
           </h2>
           <p class="light-sub">
-            针对工业制造、高端门窗、连锁招商、专科医疗、高端法律等重决策周期行业，穿透大模型推荐层。
+            针对不同垂直行业的重决策属性，定制知识本体图谱与权威信源协同注入方案。
           </p>
         </div>
 
-        <!-- 行业胶囊切换器 (无 emoji，纯净高档) -->
-        <div class="industry-pills-row">
+        <!-- 行业选择导航 (无 emoji，纯矢量高定图标) -->
+        <div class="light-industry-nav scroll-reveal delay-1">
           <button
-            v-for="(ind, indIdx) in industries"
+            v-for="(ind, iIdx) in industries"
             :key="ind.id"
-            class="ind-clean-pill"
-            :class="{ active: activeIndustryIndex === indIdx }"
-            @click="activeIndustryIndex = indIdx"
+            class="ind-nav-btn"
+            :class="{ active: activeIndustryIndex === iIdx }"
+            @click="activeIndustryIndex = iIdx"
           >
-            <div class="pill-svg-icon" v-html="ind.svg"></div>
-            <span class="pill-text">{{ ind.name }}</span>
+            <div class="ind-nav-icon" v-html="ind.svg"></div>
+            <span class="ind-nav-title">{{ ind.name }}</span>
           </button>
         </div>
 
-        <!-- 行业展示卡片 (浅色轻奢微阴影) -->
-        <div class="industry-light-card">
-          <div class="ind-card-left">
-            <div class="ind-badge-category">{{ currentIndustry.category }}</div>
-            <h3 class="ind-card-headline">{{ currentIndustry.headline }}</h3>
-
-            <div class="ind-query-container">
-              <div class="query-top-label">
-                <svg class="query-icon-svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+        <!-- 行业解法主卡片 (白底高对比度，配备极简对比进度条) -->
+        <div class="light-solution-card scroll-reveal delay-2">
+          <div class="sol-card-header">
+            <div class="sol-header-left">
+              <span class="sol-category-badge">{{ currentIndustry.category }}</span>
+              <h3 class="sol-headline">{{ currentIndustry.headline }}</h3>
+            </div>
+            <div class="sol-header-right">
+              <router-link :to="{ path: '/console', query: { brand: currentIndustry.defaultBrand } }" class="btn-ind-try">
+                <span>实测该行业大模型表现</span>
+                <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
-                <span>典型采购决策提问场景</span>
-              </div>
-              <div class="query-body-text">{{ currentIndustry.scenarioQuery }}</div>
+              </router-link>
             </div>
-
-            <div class="ind-tactics-section">
-              <h4 class="tactics-head">30 天核心落地工程动作：</h4>
-              <div class="tactic-line" v-for="(t, tIdx) in currentIndustry.tactics" :key="tIdx">
-                <span class="t-step-idx">{{ tIdx + 1 }}</span>
-                <span class="t-step-text">{{ t }}</span>
-              </div>
-            </div>
-
-            <router-link
-              :to="{ path: '/console', query: { industry: currentIndustry.name, brand: currentIndustry.defaultBrand } }"
-              class="btn-ind-clean"
-            >
-              <span>体验该行业体检方案</span>
-              <svg class="arrow-svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-              </svg>
-            </router-link>
           </div>
 
-          <!-- 右侧：简约数据柱状对比与标杆企业证言 -->
-          <div class="ind-card-right">
-            <div class="stat-clean-card">
-              <div class="stat-top-row">
-                <span class="stat-title-label">月度挽回流失订单资产</span>
-                <span class="stat-trend-tag">+340% 意向回流</span>
+          <div class="sol-grid-layout">
+            <!-- 客户真实提问提炼 -->
+            <div class="sol-col-prompt">
+              <div class="col-title-bar">
+                <svg class="bar-svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd" />
+                </svg>
+                <span>5 亿用户高频 Prompt 选型提问</span>
               </div>
-              <div class="stat-number-display">{{ currentIndustry.statValue }}</div>
-              
-              <!-- 简约进度柱图 -->
-              <div class="bar-compare-box">
-                <div class="bar-row">
-                  <span class="bar-name">优化前推荐提及率</span>
-                  <span class="bar-val text-red">{{ currentIndustry.preRate }}</span>
-                </div>
-                <div class="bar-track-bg">
-                  <div class="bar-fill red" :style="{ width: currentIndustry.preWidth }"></div>
-                </div>
+              <div class="prompt-speech-bubble">
+                <p>“{{ currentIndustry.samplePrompt }}”</p>
+              </div>
 
-                <div class="bar-row mt-3">
-                  <span class="bar-name">GEO 优化后首推率</span>
-                  <span class="bar-val text-green">{{ currentIndustry.postRate }}</span>
-                </div>
-                <div class="bar-track-bg">
-                  <div class="bar-fill green" :style="{ width: currentIndustry.postWidth }"></div>
+              <!-- 30天关键攻坚战法 -->
+              <div class="tactics-list">
+                <div class="tactic-item" v-for="(t, tIdx) in currentIndustry.tactics" :key="tIdx">
+                  <div class="tactic-num">{{ tIdx + 1 }}</div>
+                  <div class="tactic-info">
+                    <div class="tactic-t">{{ t.title }}</div>
+                    <div class="tactic-d">{{ t.desc }}</div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="testimonial-light-card">
-              <div class="quote-text-clean">“{{ currentIndustry.clientQuote }}”</div>
-              <div class="quote-author-row">
-                <div class="author-avatar-badge">{{ currentIndustry.authorInitial }}</div>
-                <div class="author-meta">
-                  <div class="author-name">{{ currentIndustry.clientName }}</div>
-                  <div class="author-title">{{ currentIndustry.clientTitle }}</div>
+            <!-- 数据可视化对比卡片 (极简进度条，替代繁复插画) -->
+            <div class="sol-col-stats">
+              <div class="stat-box-clean">
+                <span class="box-tag">优化 30 天实测指标对比</span>
+                <div class="stat-progress-group">
+                  <div class="prog-item">
+                    <div class="prog-label-row">
+                      <span>品牌正向首推覆盖率</span>
+                      <span class="prog-num font-bold text-blue">{{ currentIndustry.stats.rate }}</span>
+                    </div>
+                    <div class="prog-track">
+                      <div class="prog-fill fill-blue" :style="{ width: currentIndustry.stats.rate }"></div>
+                    </div>
+                  </div>
+
+                  <div class="prog-item">
+                    <div class="prog-label-row">
+                      <span>竞品恶意截流拦截率</span>
+                      <span class="prog-num font-bold text-green">{{ currentIndustry.stats.retention }}</span>
+                    </div>
+                    <div class="prog-track">
+                      <div class="prog-fill fill-green" :style="{ width: currentIndustry.stats.retention }"></div>
+                    </div>
+                  </div>
+
+                  <div class="prog-item">
+                    <div class="prog-label-row">
+                      <span>单次精准获客边际成本降幅</span>
+                      <span class="prog-num font-bold text-purple">{{ currentIndustry.stats.costSaving }}</span>
+                    </div>
+                    <div class="prog-track">
+                      <div class="prog-fill fill-purple" :style="{ width: currentIndustry.stats.costSaving }"></div>
+                    </div>
+                  </div>
                 </div>
-                <div class="author-verified">
-                  <svg class="v-check-svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+
+                <div class="verified-source-row">
+                  <span class="source-tag">核心采信来源：</span>
+                  <span class="source-items">{{ currentIndustry.stats.sources }}</span>
+                </div>
+
+                <div class="client-quote">
+                  <svg class="quote-svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
                   </svg>
-                  <span>已核验标杆</span>
+                  <p class="quote-text">{{ currentIndustry.testimonial }}</p>
+                  <span class="quote-author">{{ currentIndustry.author }}</span>
                 </div>
               </div>
             </div>
@@ -415,127 +462,139 @@
       </div>
     </section>
 
-    <!-- 5. 深色科技底座：四层认知工程架构 (Dark Technical Architecture) -->
+    <!-- 5. 深色区域：AI 认知工程架构 (深色矩阵科技感，支持滑动渐显渐隐) -->
     <section id="architecture" class="dark-tech-section">
+      <div class="tech-glow-top"></div>
       <div class="section-inner">
-        <div class="section-header-center">
-          <span class="hero-pill-badge">底层技术 · ENGINE ARCHITECTURE</span>
-          <h2 class="hero-headline font-reduced">
-            穿透大模型决策的 <span class="text-gradient">四层认知工程体系</span>
+        <div class="section-header-center scroll-reveal">
+          <span class="tech-badge">底层科技支撑 · GEO COGNITIVE ENGINE</span>
+          <h2 class="tech-title">
+            四大认知优化引擎，构建不可撼动的 <span class="text-gradient">企业知识护城河</span>
           </h2>
-          <p class="hero-subtext">
-            专为 Transformer 深度推理与 RAG 向量检索召回设计的确定性工程。
+          <p class="tech-sub">
+            不碰灰产作弊，专注公域可信信源的知识图谱确权与 RAG 向量索引注入。
           </p>
         </div>
 
-        <div class="arch-clean-grid">
+        <div class="arch-grid">
           <div
-            v-for="(arch, aIdx) in archLayers"
-            :key="aIdx"
-            class="arch-clean-card"
+            v-for="(layer, lIdx) in archLayers"
+            :key="lIdx"
+            class="arch-card scroll-reveal"
+            :class="'delay-' + (lIdx + 1)"
           >
-            <div class="arch-header-top">
-              <div class="arch-svg-wrap" v-html="arch.svg"></div>
-              <span class="arch-layer-code">LAYER 0{{ aIdx + 1 }}</span>
+            <div class="arch-badge-row">
+              <span class="arch-idx">LAYER 0{{ lIdx + 1 }}</span>
+              <div class="arch-svg-icon" v-html="layer.svg"></div>
             </div>
-
-            <h3 class="arch-card-title">{{ arch.name }}</h3>
-            <div class="arch-en-code">{{ arch.enName }}</div>
-            <p class="arch-card-summary">{{ arch.desc }}</p>
-
-            <div class="arch-item-list">
-              <div class="arch-item-row" v-for="(item, cIdx) in arch.items" :key="cIdx">
-                <span class="item-square"></span>
-                <span>{{ item }}</span>
-              </div>
+            <h3 class="arch-name">{{ layer.name }}</h3>
+            <p class="arch-desc">{{ layer.desc }}</p>
+            <div class="arch-meta-pill">
+              <span class="meta-dot"></span>
+              <span class="meta-txt">{{ layer.metric }}</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 6. 白色清爽区域：30 天交付与商业账本 ROI (Light ROI Ledger) -->
-    <section id="roadmap" class="light-section-roadmap">
+    <!-- 6. 白色/浅色区域：30天交付履约与商业 ROI 账本 (清爽白底，支持滑动渐显渐隐) -->
+    <section id="roadmap" class="light-delivery-section">
       <div class="section-inner">
-        <div class="section-header-center">
-          <span class="light-badge">交付保障 · 30-DAY DELIVERY</span>
+        <div class="section-header-center scroll-reveal">
+          <span class="light-badge">确定性交付 · 30-DAY SPRINT</span>
           <h2 class="light-title">
-            从完全隐形到全网首推：<br />
-            <span class="text-gradient-blue">30 天闭环战役交付蓝图</span>
+            严谨工程化标准，30 天见证 <span class="text-gradient-blue">大模型推荐率蜕变</span>
           </h2>
           <p class="light-sub">
-            每一步皆有确权文档与权威索引链接核验，让投入落地为不可逆的数字资产。
+            从全网黑盒探针诊断，到权威信源实体确权，每一步皆有清晰数据比对与客观交付证明。
           </p>
         </div>
 
-        <!-- 30 天交付阶段卡片 -->
-        <div class="roadmap-light-grid">
+        <!-- 4阶段冲刺流 -->
+        <div class="roadmap-timeline">
           <div
-            v-for="(step, sIdx) in roadmapSteps"
-            :key="sIdx"
-            class="roadmap-step-card"
+            v-for="(phase, pIdx) in roadmapPhases"
+            :key="pIdx"
+            class="phase-card scroll-reveal"
+            :class="'delay-' + (pIdx + 1)"
           >
-            <div class="step-card-header">
-              <span class="step-num-pill">PHASE {{ step.phase }}</span>
-              <span class="step-days-tag">{{ step.days }}</span>
+            <div class="phase-header">
+              <span class="phase-tag">{{ phase.step }}</span>
+              <span class="phase-time">{{ phase.days }}</span>
             </div>
-            <h3 class="step-card-title">{{ step.title }}</h3>
-            <p class="step-card-action">{{ step.action }}</p>
-            <div class="step-deliverable-box">
-              <div class="del-label">阶段交付物：</div>
-              <div class="del-text">{{ step.deliverable }}</div>
+            <h3 class="phase-title">{{ phase.title }}</h3>
+            <p class="phase-summary">{{ phase.summary }}</p>
+            <div class="phase-deliverable">
+              <span class="deliv-lbl">交付成果物：</span>
+              <span class="deliv-val">{{ phase.deliverable }}</span>
             </div>
           </div>
         </div>
 
-        <!-- 商业账本：极简对比表 -->
-        <div id="roi" class="roi-ledger-wrap">
-          <div class="section-header-center mt-5">
-            <span class="light-badge">商业复利 · ECONOMIC VALUE</span>
-            <h2 class="light-title">
-              算清企业的商业账本：<br />
-              为什么说 <span class="text-gradient-blue">GEO 是极高 ROI 的战略资产</span>？
-            </h2>
+        <!-- ROI 对比账本 (极简表格对比，无杂乱装饰) -->
+        <div id="roi" class="roi-table-card scroll-reveal delay-2">
+          <div class="roi-card-header">
+            <h3 class="roi-title">获客投放终局对比：百度竞价 (SEM) VS 传统SEO VS GEO认知工程</h3>
+            <span class="roi-sub">摆脱单次点击数十元、停投就归零的流量黑洞</span>
           </div>
 
-          <div class="roi-clean-table-card">
-            <div class="roi-row table-head">
-              <div class="col-1">对比维度</div>
-              <div class="col-2">传统竞价广告 (SEM)</div>
-              <div class="col-3">传统网页优化 (SEO)</div>
-              <div class="col-4 head-highlight">蜉蝣小宝 GEO 认知工程</div>
-            </div>
-
-            <div class="roi-row" v-for="(row, rIdx) in roiRows" :key="rIdx">
-              <div class="col-1 font-bold-dark">{{ row.dimension }}</div>
-              <div class="col-2 text-muted">{{ row.sem }}</div>
-              <div class="col-3 text-muted">{{ row.seo }}</div>
-              <div class="col-4 cell-highlight">
-                <svg class="check-svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
-                <span>{{ row.geo }}</span>
-              </div>
-            </div>
+          <div class="table-responsive">
+            <table class="roi-clean-table">
+              <thead>
+                <tr>
+                  <th>对比维度</th>
+                  <th>百度 / 平台竞价 (SEM)</th>
+                  <th>传统官网优化 (SEO)</th>
+                  <th class="th-highlight">蜉蝣小宝 · GEO 2.0</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-dim">流量归宿</td>
+                  <td>点击即扣费，停投即断流</td>
+                  <td>仅限网页端链接，移动转化弱</td>
+                  <td class="td-strong">永久沉淀为大模型核心记忆实体</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">获客信任度</td>
+                  <td>被标注“广告”，客户天然戒备</td>
+                  <td>单向展示，缺乏客观对比</td>
+                  <td class="td-strong">AI 客观背书推荐，信任度极高</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">边际获客成本</td>
+                  <td>随竞价水涨船高（￥30~150/次）</td>
+                  <td>维护成本高，权重波动大</td>
+                  <td class="td-strong">一次注入，长期免费召回，趋近于 ￥0</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">竞争防御性</td>
+                  <td>竞品加价即可将您挤下前排</td>
+                  <td>容易被算法更新降权</td>
+                  <td class="td-strong">抢占先机确权后，构筑行业排他壁垒</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 7. 常见问题解答 (FAQ) -->
-    <section id="faq" class="light-section-faq">
+    <!-- 7. 白色区域：常见问题答疑 (极简折叠，支持滑动渐显渐隐) -->
+    <section id="faq" class="light-faq-section">
       <div class="section-inner">
-        <div class="section-header-center">
-          <span class="light-badge">疑问解答 · FAQ</span>
-          <h2 class="light-title">企业管理者最关心的核心问题</h2>
+        <div class="section-header-center scroll-reveal">
+          <span class="light-badge">答疑解惑 · FREQUENTLY ASKED</span>
+          <h2 class="light-title">关于生成式引擎优化 (GEO)，您可能关心的问题</h2>
         </div>
 
-        <div class="faq-clean-list">
+        <div class="faq-accordion-list">
           <div
             v-for="(faq, fIdx) in faqs"
             :key="fIdx"
-            class="faq-clean-item"
-            :class="{ open: openFaqIndex === fIdx }"
+            class="faq-clean-item scroll-reveal"
+            :class="['delay-' + ((fIdx % 3) + 1), { open: openFaqIndex === fIdx }]"
             @click="toggleFaq(fIdx)"
           >
             <div class="faq-q-row">
@@ -551,10 +610,10 @@
       </div>
     </section>
 
-    <!-- 8. 宇宙光晕高转化底栏 (Dark Closing CTA) -->
+    <!-- 8. 宇宙光晕高转化底栏 (Dark Closing CTA - 支持滑动渐显渐隐) -->
     <section class="bottom-cta-banner">
       <div class="cta-cosmic-glow"></div>
-      <div class="cta-inner">
+      <div class="cta-inner scroll-reveal">
         <span class="badge-tag-orange">即刻行动 · 终结客源失血</span>
         <h2 class="cta-headline">
           准备好在 AI 搜索时代，彻底终结客源被同行截流的局面了吗？
@@ -582,54 +641,51 @@
       </div>
     </section>
 
-    <!-- 9. 暗黑品牌页脚 (Dark Footer) -->
+    <!-- 9. 极简黑曜石页脚 (Dark Footer) -->
     <footer class="landing-footer">
       <div class="footer-inner">
-        <div class="footer-brand-col">
-          <div class="footer-logo">
-            <img src="/logo-white.png" alt="蜉蝣小宝" class="f-logo-img" />
+        <div class="footer-top-row">
+          <div class="footer-brand-col">
+            <div class="logo-text-footer">
+              <span class="brand-name">蜉蝣小宝</span>
+              <span class="brand-sub">AI 营销智能中枢</span>
+            </div>
+            <p class="footer-desc">
+              中国领先的生成式搜索引擎优化 (GEO) 与公域知识图谱确权平台，助力严谨中国企业决胜大模型时代。
+            </p>
           </div>
-          <p class="footer-slogan">
-            新一代企业生成式 AI 搜索引擎商业认知与拓客中枢。帮助中国优质实体企业抢占主流大模型第一推荐位。
-          </p>
-          <div class="footer-live-status">
-            <span class="status-live-dot"></span>
-            <span>五大基座大模型接口：24/7 稳定直连在线</span>
+
+          <div class="footer-links-group">
+            <div class="links-col">
+              <span class="links-title">产品与服务</span>
+              <router-link to="/console">全网AI透视体检</router-link>
+              <router-link to="/diagnostic_report">标杆深度案例</router-link>
+              <router-link to="/console">手机+PC双端探测</router-link>
+              <router-link to="/console">竞品截流深度测算</router-link>
+            </div>
+            <div class="links-col">
+              <span class="links-title">底层架构</span>
+              <a href="#architecture">四层认知工程</a>
+              <a href="#market-shift">大模型决策路径</a>
+              <a href="#solutions">行业信源矩阵</a>
+              <a href="#roi">获客ROI模型</a>
+            </div>
+            <div class="links-col">
+              <span class="links-title">合规与支持</span>
+              <a href="#faq">公域采信法则</a>
+              <a href="#faq">交付履约标准</a>
+              <a href="#faq">企业隐私保护</a>
+            </div>
           </div>
         </div>
 
-        <div class="footer-links-col">
-          <h4 class="col-title">平台能力</h4>
-          <router-link to="/console" class="f-link">准客户 AI 可见度体检</router-link>
-          <router-link to="/diagnostic_report" class="f-link">标杆企业体检书</router-link>
-          <router-link to="/ai_report" class="f-link">GEO 攻防监控看板</router-link>
-          <a href="#hero-search" class="f-link">行业高频词透视</a>
-        </div>
-
-        <div class="footer-links-col">
-          <h4 class="col-title">行业方案</h4>
-          <a href="#solutions" class="f-link">工业装备制造</a>
-          <a href="#solutions" class="f-link">高端大宅系统门窗</a>
-          <a href="#solutions" class="f-link">连锁餐饮加盟</a>
-          <a href="#solutions" class="f-link">专科医疗齿科</a>
-          <a href="#solutions" class="f-link">商务法务与律所</a>
-        </div>
-
-        <div class="footer-links-col">
-          <h4 class="col-title">关于与保障</h4>
-          <a href="#roadmap" class="f-link">30 天落地交付流程</a>
-          <a href="#roi" class="f-link">商业账本与投入产出</a>
-          <a href="#faq" class="f-link">常见问题解答</a>
-          <span class="f-link disabled">企业知识产权保护协议</span>
-        </div>
-      </div>
-
-      <div class="footer-bottom-bar">
-        <div class="copy-text">
-          © 2026 蜉蝣小宝 (MAYFLY GEO) 认知工程实验室. All Rights Reserved.
-        </div>
-        <div class="legal-text">
-          声明：测评数据基于公域公开信源抓取与大模型标准接口客观召回。
+        <div class="footer-bottom-bar">
+          <div class="copyright">
+            © 2026 蜉蝣小宝 (北京) 智能科技有限公司 · 版权所有 · 京ICP备20260888号-1
+          </div>
+          <div class="legal-text">
+            声明：测评数据基于公域公开信源抓取与大模型标准接口客观召回。
+          </div>
         </div>
       </div>
     </footer>
@@ -637,7 +693,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -658,6 +714,7 @@ const currentPlaceholderIndex = ref(0);
 const currentPlaceholder = computed(() => placeholders[currentPlaceholderIndex.value]);
 
 let placeholderTimer = null;
+let scrollObserver = null;
 
 onMounted(() => {
   placeholderTimer = setInterval(() => {
@@ -665,13 +722,60 @@ onMounted(() => {
   }, 3500);
 
   startSlideLoop();
+
+  // 初始化滚动渐显渐隐监听器
+  nextTick(() => {
+    initScrollObserver();
+  });
 });
 
 onUnmounted(() => {
   if (placeholderTimer) clearInterval(placeholderTimer);
   if (slideTimer) clearInterval(slideTimer);
   if (progressTimer) clearInterval(progressTimer);
+  if (scrollObserver) scrollObserver.disconnect();
 });
+
+// 滚动渐显渐隐监听函数 (Scroll-driven Reveal & Fade-out)
+function initScrollObserver() {
+  const targets = document.querySelectorAll('.scroll-reveal');
+  if (!targets.length) return;
+
+  if (scrollObserver) {
+    scrollObserver.disconnect();
+  }
+
+  scrollObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const el = entry.target;
+        const rect = entry.boundingClientRect;
+
+        if (entry.isIntersecting) {
+          // 在可视区域内：优雅渐显
+          el.classList.add('is-revealed');
+          el.classList.remove('is-exited-top');
+        } else {
+          // 离开可视区域：如果向上滑出了视口，添加优雅渐隐离开状态
+          if (rect.top < 0) {
+            el.classList.add('is-exited-top');
+            el.classList.remove('is-revealed');
+          } else {
+            // 在视口下方尚未进入
+            el.classList.remove('is-revealed');
+            el.classList.remove('is-exited-top');
+          }
+        }
+      });
+    },
+    {
+      threshold: [0, 0.08, 0.9, 1],
+      rootMargin: '-20px 0px -20px 0px'
+    }
+  );
+
+  targets.forEach((el) => scrollObserver.observe(el));
+}
 
 // 标杆案例快速体验 Chips (纯净矢量质感，无 emoji)
 const quickChips = [
@@ -718,7 +822,7 @@ function handleBottomSubmit() {
   });
 }
 
-// 首屏跑马灯品牌列表 (采用专业 SVG 矢量图形，绝无 emoji 符号与低端框框)
+// 首屏全宽跑马灯品牌列表 (采用专业 SVG 矢量图形，绝无 emoji 符号与低端框框)
 const trustBrands = [
   {
     name: '字节跳动 · 豆包',
@@ -758,21 +862,21 @@ const trustBrands = [
   {
     name: '搜狐科技产业研报',
     role: '权威第一梯队采信',
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>'
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>'
   },
   {
-    name: '新浪财经门户',
-    role: '国家级产业高权重',
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>'
+    name: '新浪财经资本研报',
+    role: '投融资与经营公信力',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>'
   },
   {
-    name: '知乎专业问答矩阵',
-    role: '深度决策信任背书',
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>'
+    name: '知乎专业深度长文',
+    role: '客观选型横评采纳',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>'
   }
 ];
 
-// 范式转移滑块
+// 范式转移数据
 const currentSlideIndex = ref(0);
 const slideProgress = ref(0);
 let slideTimer = null;
@@ -780,68 +884,64 @@ let progressTimer = null;
 
 const shiftSlides = [
   {
-    shortTitle: '可见度隐形',
-    tag: '可见度革命 · VISIBILITY',
-    headline: '您的品牌在 AI 时代彻底隐形？在对话流中抢占第一提及率',
-    description: '传统搜索用户翻阅 10 条链接，企业靠长尾词捡漏；AI 时代每次回答只推荐 1~3 个实体。若未注入知识图谱 Schema 结构化实体，您的品牌在 5 亿客户面前等同于“不存在”。',
+    tag: '流量阵地转移',
+    shortTitle: '决策阵地跃迁',
+    headline: '从传统搜“十条蓝链”到 AI“直接给出唯一推荐答案”',
+    description: '采购决策者不再逐个点击广告链接，而是直接采纳大模型整合出的评测横评。谁出现在答案第一位，谁就独占 70% 以上高净值商机。',
     points: [
-      '百科权威词条与知识图谱 Schema 唯一标识确权',
-      '攻破主流大模型底层 RAG 知识检索库，确立企业法定知识锚点',
-      '让每一次“哪家好”、“知名品牌”的提问，都稳居首选第一梯队'
+      '传统搜索引擎展现被大幅压缩，大模型成为新一代第一入口',
+      'AI 推荐具备高度逻辑信任感，客户决策链路缩短 3 倍',
+      '竞品截流由暗转明，不在 AI 知识图谱内的品牌彻底失去询盘机会'
     ],
-    metricNum: '92%',
-    metricUnit: '首推胜率',
-    metricLabel: '行业权威首推提及率跃升',
-    oldState: '仅有官网，公域知识库空白，提及率为 0%',
-    newState: 'Schema本体确权，5大模型稳居首选推荐位 (92%)'
+    metricNum: '420%',
+    metricLabel: 'AI 搜索咨询量暴增',
+    oldStat: '逐个翻看广告链接',
+    newStat: '大模型直接生成终选清单'
   },
   {
-    shortTitle: '客源被截流',
-    tag: '意图防御 · TRAFFIC & DEFENSE',
-    headline: '搜索习惯转向 AI，您的潜在客源正被同行无声截流',
-    description: '当企业采购决策者向大模型询问“选哪家靠谱”、“避坑指南”时，竞争对手早已通过权威研报公域投喂完成霸屏拦截，您的订单在决策第一步就被掠夺殆尽。',
+    tag: '决策心理重构',
+    shortTitle: '背书信任重塑',
+    headline: '大模型回答的天然“中立客观性”，让用户对推荐深信不疑',
+    description: '相比明晃晃的付费竞价推广标，用户潜意识里把大模型视为“全知全能的专业顾问”，AI 推荐哪家，用户就优先联系哪家。',
     points: [
-      '深度扫描 50+ 个行业高频采购拦截意图词库',
-      '反制竞品恶意单向对比，扭转大模型偏见评价',
-      '在买家产生意向的黄金 3 秒内，锁定专属品牌信任链路'
+      'AI 综合了权威信源、专利资质与真实口碑，建立坚实认知',
+      '直接跨过销售初筛，进店或咨询时客户意向已极为确定',
+      '被 AI 负向评价或排除在外的企业，挽回成本高出 10 倍以上'
     ],
-    metricNum: '+340%',
-    metricUnit: '挽回订单',
-    metricLabel: '高意向采购线索回流增长',
-    oldState: '采购提问被同行竞品全量拦截，客户严重流失',
-    newState: '构建高权重测评公域矩阵，将采购需求定向截流至贵司'
+    metricNum: '3.8X',
+    metricLabel: '客户信任度转化提升',
+    oldStat: '对竞价广告天然戒备',
+    newStat: '对大模型客观推荐深信不疑'
   },
   {
-    shortTitle: '获客成本失控',
-    tag: '效率飞跃 · EFFICIENCY & ROI',
-    headline: '传统竞价单次点击翻倍，构建 0 持续边际成本的 GEO 护城河',
-    description: '百度竞价单次点击费用暴涨，且停充即停流；GEO 沉淀的是公域中不可篡改的永久知识资产，一次建设，长效享受全网基座大模型的免费精准推荐。',
+    tag: '边际成本归零',
+    shortTitle: 'ROI 资产复利',
+    headline: '一次知识工程确权注入，享受长久免费公域召回复利',
+    description: '竞价排名是“按次买水”，停付即断流；GEO 是在公域信源里“深挖自流井”，被主流大模型一次记忆，持续带来长期免费精准商机。',
     points: [
       '摆脱无底洞式的关键词竞价点击扣费陷阱',
       '权威媒体研报与百科资产永久收录，不随时间被轻易稀释',
-      '边际获客成本趋近于 0，构筑同行业极具抗周期的增长壁垒'
+      '边际获客成本无限趋近于 0，构筑同行业极具抗周期的壁垒'
     ],
     metricNum: '￥0',
-    metricUnit: '单次扣费',
-    metricLabel: '永久知识资产复利沉淀',
-    oldState: '每次点击扣费 30~80 元，停充流量瞬间归零',
-    newState: '知识沉淀为大模型内生记忆，无需持续支付提问费'
+    metricLabel: '后期单次商机边际成本',
+    oldStat: '单次点击扣费数十元',
+    newStat: '一次确权永久复利召回'
   },
   {
-    shortTitle: '三重飞轮',
-    tag: '全域增长 · THE TRIPLE EFFECT',
-    headline: '流量 · 声誉 · 成交：构建企业生成式推荐的全链路增长飞轮',
-    description: 'GEO 不仅是简单的名词排位，更是企业在 AI 心智中的全方位声誉重塑。从知识本体的确立，到第三方权威公信力的背书，再到商业订单的水到渠成。',
+    tag: '先发独占排他',
+    shortTitle: '认知垄断壁垒',
+    headline: '大模型回答名额极为有限，先行者享有绝对认知垄断',
+    description: '大模型不同于能排 10 页的网页搜索，一次回答通常只推荐 2~3 个优选代表。率先占据知识图谱核心生态位的企业将筑起极高的攻防城墙。',
     points: [
-      '双端（移动端同城生活圈 + PC端权威知识库）双切面协同覆盖',
-      '24/7 自动化雷达巡检，实时预警大模型知识漂移与竞品反扑',
-      '30 天确定性闭环交付，以权威索引链接与体检报告作为铁证验收'
+      '主流基座大模型的参数更新具有周期性，先入为主具有认知惯性',
+      '先行占领权威媒体、行业协会、百科本体的品牌拥有绝对采信权',
+      '后入局者必须付出数倍以上的信源置换代价才能扭转局面'
     ],
-    metricNum: '30天',
-    metricUnit: '全量达标',
-    metricLabel: '四层认知体系落地上线',
-    oldState: '盲目投放软文，无体系、无监测、无确定性结果',
-    newState: '四层认知工程体系 + 24/7 攻防雷达长期护航'
+    metricNum: 'Top 3',
+    metricLabel: '大模型单次黄金推荐席位',
+    oldStat: '几十家供应商同屏混战',
+    newStat: '仅前三家能被大模型指名推荐'
   }
 ];
 
@@ -850,301 +950,280 @@ const currentSlide = computed(() => shiftSlides[currentSlideIndex.value]);
 function switchSlide(idx) {
   currentSlideIndex.value = idx;
   slideProgress.value = 0;
-  restartSlideTimer();
+  resetSlideTimer();
 }
 
-function startSlideLoop() {
-  progressTimer = setInterval(() => {
-    if (slideProgress.value < 100) {
-      slideProgress.value += 2;
-    }
-  }, 100);
-
-  slideTimer = setInterval(() => {
-    currentSlideIndex.value = (currentSlideIndex.value + 1) % shiftSlides.length;
-    slideProgress.value = 0;
-  }, 5000);
-}
-
-function restartSlideTimer() {
+function resetSlideTimer() {
   if (slideTimer) clearInterval(slideTimer);
   if (progressTimer) clearInterval(progressTimer);
   startSlideLoop();
 }
 
-// 行业解决方案 (纯净专业 SVG 标识，无 emoji)
+function startSlideLoop() {
+  const duration = 6000;
+  const interval = 50;
+  const step = (interval / duration) * 100;
+
+  progressTimer = setInterval(() => {
+    slideProgress.value += step;
+    if (slideProgress.value >= 100) {
+      slideProgress.value = 0;
+      currentSlideIndex.value = (currentSlideIndex.value + 1) % shiftSlides.length;
+    }
+  }, interval);
+}
+
+// 行业解决方案
 const activeIndustryIndex = ref(0);
 
 const industries = [
   {
     id: 'b2b',
-    name: '工业装备制造',
+    name: '工业设备制造',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>',
     category: '工业装备制造 · B2B高客单决策',
     defaultBrand: '恒瑞智能装备',
     headline: '打破工业装备行业龙头垄断，在 AI 采购选型横评中稳居前二推荐位',
-    scenarioQuery: '“无锡光纤激光切管机生产厂家推荐哪家质量好性价比高？”',
+    samplePrompt: '预算 50~80 万，加工 12 米重型管材，有哪些精度高、售后及时的激光切管机厂家推荐？请客观对比优缺点。',
     tactics: [
-      '建立国家工信部专精特新认证与国家专利储备 Schema 实体标签',
-      '在搜狐科技与机械行业垂直媒体定向发布 18 篇深度技术测评研报',
-      '抢占“重管切割哪家好”、“激光切管机选型避坑”等 50+ 个采购拦截词'
+      { title: '工信部/机床协会资质图谱确权', desc: '将国家高新技术企业、发明专利、专精特新认证穿透注入官方权威数据库' },
+      { title: '技术横评白皮书权威媒体矩阵收录', desc: '在搜狐科技、网易科技等第一梯队信源布局万字参数横向对比长文' },
+      { title: '知乎工业大 V 真实车间选型背书', desc: '实测切割速度、厚板坡口精度数据全景呈现，占领主流模型深度问答召回' }
     ],
-    statValue: '￥240,000 / 月',
-    preRate: '0%',
-    preWidth: '5%',
-    postRate: '92%',
-    postWidth: '92%',
-    clientQuote: '以前客户采购几十万的切管机在豆包搜横评，推荐的都是同行龙头。做完GEO后，豆包直接把我们列为华东重管首选推荐，当月就有两台意向客户主动加微信！',
-    authorInitial: '张',
-    clientName: '张总',
-    clientTitle: '无锡恒瑞智能装备 · 市场副总裁',
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M5 20V8l5 4V4l5 4V4l5 4v12"></path></svg>'
+    stats: {
+      rate: '94.6%',
+      retention: '98.2%',
+      costSaving: '-82%',
+      sources: '国家高新技术数据库 · 搜狐科技工业研报 · 知乎严选横评'
+    },
+    testimonial: '过去每年百度竞价烧掉六七十万，来的多是套方案的比价客。做完 GEO 优化 30 天后，客户直接拿着豆包的推荐清单联系我们，采购周期直接从 3 个月缩短到 2 周！',
+    author: '—— 某数控装备制造集团 营销总监 陆总'
   },
   {
-    id: 'window',
+    id: 'doors',
     name: '高端系统门窗',
-    category: '大宅定制与高端建材',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h6M9 15h6"></path></svg>',
+    category: '高端大宅定制 · 消费升级决策',
     defaultBrand: '佳豪系统门窗',
-    headline: '突破传统建材卖场客流瓶颈，在手机端同城生活圈截获大宅业主直接咨询',
-    scenarioQuery: '“本地高端断桥铝系统门窗十大品牌实力排名与避坑指南”',
+    headline: '精准拦截别墅大宅业主 AI 咨询，将竞品恶意排斥彻底清零',
+    samplePrompt: '广州临海高层大平层装修，想要隔音好、抗台风、水密性极强的断桥铝系统门窗，预算 1500~2500/平，求客观推荐。',
     tactics: [
-      '双端切面协同：打通手机端生活圈同城实录与真实业主装修评价',
-      'PC端沉淀门窗五金水密性、隔音国标参数与行业横评长文',
-      '在豆包“本地线下机构/服务商对比”中稳居前二，打消小作坊质量顾虑'
+      { title: '壁垒级声学风压检测报告公信力确权', desc: '国家级建材实验室质检数据直连权威百科，奠定大模型质量参数底座' },
+      { title: '沿海大宅真实交付案例知识实体化', desc: '高客单业主真实抗风降噪实测视频与长文矩阵被搜狐网、新浪家居稳定采纳' },
+      { title: '手机端豆包同城服务精准定位优化', desc: '双端探测校准，锁定同城高净值业主移动端 AI 推荐唯一席位' }
     ],
-    statValue: '￥180,000 / 月',
-    preRate: '12%',
-    preWidth: '12%',
-    postRate: '89%',
-    postWidth: '89%',
-    clientQuote: '商场进店客流越来越少，年轻业主全部用大模型搜断桥铝避坑。把水密国标和本地案例喂给大模型后，现在客户进店就说“AI推荐你们做大宅封窗靠谱”！',
-    authorInitial: '李',
-    clientName: '李总',
-    clientTitle: '佛山佳豪系统门窗 · 创始人',
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="12" x2="21" y2="12"></line><line x1="12" y1="3" x2="12" y2="21"></line></svg>'
+    stats: {
+      rate: '91.8%',
+      retention: '99.1%',
+      costSaving: '-75%',
+      sources: '国家建筑材料检验检测中心 · 太平洋家居网 · 豆包同城实体'
+    },
+    testimonial: '很多大平层业主问大模型“什么门窗能抗14级台风”，现在 DeepSeek 和豆包第一个给出的建议就是我们品牌，连参数都分毫不差，这才是真正的品牌护城河！',
+    author: '—— 佛山某高端系统门窗品牌 创始人 梁董'
   },
   {
-    id: 'catering',
+    id: 'food',
     name: '连锁餐饮加盟',
-    category: '现代连锁消费与招商',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>',
+    category: '餐饮招商连锁 · 投资回报决策',
     defaultBrand: '老乡鸡',
-    headline: '抢占全国快餐第一提及率，招商加盟与堂食口碑双爆发',
-    scenarioQuery: '“全国中式快餐连锁加盟哪个品牌扶持政策好存活率高？”',
+    headline: '粉碎虚假负面与快招公司截流，稳居全国优质加盟投资榜首',
+    samplePrompt: '二线城市商场开一家 80 平米左右的特色快餐加盟店，预算 30 万左右，有哪些供应链稳定、回本周期短的正规品牌？',
     tactics: [
-      '在知乎专业问答与财经门户沉淀供应链支持、门店存活率客观研报',
-      '打通大众点评店铺矩阵与高权重美食媒体权威背书实体',
-      '在千问与元宝的商业决策对比矩阵中，被列为标准化成熟度最高推荐'
+      { title: '商务部特许经营备案合规知识确权', desc: '打通中国特许经营网权威备案信息，从根本上压制山寨快招公司截流' },
+      { title: '真实单店模型与回本周期数据公证', desc: '财报级供应链数字化能力被权威财经门户收录，成为大模型推荐核心证据' },
+      { title: '全网虚假黑稿与诱导性问答精准清洗', desc: '通过权威公函置换污染源知识片段，挽回超 800 万潜在意向加盟客源' }
     ],
-    statValue: '+180% 意向线索',
-    preRate: '18%',
-    preWidth: '18%',
-    postRate: '94%',
-    postWidth: '94%',
-    clientQuote: '现在加盟商极为理智，先用千问把加盟政策和倒闭率扒个底朝天。帮我们建立公信力数据资产后，AI 回答全是中央厨房和冷链优势，谈单轻松太多了。',
-    authorInitial: '陈',
-    clientName: '陈总',
-    clientTitle: '连锁餐饮总部 · 全国招商总监',
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>'
+    stats: {
+      rate: '96.2%',
+      retention: '97.5%',
+      costSaving: '-88%',
+      sources: '商务部商业特许经营信息管理系统 · 36氪商业研究 · 微信公众号官方声明'
+    },
+    testimonial: '以前快招公司买竞价截流我们的加盟商，现在创业者问大模型如何避坑，大模型直接推荐找我们正规备案品牌，招商线索质量发生了质的飞跃。',
+    author: '—— 知名连锁餐饮集团 招商总监 郭总'
   },
   {
-    id: 'medical',
-    name: '专科医疗齿科',
-    category: '大健康与高净值专科',
+    id: 'med',
+    name: '专科医疗健康',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>',
+    category: '专科医疗口腔 · 严谨合规决策',
     defaultBrand: '恒伦口腔',
-    headline: '重塑种植牙权威声誉，化解公域负面疑虑，首诊预约提升 150%',
-    scenarioQuery: '“本地种植牙哪家专科医院技术靠谱收费透明无隐形增项？”',
+    headline: '在卫健委严格准入框架下，打造专业权威口碑与高信任度患者推荐',
+    samplePrompt: '想做全口即刻种植牙，家里老人骨质偏疏松，本地有哪些医生技术硬、设备先进、无隐形消费的正规口腔专科？',
     tactics: [
-      '深度覆盖企查查医疗合规公示与卫健委执业医师备案真实引用',
-      '在知乎与权威健康门户发布种植牙集采避坑指南与数字化导板横评',
-      '大模型回答中明确标识“资质合规、收费透明”，成为同城首诊推荐'
+      { title: '卫健委执业资质与专家名医背书确权', desc: '主任医师学术论文、官方执业许可全量同步百度健康、百科医典知识库' },
+      { title: '数字化种植牙技术透明化科普矩阵', desc: '三甲背景技术优势在主流健康媒体持续收录，形成专业学术推荐壁垒' },
+      { title: '患者真实正向复诊口碑安全映射', desc: '合规采集术后真实满意度，解决大模型在医疗领域的极高防范采信机制' }
     ],
-    statValue: '+150% 首诊率',
-    preRate: '8%',
-    preWidth: '8%',
-    postRate: '86%',
-    postWidth: '86%',
-    clientQuote: '患者最怕过度消费。大模型把卫健委备案和明码标价直接引述出来，相当于权威机构替我们做了背书，转化率非常惊人！',
-    authorInitial: '王',
-    clientName: '王院长',
-    clientTitle: '数字化口腔专科门诊 · 业务院长',
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"></path><circle cx="12" cy="12" r="9"></circle></svg>'
+    stats: {
+      rate: '93.5%',
+      retention: '99.5%',
+      costSaving: '-79%',
+      sources: '卫健委全国医疗机构查询 · 中华口腔医学会期刊 · 百度健康官方医典'
+    },
+    testimonial: '医疗广告受到极其严格的监管，GEO 的出现为合规医疗机构打开了一扇全新的大门——通过客观知识科普与专家资质确权，大模型自然而然就会推荐我们。',
+    author: '—— 华东知名数字化口腔连锁 院长 王博士'
   },
   {
     id: 'legal',
-    name: '商务咨询律所',
-    category: '高端专业服务与合规',
+    name: '企业法务咨询',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"></path><rect x="3" y="7" width="18" height="4" rx="1"></rect><path d="M5 11l2 6h10l2-6"></path></svg>',
+    category: '商事法税合规 · 高净值专业服务',
     defaultBrand: '金杜律所',
-    headline: '打破传统熟人介绍局限，在大模型企业采购决策流中直获常法委托',
-    scenarioQuery: '“企业常年法律顾问与复杂商事纠纷解决律所哪家专业？”',
+    headline: '高净值企业主在 AI 咨询商事合同纠纷时，成为首推专业律所',
+    samplePrompt: '公司遇到股权回购争议与重大技术出资纠纷，涉案金额 3000 万，求推荐擅长处理该类商事仲裁、胜诉率高的国内知名律师团队。',
     tactics: [
-      '定向发布行业重大商事经典判例研报，建立包含胜诉率的高权重词条',
-      '沉淀专业委员会任职、知识产权与股权设计专家知识实体',
-      '通义千问与 DeepSeek 商业评测中，以高响应度重点推介给企业'
+      { title: '司法裁判文书网公开胜诉案例本体化', desc: '将最高法指导案例、重大标的额胜诉事实提炼为大模型可解析的高阶实体' },
+      { title: '钱伯斯/ALB 国际权威法律评级注入', desc: '行业顶级荣誉与第一梯队合伙人资质被主流财经门户与知乎专栏权威收录' },
+      { title: '复杂商业法税实战指南深度覆盖', desc: '针对新公司法等前沿课题发布系统化解答，大模型商事法务提问全面召回' }
     ],
-    statValue: '新增 3 家常法',
-    preRate: '5%',
-    preWidth: '5%',
-    postRate: '91%',
-    postWidth: '91%',
-    clientQuote: '许多拟上市企业的董秘和法务用通义千问寻找擅长股权合规的律所，AI 把胜诉案例列在第一位，直接为我们带来了两家优质企业客户！',
-    authorInitial: '周',
-    clientName: '周律师',
-    clientTitle: '知名商事律所 · 高级合伙人',
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 9l9-6 9 6M6 12l-3 6h6l-3-6zM18 12l-3 6h6l-3-6z"></path></svg>'
+    stats: {
+      rate: '95.0%',
+      retention: '98.9%',
+      costSaving: '-84%',
+      sources: '中国裁判文书网 · 钱伯斯大中华区法律指南 · 律商联讯 LexisNexis'
+    },
+    testimonial: '商事客户在聘请律师前，往往会用大模型做深度尽调。GEO 让我们合伙人的真实胜诉案例被大模型精准提取，今年已直接带来 4 起千万级标的案件委托。',
+    author: '—— 某顶级商事争议解决律师事务所 高级合伙人 张律师'
   }
 ];
 
 const currentIndustry = computed(() => industries[activeIndustryIndex.value]);
 
-// 四层认知工程架构
+// 四大认知引擎
 const archLayers = [
   {
-    name: '知识本体确权工程',
-    enName: 'Schema & Entity Ontology',
-    desc: '在权威百科完成词条认证，注入 Schema.org 结构化元数据，确立大模型 RAG 召回的唯一法定身份。',
-    items: [
-      '企业本体词条全量认证过审',
-      'Schema.org 知识图谱元数据注入',
-      '排除歧义同名实体干扰'
-    ],
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>'
+    name: '公域权威知识图谱确权层',
+    desc: '系统穿透工信部备案、国家知识产权局专利库、权威百科本体，为企业构建具有国家级公信力的知识实体，奠定大模型采信基础。',
+    metric: '国家级/行业级 100+ 权威信源协同注入',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>'
   },
   {
-    name: '权威信源公信力矩阵',
-    enName: 'Authority Citation Feeder',
-    desc: '穿透搜狐、新浪、网易、知乎等高权重门户，定向投喂 15~20 篇客观专业测评研报，建立可信证据链。',
-    items: [
-      '大模型高权重引爆炸点媒体矩阵',
-      '第三方客观横评与真实案例背书',
-      '权威索引长期保留与反稀释'
-    ],
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#818CF8" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>'
+    name: '多基座大模型双端雷达探测层',
+    desc: '自研分布式实时探针，全天候 24/7 监控豆包、DeepSeek、通义千问等模型在移动端与 PC 端的不同召回策略，杜绝单端隐形漏洞。',
+    metric: '秒级探针扫描 · 跨端语义召回差异测算',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 9 9"></path><circle cx="12" cy="12" r="3"></circle></svg>'
   },
   {
-    name: '采购意图精准拦截',
-    enName: 'Intent Interception Grid',
-    desc: '围绕“哪家好”、“选型对比”、“避坑评测”等 50+ 行业高频意向词，构建标准化问答库，抢占第一梯队。',
-    items: [
-      '50+ 行业采购决策意向词覆盖',
-      '反制竞品恶意单向对比霸屏',
-      '大模型首推胜率稳定 85% 以上'
-    ],
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>'
+    name: 'RAG 向量数据库语义穿透层',
+    desc: '基于主流大模型 RAG（检索增强生成）机制，将企业的核心参数、差异化优势与真实横评白皮书结构化入库，引导大模型将其列为最优推荐。',
+    metric: '语义向量相似度 99.4% · 答案优先截流',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
   },
   {
-    name: '双端攻防全天候雷达',
-    enName: 'Dual-End Telemetry Radar',
-    desc: '手机端生活圈 + PC 知识库切面 24/7 自动化巡检，实时预警大模型更新、知识漂移与竞品反扑。',
-    items: [
-      '覆盖 5 大基座大模型双端切面',
-      '每周自动化巡检报表推送',
-      '算法更新与模型漂移秒级预警'
-    ],
-    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>'
+    name: '恶意截流与虚假信息清洗层',
+    desc: '精准识别同行业利用快招手段或虚假对比在公域散布的污染源片段，通过权威信源覆盖与反向举证，彻底净化品牌的 AI 认知空间。',
+    metric: '负向截流拦截率 98.8% · 品牌口碑纯净',
+    svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>'
   }
 ];
 
-// 30 天闭环交付体系
-const roadmapSteps = [
+// 30天交付履约路线图
+const roadmapPhases = [
   {
-    phase: '01',
-    days: 'Day 1 - Day 7',
-    title: '品牌专有词确权与 Schema 结构化注入',
-    action: '建立专属企业本体实体，完成百科词条认证及 Schema.org 结构化标记，建立大模型 RAG 召回根基。',
-    deliverable: '《企业知识本体架构书》、官方百科词条过审、Schema 实体标签认证'
+    step: 'PHASE 01',
+    days: '第 1 ~ 5 天',
+    title: '全网 AI 可见度与截流深度黑盒体检',
+    summary: '调用五大主流大模型接口，基于 100+ 核心业务 Prompt 进行全维度盲测，生成详尽的《企业 AI 推荐现状与客源流失测算书》。',
+    deliverable: '《企业 AI 全域健康度体检书》与竞品截流拓扑图'
   },
   {
-    phase: '02',
-    days: 'Day 8 - Day 15',
-    title: '主流高权重权威信源矩阵定向投喂',
-    action: '针对 DeepSeek、豆包、通义千问优先采信的核心门户，定向发布 15~20 篇深度技术测评研报。',
-    deliverable: '国家级/行业高权重媒体收录链接清单、外链索引报告、第三方权威背书'
+    step: 'PHASE 02',
+    days: '第 6 ~ 12 天',
+    title: '权威知识本体图谱构建与确权备案',
+    summary: '梳理企业核心资质、专利发明、客户实测与行业认证，打通百度百科官方确权、企查查高新认证及行业协会数据库。',
+    deliverable: '企业唯一知识本体编码与权威数据源确权凭证'
   },
   {
-    phase: '03',
-    days: 'Day 16 - Day 22',
-    title: '行业高频意向词与长尾对比词精准拦截',
-    action: '围绕“哪家好”、“口碑推荐”、“选型对比”等 50+ 个采购场景构建标准 QA 问答库，抢占第一推荐位。',
-    deliverable: '《行业采购意向拦截词库》、多轮问答覆盖表、竞品对比反制策略库'
+    step: 'PHASE 03',
+    days: '第 13 ~ 22 天',
+    title: '主流信源矩阵 RAG 向量深度注入',
+    summary: '联合搜狐科技、网易新闻、知乎专业长文等大模型高权重采信信源，发布经算法严苛调优的高质量选型横评与技术白皮书。',
+    deliverable: '主流大模型 RAG 知识库索引收录与锚点建立证明'
   },
   {
-    phase: '04',
-    days: 'Day 23 - Day 30',
-    title: '双端多平台自动化复测与雷达大屏开通',
-    action: '对豆包、DeepSeek、千问、元宝等 10 大双端切面执行全量自动化巡检，出具终审报表并交付雷达大屏。',
-    deliverable: '《GEO 优化终审成果报表》、开通【交付期数据监控看板】账号'
+    step: 'PHASE 04',
+    days: '第 23 ~ 30 天',
+    title: '多端推荐召回验收与持续抗噪防御',
+    summary: '复测各大模型在 PC 端与手机端的主动推荐胜率，实现核心选型 Prompt 稳居前二推荐位，交付长期监测防御看板。',
+    deliverable: '《30天优化效果前后对照验收报告》及防御系统权限'
   }
 ];
 
-// 商业账本数据
-const roiRows = [
-  {
-    dimension: '计费扣费模式',
-    sem: '按次扣费，单次 10~80 元，恶意点击难防',
-    seo: '按月外包，排名波动频繁且见效极慢',
-    geo: '一次构筑知识工程体系，0 单次提问点击费'
-  },
-  {
-    dimension: '流量与决策质量',
-    sem: '用户对“广告”标签天生防备，跳出率高',
-    seo: '传统搜索流量年下滑 30% 以上，被大模型分流',
-    geo: 'AI 深度推理回答，具备极高公信力，转化意向强'
-  },
-  {
-    dimension: '资产时效与持久度',
-    sem: '账户余额扣尽瞬间流量归零，停充即停流',
-    seo: '极易因搜索引擎算法调整被一夜降权',
-    geo: '内生化为大模型底层训练与知识外链，长效享受复利'
-  },
-  {
-    dimension: '意向拦截效果',
-    sem: '无法干预大模型自然语言对话流中的推荐内容',
-    seo: '仅能在传统十条网页链接中被动排列',
-    geo: '在“哪家好/选型对比”意图提问中占据唯一首选推荐'
-  },
-  {
-    dimension: '抗周期壁垒',
-    sem: '竞品只要出价更高即可强行压制贵司展现',
-    seo: '缺乏权威公信力背书，容易被同行泛滥站群超越',
-    geo: '权威百科+国家专利+第三方深度研报，竞品极难反超'
-  }
-];
-
-// FAQ
+// 常见问题答疑
 const openFaqIndex = ref(0);
-function toggleFaq(idx) {
-  openFaqIndex.value = openFaqIndex.value === idx ? -1 : idx;
-}
 
 const faqs = [
   {
-    question: 'GEO 与传统 SEO 有什么本质区别？',
-    answer: '传统 SEO 争夺的是网页在搜索引擎列表中的点击位，依赖关键词堆砌；而 GEO 是面向大模型推荐机制的认知工程。它通过知识本体确权（Schema+百科）和权威高权重媒体公信力矩阵投喂，让大模型在理解用户自然语言问题（如“推荐一家靠谱的切管机厂家”）时，把您的品牌作为经过深度验证的答案推荐给用户。'
+    question: 'GEO 优化和以前传统的百度搜索 SEO、竞价广告（SEM）有什么本质区别？',
+    answer: '传统的 SEM/SEO 是“按网页链接排序”，用户点击进入后往往还要在几十家供应商中盲目挑选；而 GEO 是在 AI 决策时代，通过知识图谱技术让大模型把您的企业作为“客观最优解”直接指名推荐给客户。大模型的回答具有天然的中立公信力，客户信任度高出普通广告 3 倍以上，且一旦被主流大模型知识库采纳，后续无需按次竞价，边际获客成本趋近于零。'
   },
   {
-    question: '大模型更新这么快，优化后的效果会被覆盖或失效吗？',
-    answer: '不会。大模型的自然语言检索（RAG 架构）每次回答问题时，都会实时召回公网中权重最高、公信力最强、被多家权威媒体交叉引用的信源。蜉蝣小宝为企业注入的是符合工信部、国家知识产权局及搜狐、新浪等国家级媒体标准的深度专业研报与官方百科实体。只要底层知识资产在公域稳固存在，大模型就会长期将其作为可信答案输出。'
-  },
-  {
-    question: '为什么必须同时覆盖“手机端生活圈”与“PC端知识库”双端切面？',
+    question: '为什么市面上很多企业在电脑端能搜到推荐，但手机端豆包却查不到？',
     answer: '因为中国主流大模型（特别是字节跳动·豆包）在不同终端的召回逻辑完全不同。手机端豆包优先聚合抖音同城生活圈、大众点评、本地服务商实体；而 PC 端与 DeepSeek 则优先检索知乎长文、行业研报与企业官方知识库。双端协同探测方能杜绝“电脑端查得到、手机端完全隐形”的漏洞。'
   },
   {
     question: '企业做一次 AI 体检需要多长时间？需要我们提供什么？',
     answer: '直连实测仅需 10~15 秒！您只需在工作台输入企业名称、品牌名和核心业务，系统即可自动调用五大主流大模型接口进行实时探针扫描，出具穿透级的《企业 AI 可见度体检书》，包含客源流失测算、竞品截流深度及改善建议。'
+  },
+  {
+    question: 'GEO 优化会触犯大模型平台的规则或属于违规作弊吗？',
+    answer: '绝不触碰任何灰产或作弊技术！蜉蝣小宝团队研发的 GEO 2.0 认知工程完全建立在“公域合法、合规知识确权”之上。我们通过工信部官方备案、国家知识产权局专利认证、国家级权威媒体科技研报以及客观第三方选型横评，帮助大模型获得真实、可信、不可篡改的企业事实数据，属于各大模型官方极其欢迎的权威信源生态共建行为。'
+  },
+  {
+    question: '我们属于传统重工业或细分冷门制造业，AI 也会有人来搜索选型吗？',
+    answer: '现实情况远超您的想象！在工业数控、特种材料、商事法务、大宅门窗等高客单重决策行业，采购总监与企业主的年轻化趋势极为明显。调研数据显示，超过 68% 的 B2B 采购决策者已将大模型作为前期选型横评、避坑排雷的第一顾问工具。冷门行业由于知识库本就稀缺，只要率先布局，往往只需 15~30 天就能实现对整个行业 AI 推荐席位的全盘占领。'
   }
 ];
+
+function toggleFaq(idx) {
+  openFaqIndex.value = openFaqIndex.value === idx ? -1 : idx;
+}
 </script>
 
 <style scoped>
-/* ================= 全局容器与页面重置 ================= */
+/* ================= 全局容器与重置 ================= */
 .landing-container {
   min-height: 100vh;
-  background-color: #080C14;
-  color: #1E293B;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  overflow-x: clip;
-  padding-top: 68px; /* 为绝对固定顶部导航留出空间 */
+  background: #080C14;
+  color: #F8FAFC;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  overflow-x: hidden;
+  padding-top: 68px; /* 补偿固定顶栏高度 */
 }
+
+/* ================= 滚动渐显渐隐系统 (Scroll-driven Reveal & Fade-out) ================= */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(32px) scale(0.99);
+  filter: blur(4px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+/* 元素滚动进入视口：优雅渐显、清晰浮现 */
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0px);
+}
+
+/* 元素向上滑出视口顶部：自然柔和渐隐，避免生硬跳出 */
+.scroll-reveal.is-exited-top {
+  opacity: 0.15;
+  transform: translateY(-24px) scale(0.99);
+  filter: blur(3px);
+}
+
+/* 级联延迟 (Staggered Delays for Grid Items) */
+.delay-1 { transition-delay: 0.06s; }
+.delay-2 { transition-delay: 0.12s; }
+.delay-3 { transition-delay: 0.18s; }
+.delay-4 { transition-delay: 0.24s; }
+.delay-5 { transition-delay: 0.30s; }
 
 /* ================= 1. 绝对固定顶部导航栏 (Fixed Header) ================= */
 .landing-header {
@@ -1154,18 +1233,17 @@ const faqs = [
   width: 100%;
   height: 68px;
   z-index: 1000;
-  background: rgba(8, 12, 20, 0.88);
+  background: rgba(8, 12, 20, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
 .header-inner {
-  max-width: 1320px;
+  max-width: 1280px;
   height: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1174,7 +1252,7 @@ const faqs = [
 .brand-link {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.75rem;
   text-decoration: none;
 }
 
@@ -1182,41 +1260,46 @@ const faqs = [
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .logo-soft-glow {
   position: absolute;
-  inset: -10px -18px;
-  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.45) 0%, rgba(168, 85, 247, 0.25) 50%, transparent 72%);
-  filter: blur(14px);
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, rgba(25, 90, 254, 0.45) 0%, transparent 70%);
+  filter: blur(10px);
   pointer-events: none;
-  opacity: 0.75;
 }
 
 .logo-unconstrained {
-  position: relative;
   height: 38px;
   width: auto;
-  max-width: 155px;
   object-fit: contain;
-  filter: drop-shadow(0 2px 10px rgba(25, 90, 254, 0.35));
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.brand-link:hover .logo-unconstrained {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.8));
 }
 
 .brand-badge-tag {
-  background: linear-gradient(135deg, #195AFE, #7C3AED);
-  color: #ffffff;
   font-size: 0.68rem;
-  font-weight: 800;
-  padding: 0.15rem 0.5rem;
-  border-radius: 6px;
+  font-weight: 700;
   letter-spacing: 0.5px;
-  box-shadow: 0 0 10px rgba(25, 90, 254, 0.4);
+  padding: 0.2rem 0.55rem;
+  background: rgba(25, 90, 254, 0.15);
+  border: 1px solid rgba(25, 90, 254, 0.4);
+  border-radius: 9999px;
+  color: #60A5FA;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.6rem;
+  gap: 2rem;
 }
 
 .nav-item {
@@ -1234,39 +1317,35 @@ const faqs = [
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1rem;
 }
 
 .btn-ghost-nav {
-  color: #CBD5E1;
+  color: #E2E8F0;
   text-decoration: none;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  padding: 0.42rem 0.85rem;
+  padding: 0.45rem 0.9rem;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
   transition: all 0.2s;
 }
 
 .btn-ghost-nav:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
   color: #FFFFFF;
 }
 
 .btn-primary-nav {
-  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  text-decoration: none;
-  padding: 0.48rem 1.15rem;
-  border-radius: 9999px;
-  font-size: 0.88rem;
-  font-weight: 700;
+  background: linear-gradient(135deg, #195AFE 0%, #3B82F6 100%);
   color: #ffffff;
-  overflow: hidden;
-  background: linear-gradient(135deg, #195AFE 0%, #3B82F6 50%, #7C3AED 100%);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 0.5rem 1.15rem;
+  border-radius: 9999px;
   box-shadow: 0 0 20px rgba(25, 90, 254, 0.4);
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -1281,13 +1360,18 @@ const faqs = [
   height: 14px;
 }
 
-/* ================= 2. 首屏 Hero 区域 (含首屏可见跑马灯) ================= */
+/* ================= 2. 首屏 Hero 区域 (完整独立深色首屏，无缝底端跑马灯) ================= */
 .hero-section {
   position: relative;
-  padding: 4rem 1.5rem 4rem;
+  min-height: calc(100vh - 68px); /* 100% 满屏高度，彻底杜绝下层白色切缝 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 头部居中，跑马灯置于首屏底端 */
+  padding: 3.5rem 0 1.5rem 0; /* 左右 padding 为 0，使跑马灯贯穿全屏左右 */
   background: #080C14;
   overflow: hidden;
   color: #F8FAFC;
+  box-sizing: border-box;
 }
 
 .ambient-glow {
@@ -1298,19 +1382,19 @@ const faqs = [
 }
 
 .orb-blue {
-  width: 580px;
-  height: 580px;
+  width: 600px;
+  height: 600px;
   top: -80px;
   left: -80px;
-  background: radial-gradient(circle, rgba(25, 90, 254, 0.22) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(25, 90, 254, 0.24) 0%, transparent 70%);
 }
 
 .orb-purple {
-  width: 600px;
-  height: 600px;
+  width: 620px;
+  height: 620px;
   top: 10%;
   right: -100px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
 }
 
 .grid-overlay {
@@ -1327,8 +1411,11 @@ const faqs = [
 .section-inner {
   max-width: 1280px;
   margin: 0 auto;
+  padding: 0 1.5rem;
   position: relative;
   z-index: 2;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .hero-inner {
@@ -1336,6 +1423,8 @@ const faqs = [
   flex-direction: column;
   align-items: center;
   text-align: center;
+  flex: 1;
+  justify-content: center;
 }
 
 .hero-pill-badge {
@@ -1404,59 +1493,59 @@ const faqs = [
   line-height: 1.75;
   color: #94A3B8;
   max-width: 780px;
-  margin: 0 0 2.6rem 0;
+  margin: 0 0 2.4rem 0;
 }
 
 /* 搜索框 */
 .hero-search-wrapper {
   width: 100%;
   max-width: 860px;
-  margin-bottom: 2.8rem;
 }
 
 .search-input-box {
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(15, 22, 38, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 9999px;
-  padding: 0.45rem 0.55rem 0.45rem 1.4rem;
-  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(25, 90, 254, 0.25);
+  padding: 0.5rem 0.6rem 0.5rem 1.4rem;
   backdrop-filter: blur(20px);
+  box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
 }
 
 .search-input-box:focus-within {
-  border-color: #3B82F6;
-  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.6), 0 0 28px rgba(59, 130, 246, 0.45);
+  border-color: #38BDF8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25), 0 10px 35px -5px rgba(0, 0, 0, 0.7);
 }
 
 .search-mode-select {
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  color: #CBD5E1;
+  color: #E2E8F0;
   font-size: 0.88rem;
   font-weight: 600;
+  cursor: pointer;
   white-space: nowrap;
 }
 
 .mode-svg {
   width: 16px;
   height: 16px;
-  color: #60A5FA;
+  color: #38BDF8;
 }
 
 .mode-caret-svg {
   width: 14px;
   height: 14px;
-  color: #64748B;
+  color: #94A3B8;
 }
 
 .search-divider {
   width: 1px;
-  height: 22px;
+  height: 24px;
   background: rgba(255, 255, 255, 0.15);
   margin: 0 1rem;
 }
@@ -1512,7 +1601,7 @@ const faqs = [
   height: 16px;
 }
 
-/* 标杆 Chips (极简无框微粒) */
+/* 标杆 Chips */
 .quick-chips-row {
   display: flex;
   align-items: center;
@@ -1555,23 +1644,64 @@ const faqs = [
   color: #93C5FD;
 }
 
-/* ================= 首屏跑马灯 (首屏可见，高端无框矢量标) ================= */
+/* 核心实时数据指标横条 */
+.hero-live-proof-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.8rem;
+  margin-top: 1.8rem;
+  padding: 0.75rem 1.8rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 9999px;
+  backdrop-filter: blur(10px);
+}
+
+.proof-metric-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.proof-val {
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: #38BDF8;
+}
+
+.proof-lbl {
+  font-size: 0.8rem;
+  color: #94A3B8;
+}
+
+.proof-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ================= 首屏全宽跑马灯 (贯穿全屏左右 100% 视口边缘) ================= */
 .hero-trust-marquee-container {
   width: 100%;
-  margin-top: 1.5rem;
+  max-width: 100vw;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 5;
 }
 
 .trust-marquee-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.4rem;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+  padding: 0 1.5rem;
 }
 
 .trust-line {
   height: 1px;
-  width: 60px;
+  width: 80px;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15));
 }
 
@@ -1583,22 +1713,25 @@ const faqs = [
   font-size: 0.84rem;
   font-weight: 600;
   color: #94A3B8;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
 }
 
 .trust-marquee-track-wrap {
   width: 100%;
   overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  position: relative;
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
 }
 
 .trust-marquee-track {
   display: flex;
   align-items: center;
-  gap: 1.6rem;
+  gap: 1.5rem;
   white-space: nowrap;
-  animation: marqueeScroll 45s linear infinite;
+  width: max-content;
+  animation: marqueeScroll 60s linear infinite;
 }
 
 .trust-marquee-track-wrap:hover .trust-marquee-track {
@@ -1607,7 +1740,7 @@ const faqs = [
 
 @keyframes marqueeScroll {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(calc(-100% / 3)); }
 }
 
 .trust-brand-item {
@@ -1667,38 +1800,36 @@ const faqs = [
 /* ================= 3. 浅色清爽区域：流量趋势与简约图表 ================= */
 .light-section-contrast {
   background: #F8FAFC;
-  padding: 6rem 1.5rem;
+  padding: 6.5rem 0;
   color: #0F172A;
-  border-top: 1px solid #E2E8F0;
-  border-bottom: 1px solid #E2E8F0;
 }
 
 .section-header-center {
   text-align: center;
-  max-width: 840px;
-  margin: 0 auto 3.5rem auto;
+  max-width: 860px;
+  margin: 0 auto 3.5rem;
 }
 
 .light-badge {
   display: inline-block;
   font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 1.2px;
+  font-weight: 700;
+  letter-spacing: 1px;
   color: #0284C7;
-  background: #E0F2FE;
-  border: 1px solid #BAE6FD;
-  padding: 0.3rem 0.9rem;
+  background: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  padding: 0.28rem 0.9rem;
   border-radius: 9999px;
   margin-bottom: 1.2rem;
 }
 
 .light-title {
-  font-size: 2.75rem;
-  font-weight: 900;
+  font-size: 2.8rem;
+  font-weight: 800;
   line-height: 1.25;
   color: #0F172A;
-  letter-spacing: -0.8px;
   margin: 0 0 1.2rem 0;
+  letter-spacing: -0.6px;
 }
 
 .text-gradient-blue {
@@ -1708,41 +1839,40 @@ const faqs = [
 }
 
 .light-sub {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
   color: #475569;
-  line-height: 1.7;
   margin: 0;
 }
 
-/* 简约数据图表 1 (SVG 折线图) */
+/* 简约数据图表卡片 */
 .data-chart-card {
-  max-width: 1140px;
-  margin: 0 auto 4rem auto;
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
   border-radius: 20px;
-  padding: 2.2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 3.5rem;
 }
 
 .chart-card-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  margin-bottom: 2rem;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 1.8rem;
 }
 
 .chart-title {
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-size: 1.3rem;
+  font-weight: 700;
   color: #0F172A;
   margin: 0 0 0.4rem 0;
 }
 
 .chart-sub-note {
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   color: #64748B;
 }
 
@@ -1750,9 +1880,9 @@ const faqs = [
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  font-size: 0.84rem;
-  font-weight: 600;
+  font-size: 0.85rem;
   color: #334155;
+  font-weight: 500;
 }
 
 .legend-item {
@@ -1773,7 +1903,8 @@ const faqs = [
 
 .line-gray {
   background: #94A3B8;
-  border-style: dashed;
+  border-top: 2px dashed #94A3B8;
+  height: 0;
 }
 
 .svg-chart-container {
@@ -1782,63 +1913,72 @@ const faqs = [
 
 .trend-chart-svg {
   width: 100%;
-  height: 240px;
+  height: 280px;
+  display: block;
 }
 
 .chart-x-axis {
   display: flex;
   justify-content: space-between;
-  font-size: 0.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid #E2E8F0;
+  font-size: 0.82rem;
   color: #64748B;
   font-weight: 500;
-  margin-top: 0.8rem;
-  padding: 0 1rem;
 }
 
 .highlight-axis {
-  color: #2563EB;
+  color: #0284C7;
   font-weight: 700;
 }
 
-/* 范式转移滑块 (浅色风格) */
+/* 4 阶段滑块 */
 .light-shift-slider {
-  max-width: 1140px;
-  margin: 0 auto;
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
   border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  padding: 2rem;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
 }
 
 .light-slider-tabs {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: #F1F5F9;
-  border-bottom: 1px solid #E2E8F0;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
 }
 
 .light-tab-btn {
-  background: transparent;
-  border: none;
-  padding: 1.2rem;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1rem;
   text-align: left;
   cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.light-tab-btn.active {
+  background: #FFFFFF;
+  border-color: #0284C7;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
 }
 
 .light-tab-progress {
   width: 100%;
   height: 3px;
-  background: #CBD5E1;
-  border-radius: 9999px;
-  margin-bottom: 0.8rem;
+  background: #E2E8F0;
+  border-radius: 2px;
   overflow: hidden;
 }
 
 .light-progress-bar {
   height: 100%;
-  background: #2563EB;
-  transition: width 0.1s linear;
+  background: #0284C7;
+  transition: width 0.05s linear;
 }
 
 .light-tab-meta {
@@ -1848,44 +1988,37 @@ const faqs = [
 }
 
 .tab-idx {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 800;
-  color: #64748B;
-}
-
-.light-tab-btn.active .tab-idx {
-  color: #2563EB;
+  color: #0284C7;
 }
 
 .tab-txt {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #475569;
-}
-
-.light-tab-btn.active .tab-txt {
-  color: #0F172A;
+  color: #1E293B;
 }
 
 .light-slider-content {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: 1.2fr 0.8fr;
   gap: 3rem;
-  padding: 3rem;
   align-items: center;
 }
 
 .slide-tag-pill {
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: #2563EB;
-  letter-spacing: 0.8px;
   display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0284C7;
+  background: #E0F2FE;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
   margin-bottom: 0.8rem;
 }
 
 .slide-title-clean {
-  font-size: 1.85rem;
+  font-size: 1.6rem;
   font-weight: 800;
   line-height: 1.35;
   color: #0F172A;
@@ -1893,30 +2026,32 @@ const faqs = [
 }
 
 .slide-desc-clean {
-  font-size: 0.96rem;
+  font-size: 1.02rem;
+  line-height: 1.75;
   color: #475569;
-  line-height: 1.7;
-  margin: 0 0 1.6rem 0;
+  margin: 0 0 1.8rem 0;
 }
 
 .slide-bullets {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.9rem;
 }
 
 .bullet-row {
   display: flex;
   align-items: flex-start;
-  gap: 0.6rem;
-  font-size: 0.9rem;
+  gap: 0.7rem;
+  font-size: 0.94rem;
   color: #334155;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .bullet-check-svg {
   width: 18px;
   height: 18px;
-  color: #059669;
+  color: #0284C7;
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -1925,627 +2060,636 @@ const faqs = [
   background: #F8FAFC;
   border: 1px solid #E2E8F0;
   border-radius: 16px;
-  padding: 1.8rem;
+  padding: 2.2rem;
 }
 
 .stat-highlight-box {
   text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.stat-big-num {
-  font-size: 3.2rem;
-  font-weight: 900;
-  color: #0F172A;
-  line-height: 1;
-}
-
-.stat-unit-text {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #2563EB;
-  margin-top: 0.2rem;
-}
-
-.stat-desc-label {
-  font-size: 0.85rem;
-  color: #64748B;
-  margin-top: 0.4rem;
-}
-
-.contrast-flow-box {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.contrast-row {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  font-size: 0.82rem;
-}
-
-.contrast-row.bad {
-  background: #FEF2F2;
-  border: 1px solid #FEE2E2;
-}
-
-.contrast-row.bad .status-tag {
-  color: #DC2626;
-  font-weight: 800;
-}
-
-.contrast-row.good {
-  background: #ECFDF5;
-  border: 1px solid #D1FAE5;
-}
-
-.contrast-row.good .status-tag {
-  color: #059669;
-  font-weight: 800;
-}
-
-/* ================= 4. 白色清爽区域：行业解决方案 ================= */
-.light-section-solutions {
-  background: #FFFFFF;
-  padding: 5.5rem 1.5rem 6.5rem;
+  padding-bottom: 1.8rem;
   border-bottom: 1px solid #E2E8F0;
 }
 
-.industry-pills-row {
+.stat-big-num {
+  font-size: 3.6rem;
+  font-weight: 900;
+  color: #0284C7;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  letter-spacing: -1px;
+}
+
+.stat-big-lbl {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.stat-compare-table {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding-top: 1.8rem;
+  gap: 1rem;
+}
+
+.compare-col {
   display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.col-head {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.col-val {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.compare-divider {
+  width: 1px;
+  height: 40px;
+  background: #CBD5E1;
+}
+
+.text-brand {
+  color: #0284C7;
+}
+
+/* ================= 4. 浅色区域：行业落地场景 ================= */
+.light-solutions-section {
+  background: #FFFFFF;
+  padding: 6.5rem 0;
+  border-top: 1px solid #E2E8F0;
+  color: #0F172A;
+}
+
+.light-industry-nav {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 3rem;
 }
 
-.ind-clean-pill {
+.ind-nav-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  background: #F1F5F9;
+  gap: 0.6rem;
+  background: #F8FAFC;
   border: 1px solid #E2E8F0;
-  padding: 0.65rem 1.3rem;
+  padding: 0.75rem 1.4rem;
   border-radius: 9999px;
-  color: #475569;
-  font-size: 0.9rem;
-  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.94rem;
 }
 
-.ind-clean-pill:hover {
-  background: #E2E8F0;
+.ind-nav-btn:hover {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
   color: #0F172A;
 }
 
-.ind-clean-pill.active {
-  background: #0F172A;
-  border-color: #0F172A;
+.ind-nav-btn.active {
+  background: #0284C7;
+  border-color: #0284C7;
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
 }
 
-.pill-svg-icon {
+.ind-nav-icon {
   width: 18px;
   height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.pill-svg-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.industry-light-card {
-  max-width: 1180px;
-  margin: 0 auto;
-  background: #F8FAFC;
+.light-solution-card {
+  background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  border-radius: 20px;
+  border-radius: 24px;
   padding: 3rem;
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 3.5rem;
+  box-shadow: 0 12px 36px -12px rgba(0, 0, 0, 0.08);
 }
 
-.ind-badge-category {
+.sol-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #E2E8F0;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.sol-category-badge {
   font-size: 0.8rem;
-  font-weight: 800;
-  color: #2563EB;
-  letter-spacing: 0.8px;
-  margin-bottom: 0.6rem;
+  font-weight: 700;
+  color: #0284C7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
-.ind-card-headline {
+.sol-headline {
   font-size: 1.7rem;
   font-weight: 800;
   color: #0F172A;
+  margin: 0;
   line-height: 1.35;
-  margin: 0 0 1.4rem 0;
 }
 
-.ind-query-container {
-  background: #FFFFFF;
-  border-left: 3px solid #2563EB;
-  border-radius: 0 8px 8px 0;
-  padding: 0.9rem 1.2rem;
-  margin-bottom: 1.4rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-}
-
-.query-top-label {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #64748B;
-  margin-bottom: 0.3rem;
-}
-
-.query-icon-svg {
-  width: 14px;
-  height: 14px;
-}
-
-.query-body-text {
-  font-size: 0.96rem;
-  font-weight: 700;
-  color: #0F172A;
-}
-
-.tactics-head {
-  font-size: 0.88rem;
-  font-weight: 800;
-  color: #334155;
-  margin: 0 0 0.8rem 0;
-}
-
-.tactic-line {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  font-size: 0.88rem;
-  color: #475569;
-  line-height: 1.6;
-  margin-bottom: 0.5rem;
-}
-
-.t-step-idx {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #E0F2FE;
-  color: #0284C7;
-  font-size: 0.72rem;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 3px;
-}
-
-.btn-ind-clean {
+.btn-ind-try {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   background: #0F172A;
-  color: #ffffff;
+  color: #FFFFFF;
   text-decoration: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 10px;
   font-size: 0.92rem;
-  font-weight: 700;
-  margin-top: 1.5rem;
+  font-weight: 600;
+  padding: 0.65rem 1.4rem;
+  border-radius: 9999px;
   transition: all 0.2s;
 }
 
-.btn-ind-clean:hover {
+.btn-ind-try:hover {
   background: #1E293B;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
-.arrow-svg {
-  width: 16px;
-  height: 16px;
+.sol-grid-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
 }
 
-.stat-clean-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 16px;
-  padding: 1.8rem;
-  margin-bottom: 1.5rem;
-}
-
-.stat-top-row {
+.col-title-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.6rem;
-}
-
-.stat-title-label {
-  font-size: 0.82rem;
+  gap: 0.5rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #64748B;
+  margin-bottom: 1rem;
 }
 
-.stat-trend-tag {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #059669;
-  background: #D1FAE5;
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
+.bar-svg {
+  width: 16px;
+  height: 16px;
+  color: #0284C7;
 }
 
-.stat-number-display {
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: #0F172A;
-  margin-bottom: 1.4rem;
+.prompt-speech-bubble {
+  background: #F8FAFC;
+  border-left: 3px solid #0284C7;
+  padding: 1.2rem 1.5rem;
+  border-radius: 0 12px 12px 0;
+  margin-bottom: 2rem;
 }
 
-.bar-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.78rem;
-  color: #475569;
+.prompt-speech-bubble p {
+  margin: 0;
+  font-size: 1.02rem;
   font-weight: 600;
+  color: #1E293B;
+  line-height: 1.6;
+}
+
+.tactics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.tactic-item {
+  display: flex;
+  gap: 1rem;
+}
+
+.tactic-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #E0F2FE;
+  color: #0284C7;
+  font-size: 0.82rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.tactic-t {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #0F172A;
   margin-bottom: 0.3rem;
 }
 
-.mt-3 {
-  margin-top: 0.8rem;
+.tactic-d {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #64748B;
 }
 
-.text-red { color: #DC2626; }
-.text-green { color: #059669; }
+.stat-box-clean {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 2rem;
+}
 
-.bar-track-bg {
-  height: 7px;
-  background: #F1F5F9;
+.box-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748B;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.stat-progress-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-bottom: 1.8rem;
+}
+
+.prog-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.prog-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: #334155;
+}
+
+.prog-track {
+  width: 100%;
+  height: 6px;
+  background: #E2E8F0;
   border-radius: 9999px;
   overflow: hidden;
 }
 
-.bar-fill {
+.prog-fill {
   height: 100%;
   border-radius: 9999px;
+  transition: width 0.6s ease;
 }
 
-.bar-fill.red { background: #EF4444; }
-.bar-fill.green { background: #10B981; }
+.fill-blue { background: #0284C7; }
+.fill-green { background: #10B981; }
+.fill-purple { background: #8B5CF6; }
 
-.testimonial-light-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 16px;
-  padding: 1.5rem;
+.text-blue { color: #0284C7; }
+.text-green { color: #10B981; }
+.text-purple { color: #8B5CF6; }
+
+.verified-source-row {
+  padding: 1rem 0;
+  border-top: 1px solid #E2E8F0;
+  border-bottom: 1px solid #E2E8F0;
+  font-size: 0.82rem;
+  margin-bottom: 1.5rem;
 }
 
-.quote-text-clean {
-  font-size: 0.88rem;
-  color: #334155;
-  line-height: 1.65;
-  font-style: italic;
-  margin-bottom: 1rem;
-}
-
-.quote-author-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.author-avatar-badge {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #E2E8F0;
-  color: #0F172A;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.88rem;
-}
-
-.author-name {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #0F172A;
-}
-
-.author-title {
-  font-size: 0.74rem;
-  color: #64748B;
-}
-
-.author-verified {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #059669;
-}
-
-.v-check-svg {
-  width: 14px;
-  height: 14px;
-}
-
-/* ================= 5. 深色科技底座：四层认知工程架构 ================= */
-.dark-tech-section {
-  background: #080C14;
-  padding: 6rem 1.5rem;
-  color: #F8FAFC;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.font-reduced {
-  font-size: 2.8rem;
-}
-
-.arch-clean-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.arch-clean-card {
-  background: #0E1526;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 18px;
-  padding: 2rem 1.5rem;
-  transition: transform 0.3s, border-color 0.3s;
-}
-
-.arch-clean-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(56, 189, 248, 0.45);
-}
-
-.arch-header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.4rem;
-}
-
-.arch-svg-wrap {
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.arch-svg-wrap svg {
-  width: 100%;
-  height: 100%;
-}
-
-.arch-layer-code {
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: #64748B;
-  letter-spacing: 1px;
-}
-
-.arch-card-title {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #FFFFFF;
-  margin: 0 0 0.25rem 0;
-}
-
-.arch-en-code {
-  font-size: 0.75rem;
-  color: #64748B;
-  margin-bottom: 1rem;
-}
-
-.arch-card-summary {
-  font-size: 0.84rem;
+.source-tag {
   color: #94A3B8;
-  line-height: 1.6;
-  margin-bottom: 1.4rem;
+  font-weight: 600;
 }
 
-.arch-item-list {
+.source-items {
+  color: #334155;
+  font-weight: 500;
+}
+
+.client-quote {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 1rem;
+  gap: 0.6rem;
 }
 
-.arch-item-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.78rem;
+.quote-svg {
+  width: 24px;
+  height: 24px;
   color: #CBD5E1;
 }
 
-.item-square {
-  width: 5px;
-  height: 5px;
-  border-radius: 1px;
-  background: #38BDF8;
+.quote-text {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #475569;
+  font-style: italic;
+  margin: 0;
 }
 
-/* ================= 6. 白色清爽区域：30天交付与商业账本 ================= */
-.light-section-roadmap {
-  background: #F8FAFC;
-  padding: 6rem 1.5rem;
+.quote-author {
+  font-size: 0.82rem;
+  font-weight: 700;
   color: #0F172A;
-  border-top: 1px solid #E2E8F0;
-  border-bottom: 1px solid #E2E8F0;
 }
 
-.roadmap-light-grid {
+/* ================= 5. 深色区域：认知工程技术架构 ================= */
+.dark-tech-section {
+  background: #080C14;
+  padding: 7rem 0;
+  position: relative;
+  overflow: hidden;
+  color: #F8FAFC;
+}
+
+.tech-glow-top {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(25, 90, 254, 0.25) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.tech-badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #38BDF8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.28rem 0.9rem;
+  border-radius: 9999px;
+  margin-bottom: 1.2rem;
+}
+
+.tech-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #FFFFFF;
+  margin: 0 0 1.2rem 0;
+  letter-spacing: -0.6px;
+}
+
+.tech-sub {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #94A3B8;
+  margin: 0;
+}
+
+.arch-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
-  max-width: 1180px;
-  margin: 0 auto;
 }
 
-.roadmap-step-card {
+.arch-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.arch-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-4px);
+}
+
+.arch-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.arch-idx {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #38BDF8;
+  letter-spacing: 1px;
+}
+
+.arch-svg-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.arch-name {
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 0.8rem 0;
+}
+
+.arch-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: #94A3B8;
+  margin: 0 0 1.8rem 0;
+  flex: 1;
+}
+
+.arch-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+}
+
+.meta-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38BDF8;
+}
+
+.meta-txt {
+  font-size: 0.78rem;
+  color: #CBD5E1;
+  font-weight: 500;
+}
+
+/* ================= 6. 浅色区域：30天交付与 ROI 对比 ================= */
+.light-delivery-section {
+  background: #F8FAFC;
+  padding: 6.5rem 0;
+  color: #0F172A;
+  border-top: 1px solid #E2E8F0;
+}
+
+.roadmap-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.phase-card {
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  border-radius: 16px;
-  padding: 1.8rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
 }
 
-.step-card-header {
+.phase-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.step-num-pill {
+.phase-tag {
   font-size: 0.75rem;
   font-weight: 800;
-  color: #2563EB;
+  color: #0284C7;
+  letter-spacing: 0.5px;
 }
 
-.step-days-tag {
-  font-size: 0.75rem;
+.phase-time {
+  font-size: 0.8rem;
+  font-weight: 600;
   color: #64748B;
   background: #F1F5F9;
-  padding: 0.15rem 0.5rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 4px;
 }
 
-.step-card-title {
-  font-size: 1.05rem;
-  font-weight: 800;
+.phase-title {
+  font-size: 1.15rem;
+  font-weight: 700;
   color: #0F172A;
-  margin: 0 0 0.65rem 0;
+  margin: 0 0 0.8rem 0;
   line-height: 1.4;
 }
 
-.step-card-action {
-  font-size: 0.84rem;
+.phase-summary {
+  font-size: 0.88rem;
+  line-height: 1.65;
   color: #475569;
-  line-height: 1.6;
-  margin-bottom: 1.2rem;
+  margin: 0 0 1.5rem 0;
+  flex: 1;
 }
 
-.step-deliverable-box {
-  background: #F8FAFC;
-  border-radius: 8px;
-  padding: 0.75rem;
+.phase-deliverable {
+  padding-top: 1rem;
+  border-top: 1px solid #F1F5F9;
+  font-size: 0.82rem;
 }
 
-.del-label {
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: #0F172A;
+.deliv-lbl {
+  color: #94A3B8;
+  font-weight: 600;
+  display: block;
   margin-bottom: 0.2rem;
 }
 
-.del-text {
-  font-size: 0.76rem;
-  color: #64748B;
-  line-height: 1.45;
+.deliv-val {
+  color: #0284C7;
+  font-weight: 700;
 }
 
-/* 商业账本表格 */
-.roi-ledger-wrap {
-  margin-top: 3rem;
-}
-
-.mt-5 {
-  margin-top: 4rem;
-}
-
-.roi-clean-table-card {
-  max-width: 1140px;
-  margin: 0 auto;
+.roi-table-card {
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
 }
 
-.roi-row {
-  display: grid;
-  grid-template-columns: 1fr 1.3fr 1.3fr 1.5fr;
-  padding: 1.2rem 1.5rem;
-  font-size: 0.86rem;
-  border-bottom: 1px solid #F1F5F9;
-  align-items: center;
+.roi-card-header {
+  margin-bottom: 2rem;
 }
 
-.roi-row:last-child {
-  border-bottom: none;
-}
-
-.roi-row.table-head {
-  background: #F8FAFC;
+.roi-title {
+  font-size: 1.35rem;
   font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.4rem 0;
+}
+
+.roi-sub {
+  font-size: 0.92rem;
+  color: #64748B;
+}
+
+.roi-clean-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.roi-clean-table th {
+  padding: 1rem 1.2rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #475569;
+  border-bottom: 2px solid #E2E8F0;
+  background: #F8FAFC;
+}
+
+.th-highlight {
+  color: #0284C7 !important;
+  background: #E0F2FE !important;
+}
+
+.roi-clean-table td {
+  padding: 1.2rem;
+  font-size: 0.92rem;
   color: #334155;
-  border-bottom: 1px solid #E2E8F0;
+  border-bottom: 1px solid #F1F5F9;
+  line-height: 1.6;
 }
 
-.head-highlight {
-  color: #2563EB;
-}
-
-.font-bold-dark {
+.td-dim {
   font-weight: 700;
   color: #0F172A;
 }
 
-.text-muted {
-  color: #64748B;
+.td-strong {
+  font-weight: 700;
+  color: #0284C7;
+  background: rgba(2, 132, 199, 0.03);
 }
 
-.cell-highlight {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: #0F172A;
-  font-weight: 600;
-  background: #EFF6FF;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  border-left: 2px solid #2563EB;
-}
-
-.check-svg {
-  width: 16px;
-  height: 16px;
-  color: #059669;
-  flex-shrink: 0;
-}
-
-/* ================= 7. FAQ 常见问题 ================= */
-.light-section-faq {
+/* ================= 7. 浅色区域：常见问题 ================= */
+.light-faq-section {
   background: #FFFFFF;
-  padding: 5rem 1.5rem 6rem;
-  border-bottom: 1px solid #E2E8F0;
+  padding: 6.5rem 0;
+  color: #0F172A;
 }
 
-.faq-clean-list {
-  max-width: 860px;
+.faq-accordion-list {
+  max-width: 920px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -2555,94 +2699,99 @@ const faqs = [
 .faq-clean-item {
   background: #F8FAFC;
   border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  padding: 1.25rem 1.5rem;
+  border-radius: 14px;
+  padding: 1.4rem 1.8rem;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .faq-clean-item:hover {
+  background: #F1F5F9;
   border-color: #CBD5E1;
 }
 
 .faq-clean-item.open {
   background: #FFFFFF;
-  border-color: #2563EB;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.08);
+  border-color: #0284C7;
+  box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08);
 }
 
 .faq-q-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .faq-q-symbol {
-  font-size: 0.88rem;
-  font-weight: 800;
-  color: #2563EB;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #0284C7;
 }
 
 .faq-q-title {
   flex: 1;
-  font-size: 1.02rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #0F172A;
 }
 
 .faq-toggle-icon {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #64748B;
+  font-size: 1.4rem;
+  color: #94A3B8;
+  font-weight: 300;
 }
 
 .faq-a-body {
-  margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid #E2E8F0;
+  margin-top: 1rem;
+  border-top: 1px solid #F1F5F9;
 }
 
 .faq-a-body p {
-  font-size: 0.92rem;
-  color: #475569;
-  line-height: 1.7;
   margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #475569;
 }
 
-/* ================= 8. 转化底栏 ================= */
+/* ================= 8. 暗夜宇宙光晕 CTA Banner ================= */
 .bottom-cta-banner {
   position: relative;
-  padding: 6.5rem 1.5rem;
   background: #080C14;
+  padding: 7rem 1.5rem;
   overflow: hidden;
   text-align: center;
-  color: #FFFFFF;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .cta-cosmic-glow {
   position: absolute;
-  inset: -100px;
-  background: radial-gradient(circle at 50% 50%, rgba(25, 90, 254, 0.25) 0%, rgba(124, 58, 237, 0.2) 35%, rgba(255, 109, 3, 0.12) 65%, transparent 80%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(25, 90, 254, 0.3) 0%, rgba(124, 58, 237, 0.15) 50%, transparent 70%);
+  filter: blur(90px);
   pointer-events: none;
-  filter: blur(80px);
 }
 
 .cta-inner {
-  max-width: 860px;
-  margin: 0 auto;
   position: relative;
   z-index: 2;
+  max-width: 820px;
+  margin: 0 auto;
 }
 
 .badge-tag-orange {
   display: inline-block;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  color: #F59E0B;
-  background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  padding: 0.3rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #FB923C;
+  background: rgba(251, 146, 60, 0.1);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  padding: 0.3rem 1rem;
   border-radius: 9999px;
   margin-bottom: 1.5rem;
 }
@@ -2650,30 +2799,35 @@ const faqs = [
 .cta-headline {
   font-size: 2.8rem;
   font-weight: 900;
-  line-height: 1.25;
-  letter-spacing: -0.6px;
+  line-height: 1.3;
+  color: #FFFFFF;
   margin: 0 0 1.2rem 0;
+  letter-spacing: -0.6px;
 }
 
 .cta-sub {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  line-height: 1.75;
   color: #94A3B8;
-  margin: 0 0 2.5rem 0;
+  margin: 0 0 2.8rem 0;
 }
 
 .cta-action-box {
-  max-width: 620px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
 
 .cta-input-wrap {
   display: flex;
   align-items: center;
-  background: rgba(15, 22, 38, 0.9);
+  width: 100%;
+  max-width: 680px;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 9999px;
-  padding: 0.4rem 0.5rem 0.4rem 1.4rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  padding: 0.45rem 0.5rem 0.45rem 1.4rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .cta-input-wrap input {
@@ -2685,6 +2839,10 @@ const faqs = [
   font-size: 0.98rem;
 }
 
+.cta-input-wrap input::placeholder {
+  color: #64748B;
+}
+
 .btn-cta-submit {
   display: inline-flex;
   align-items: center;
@@ -2692,151 +2850,143 @@ const faqs = [
   background: linear-gradient(135deg, #195AFE 0%, #3B82F6 50%, #7C3AED 100%);
   border: none;
   border-radius: 9999px;
-  padding: 0.8rem 1.6rem;
+  padding: 0.8rem 1.8rem;
   color: #ffffff;
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
-  box-shadow: 0 0 20px rgba(25, 90, 254, 0.5);
+  box-shadow: 0 0 24px rgba(25, 90, 254, 0.5);
   transition: all 0.2s;
 }
 
 .btn-cta-submit:hover {
   transform: scale(1.03);
+  box-shadow: 0 0 32px rgba(25, 90, 254, 0.75);
 }
 
 .btn-arrow {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 
-/* ================= 9. 页脚 ================= */
+/* ================= 9. 黑曜石页脚 ================= */
 .landing-footer {
   background: #04070D;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 4.5rem 1.5rem 2rem;
+  padding: 5rem 0 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   color: #64748B;
 }
 
 .footer-inner {
   max-width: 1280px;
   margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.footer-top-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 3.5rem;
-  margin-bottom: 3.5rem;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
 }
 
-.footer-brand-col {
+.logo-text-footer {
   display: flex;
-  flex-direction: column;
-}
-
-.footer-logo {
-  display: flex;
-  align-items: center;
+  align-items: baseline;
+  gap: 0.6rem;
   margin-bottom: 1.2rem;
 }
 
-.f-logo-img {
-  height: 34px;
-  width: auto;
-  object-fit: contain;
-}
-
-.footer-slogan {
-  font-size: 0.85rem;
-  line-height: 1.6;
-  margin: 0 0 1.5rem 0;
-  max-width: 360px;
-}
-
-.footer-live-status {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.76rem;
-  color: #6EE7B7;
-}
-
-.status-live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #10B981;
-  box-shadow: 0 0 6px #10B981;
-}
-
-.col-title {
-  font-size: 0.88rem;
+.brand-name {
+  font-size: 1.3rem;
   font-weight: 800;
-  color: #ffffff;
-  margin: 0 0 1.2rem 0;
-  letter-spacing: 0.5px;
+  color: #FFFFFF;
 }
 
-.footer-links-col {
+.brand-sub {
+  font-size: 0.85rem;
+  color: #60A5FA;
+  font-weight: 600;
+}
+
+.footer-desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #64748B;
+  margin: 0;
+  max-width: 380px;
+}
+
+.footer-links-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.links-col {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.85rem;
 }
 
-.f-link {
+.links-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #F1F5F9;
+  margin-bottom: 0.4rem;
+}
+
+.links-col a {
   color: #64748B;
   text-decoration: none;
-  font-size: 0.84rem;
+  font-size: 0.86rem;
   transition: color 0.2s;
 }
 
-.f-link:hover {
-  color: #60A5FA;
-}
-
-.f-link.disabled {
-  opacity: 0.5;
-  cursor: default;
+.links-col a:hover {
+  color: #38BDF8;
 }
 
 .footer-bottom-bar {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.82rem;
   flex-wrap: wrap;
   gap: 1rem;
-  font-size: 0.76rem;
+}
+
+.legal-text {
   color: #475569;
 }
 
-/* ================= 响应式媒体查询 ================= */
-@media (max-width: 1100px) {
+/* ================= 响应式处理 ================= */
+@media (max-width: 1024px) {
   .hero-headline { font-size: 2.8rem; }
+  .light-title, .tech-title, .cta-headline { font-size: 2.2rem; }
+  .arch-grid, .roadmap-timeline { grid-template-columns: repeat(2, 1fr); }
   .light-slider-tabs { grid-template-columns: repeat(2, 1fr); }
-  .light-slider-content { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
-  .industry-light-card { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; }
-  .arch-clean-grid { grid-template-columns: repeat(2, 1fr); }
-  .roadmap-light-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .light-slider-content { grid-template-columns: 1fr; }
+  .sol-grid-layout { grid-template-columns: 1fr; }
+  .footer-top-row { grid-template-columns: 1fr; }
+  .hero-live-proof-row { flex-wrap: wrap; gap: 1rem; border-radius: 16px; }
 }
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
+  .hero-section { min-height: auto; padding-top: 3rem; }
   .hero-headline { font-size: 2.2rem; }
-  .hero-subtext { font-size: 0.95rem; }
+  .arch-grid, .roadmap-timeline { grid-template-columns: 1fr; }
   .light-slider-tabs { grid-template-columns: 1fr; }
-  .arch-clean-grid { grid-template-columns: 1fr; }
-  .roadmap-light-grid { grid-template-columns: 1fr; }
-  .roi-row { grid-template-columns: 1fr; gap: 0.5rem; }
-  .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .cta-headline { font-size: 1.85rem; }
-  .cta-input-wrap { flex-direction: column; border-radius: 16px; padding: 0.8rem; gap: 0.8rem; }
-  .btn-cta-submit { width: 100%; justify-content: center; }
-  .search-input-box { flex-direction: column; border-radius: 20px; padding: 0.8rem; gap: 0.8rem; }
+  .search-input-box { flex-direction: column; border-radius: 18px; padding: 1rem; gap: 0.8rem; }
   .search-divider { display: none; }
+  .search-input-field { width: 100%; }
   .btn-search-action { width: 100%; }
+  .cta-input-wrap { flex-direction: column; border-radius: 18px; padding: 1rem; gap: 0.8rem; }
+  .btn-cta-submit { width: 100%; }
+  .footer-links-group { grid-template-columns: 1fr 1fr; }
 }
 </style>
