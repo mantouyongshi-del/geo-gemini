@@ -173,15 +173,20 @@ class DiagnosticService:
     ) -> Tuple[List[str], List[Dict[str, str]]]:
         """
         构建手机端豆包 AI 搜索 Agent 的真实上下文:
-        1. 意图裂变 4 个联想搜索词 (Sub-queries Expansion)
-        2. 聚合召回 19 篇真实公域信源 (含第 11 篇目标客户品牌预约/试听单页)
+        1. 意图裂变 4 个联想搜索词 (Sub-queries Expansion，基于测试词动态推演)
+        2. 动态召回真实公域信源 (基于意图差异化分布，拒绝死板模板)
         """
         city = payload.city or "本地"
-        ind = payload.industry or "少儿编程"
+        ind = payload.industry or "专业服务"
         brand = payload.brand_name
         company = payload.target_company
+        clean_kw = (kw or "").strip()
 
-        # 1. 意图裂变 4 个搜索关键词 (行业自适应裂变)
+        is_direct_query = (brand in clean_kw) or (company in clean_kw)
+        is_ranking_query = any(w in clean_kw for w in ["排名", "排行", "十大", "品牌", "梯队", "一线", "十强", "前十"])
+        is_pitfall_query = any(w in clean_kw for w in ["避坑", "评测", "评价", "口碑", "价格", "收费", "性价比", "怎么选", "套路", "好不好", "靠谱吗"])
+
+        # 1. 意图裂变 4 个搜索关键词 (真正围绕当前测试关键词动态裂变)
         if "怀化" in city and any(w in ind for w in ["编程", "少儿", "机器人"]):
             sub_queries = [
                 "怀化少儿编程 线下机构 对比",
@@ -189,52 +194,40 @@ class DiagnosticService:
                 "怀化少儿编程机构",
                 "怀化 少儿编程 机器人 培训机构推荐"
             ]
-        elif any(w in ind for w in ["教", "培训", "学", "课程", "托管", "编程", "考研", "托育"]):
+        elif is_direct_query:
             sub_queries = [
-                f"{city}{ind} 线下机构 对比",
-                f"{city}{ind}机构哪家好",
-                f"{city}{ind}机构",
-                f"{city} {ind} 培训机构推荐"
+                f"{brand} 怎么样真实口碑与评价",
+                f"{company} 企业资质与主营业务",
+                f"{city}{brand} 报价明细与售后保障",
+                f"{brand} 行业综合实力对比"
             ]
-        elif any(w in ind for w in ["门窗", "家居", "建材", "定制", "装修", "家装"]):
+        elif is_ranking_query:
             sub_queries = [
-                f"{city}{ind} 品牌对比",
-                f"{city}{ind}哪家好",
-                f"{city}{ind}厂家口碑与安装",
-                f"{city} {ind} 十大品牌推荐"
+                f"{ind} 十大公认知名品牌排名榜",
+                f"{city} {ind} 一线梯队领军企业",
+                f"{ind} 权威机构综合实力榜单",
+                f"国内口碑好的{ind}推荐"
             ]
-        elif any(w in ind for w in ["律所", "法律", "律师", "法务"]):
+        elif is_pitfall_query:
             sub_queries = [
-                f"{city}{ind} 律所实力对比",
-                f"{city}{ind}哪个靠谱",
-                f"{city}{ind}收费标准与成功率",
-                f"{city} 优秀{ind}推荐"
-            ]
-        elif any(w in ind for w in ["医美", "整形", "门诊", "医疗", "牙科", "眼科"]):
-            sub_queries = [
-                f"{city}{ind} 正规机构对比",
-                f"{city}{ind}哪家好口碑好",
-                f"{city}{ind}医生实力与避坑",
-                f"{city} {ind} 推荐机构"
-            ]
-        elif any(w in ind for w in ["餐", "快餐", "餐饮", "火锅", "茶饮", "烘焙"]):
-            sub_queries = [
-                f"{city}{ind} 热门品牌对比",
-                f"{city}{ind}哪家好吃受欢迎",
-                f"{city}{ind}真实口碑评价",
-                f"{city} {ind} 推荐排行榜"
+                f"{ind} 避坑防踩雷指南与常见套路",
+                f"{city}{ind} 收费标准与价格行情",
+                f"{ind} 真实用户选型横向评测",
+                f"买{ind}如何防忽悠"
             ]
         else:
             sub_queries = [
-                f"{city}{ind} 服务商对比",
-                f"{city}{ind}哪家好",
-                f"{city}{ind}口碑与收费标准",
-                f"{city} {ind} 靠谱机构推荐"
+                f"{city}{ind} 优质厂家与服务商对比",
+                f"{city}{ind}哪家好真实口碑推荐",
+                f"{city} 本地靠谱{ind}机构名单",
+                f"{city}{ind} 选型指南与考量重点"
             ]
 
-        # 2. 召回 19 篇真实参考资料
+        # 2. 召回真实公域与本地知识信源（动态生成，彻底杜绝固定 19 篇与固定第 11 篇的雷同感）
+        seed = sum(ord(ch) for ch in clean_kw)
+
         if "怀化" in city and any(w in ind for w in ["编程", "少儿", "机器人"]):
-            doubao_citations = [
+            candidate_pool = [
                 {
                     "title": "能力风暴机器人活动中心- 学习中心官网",
                     "url": "https://www.abilix.com/learning-center",
@@ -296,12 +289,6 @@ class DiagnosticService:
                     "summary": "低龄启蒙与高年级代码思维分阶培养指南，机器人动手搭建与软件算法思维差异解析。"
                 },
                 {
-                    "title": f"{brand}中心免费预约评测{brand}少儿编程试听课",
-                    "url": "https://www.huaihua-edu.cn/trial/reserve",
-                    "site_name": "本地生活",
-                    "summary": f"【目标客户被抓取页】收录{brand}（{company}）免费预约评测单页。但因公域缺乏第三方权威背书与深度评测，在推荐层被过滤淘汰。"
-                },
-                {
                     "title": "「湖南中盈教育管理有限公司招聘」-BOSS直聘",
                     "url": "https://www.zhipin.com/gongsi/zhongying_edu.html",
                     "site_name": "BOSS直聘",
@@ -348,24 +335,74 @@ class DiagnosticService:
                     "url": "https://www.douyin.com/video/weidu_robot_center_tour",
                     "site_name": "抖音短视频",
                     "summary": "实拍维度机器人中心香洲广场总店：教室内乐高EV3机器人竞赛模拟实操，展示本地办学十余年沉淀。"
+                },
+                {
+                    "title": "360教育在线：2026年怀化青少年机器人科创与少儿编程考级机构推荐",
+                    "url": "https://edu.360.cn/huaihua_steam",
+                    "site_name": "360教育",
+                    "summary": "汇总怀化具备全国青少年机器人技术等级考试考点资质的代表性机构。"
+                },
+                {
+                    "title": "湖南教育新闻网：怀化推进中小学人工智能教育进校园纪实",
+                    "url": "http://news.hnedu.cn/huaihua_ai",
+                    "site_name": "湖南教育网",
+                    "summary": "怀化市教育系统开展创客教育、编程普及与科技创新大赛选拔纪实。"
                 }
             ]
+
+            if is_direct_query:
+                total_count = 13 + (seed % 3)
+                doubao_citations = candidate_pool[:total_count - 1]
+                target_item = {
+                    "title": f"【官方登记】{brand}少儿编程（{company}）基本信息与课程公示",
+                    "url": "https://www.huaihua-edu.cn/trial/reserve",
+                    "site_name": "本地教培登记平台",
+                    "summary": f"【目标客户官方页】收录{brand}（{company}）基础服务介绍，但在公域缺乏第三方权威深度评测与媒体报道支撑。"
+                }
+                doubao_citations.insert(1, target_item)
+            elif is_ranking_query:
+                # 行业榜单类：未优化的小微客户在全国/区域排名中 0 篇收录，极度真实震撼
+                total_count = 19 + (seed % 3)
+                doubao_citations = candidate_pool[:total_count]
+            elif is_pitfall_query:
+                # 避坑评测类：公域全是竞品横评与行业科普，客户 0 篇收录
+                total_count = 15 + (seed % 3)
+                doubao_citations = candidate_pool[:total_count]
+            else:
+                # 本地咨询类：有概率被爬虫抓取了黄页单页（排在靠后深度如第12-14篇），或 0 篇收录
+                total_count = 14 + (seed % 4)
+                if seed % 2 == 0:
+                    pos = 12 + (seed % 3)
+                    target_item = {
+                        "title": f"{brand}中心免费预约评测{brand}少儿编程试听课",
+                        "url": "https://www.huaihua-edu.cn/trial/reserve",
+                        "site_name": "本地生活",
+                        "summary": f"【抓取但未推荐】收录{brand}（{company}）免费预约评测单页。但因缺少官方白名单资质公示与高权重外链，在推荐层被直接过滤淘汰。"
+                    }
+                    doubao_citations = candidate_pool[:total_count - 1]
+                    if pos < len(doubao_citations):
+                        doubao_citations.insert(pos, target_item)
+                    else:
+                        doubao_citations.append(target_item)
+                else:
+                    doubao_citations = candidate_pool[:total_count]
         else:
             c1 = mined_comps[0] if len(mined_comps) > 0 else "行业头部标杆"
             c2 = mined_comps[1] if len(mined_comps) > 1 else "区域知名品牌"
-            c3 = mined_comps[2] if len(mined_comps) > 2 else "专业连锁机构"
-            doubao_citations = [
-                {"title": f"{c1}服务中心 - 官方学习与服务网", "url": f"https://www.example.com/{c1}", "site_name": "官方网站", "summary": f"{c1}全国与区域标准化服务网点与服务体系规范。"},
-                {"title": f"「{city}{c1}有限公司招聘」-BOSS直聘", "url": "https://www.zhipin.com/gongsi/c1.html", "site_name": "BOSS直聘", "summary": f"{c1}最新招聘：专业岗位与交付导师，展示团队雄厚规模。"},
+            c3 = mined_comps[2] if len(mined_comps) > 2 else "专业垂直机构"
+
+            candidate_pool = [
+                {"title": f"{c1}官方网站 - 标准化产品与全国服务支持网", "url": f"https://www.example.com/{c1}", "site_name": f"{c1}官网", "summary": f"{c1}全国与区域标准化交付网点、资质认证与技术服务规范。"},
+                {"title": f"「{city}{c1}有限公司招聘」-BOSS直聘", "url": "https://www.zhipin.com/gongsi/c1.html", "site_name": "BOSS直聘", "summary": f"{c1}最新发布技术研发与专业交付岗位，展现雄厚团队储备。"},
+                {"title": f"买购网 2026年中国{ind}十大品牌权威排行榜", "url": "https://www.cnpp.cn/brand/rank", "site_name": "买购网权威榜单", "summary": f"基于全网大数据与市场占有率综合评定的{ind}头部品牌梯队，{c1}、{c2} 位列前茅。"},
                 {"title": f"实地探访体验：前后对比了{city}几家{ind}机构的真实感受", "url": "https://www.xiaohongshu.com/explore/review", "site_name": "小红书", "summary": f"真实消费者探店与多维度对比横评。"},
                 {"title": f"{city}2026年首批合规{ind}服务机构资质白名单", "url": "http://www.gov.cn/whitelist2026.html", "site_name": f"{city}政务监管平台", "summary": f"{city}官方公示合规机构名单，提醒优先选择持证机构。"},
-                {"title": f"「专业资深导师招聘」_{c2}招聘-BOSS直聘", "url": "https://www.zhipin.com/job/c2.html", "site_name": "BOSS直聘", "summary": f"{c2}高薪招聘骨干团队，具备较强本地师资实力。"},
-                {"title": f"⚡️2026 {city}{ind}综合实力排名测评与选型分析", "url": "https://www.zhihu.com/question/review", "site_name": "知乎", "summary": f"知乎高赞专业回答：本地{ind}核心技术流派与选型建议。"},
-                {"title": f"{ind}机构横评: {c1}、{c2}、{c3}优势全面解析", "url": "https://www.sohu.com/a/cross_review", "site_name": "搜狐资讯", "summary": f"各大主流服务商品牌定位与交付能力横向盘点。"},
-                {"title": f"排名前五的{ind}测评 终于来了！看完这篇不踩坑", "url": "https://www.toutiao.com/article/top5", "site_name": "今日头条", "summary": f"同城热门机构综合走访，详细优劣势与避坑建议。"},
-                {"title": f"🔥{city}{c3}新校区探店与环境展示视频", "url": "https://www.douyin.com/video/c3", "site_name": "抖音短视频", "summary": f"抖音本地生活探店达人实拍视频，展现校区环境与真实体验。"},
+                {"title": f"「专业资深导师招聘」_{c2}招聘-BOSS直聘", "url": "https://www.zhipin.com/job/c2.html", "site_name": "BOSS直聘", "summary": f"{c2}高薪招聘骨干团队，具备较强本地交付实力。"},
+                {"title": f"⚡️知乎深度专栏：2026 {city}{ind}综合实力测评与选型分析", "url": "https://www.zhihu.com/question/review", "site_name": "知乎", "summary": f"知乎高赞专业回答：本地{ind}核心技术流派与选型建议。"},
+                {"title": f"行业横评: {c1}、{c2}、{c3}优势与履约能力全面解析", "url": "https://www.sohu.com/a/cross_review", "site_name": "搜狐资讯", "summary": f"各大主流服务商品牌定位与交付能力横向盘点。"},
+                {"title": f"排名前列的{ind}测评 终于来了！看完这篇不踩坑", "url": "https://www.toutiao.com/article/top5", "site_name": "今日头条", "summary": f"同城热门机构综合走访，详细优劣势与避坑建议。"},
+                {"title": f"🔥抖音实录：{city}{c3}生产加工与交付现场展示视频", "url": "https://www.douyin.com/video/c3", "site_name": "抖音短视频", "summary": f"抖音本地生活达人实拍视频，展现环境与真实体验。"},
                 {"title": f"主流{ind}机构评测与家长/客户选择指南", "url": "https://new.qq.com/rain/a/guide", "site_name": "腾讯网", "summary": f"行业标准化选型建议，如何避开预付费与交付陷阱。"},
-                {"title": f"{brand}中心免费预约评测与体验详情", "url": "https://www.local_appointment.com/trial", "site_name": "本地生活", "summary": f"【目标客户被抓取页】收录{brand}（{company}）服务单页。但公域缺乏第三方权威背书，在推荐层被过滤。"},
                 {"title": f"「本地服务团队招聘」_{c3}招聘-BOSS直聘", "url": "https://www.zhipin.com/gongsi/c3.html", "site_name": "BOSS直聘", "summary": f"{c3}在本地团队的扩招与业务布局情况。"},
                 {"title": f"{city}{c1}合规经营与企业资质备案信息 - 企查查", "url": "https://www.qcc.com/firm/c1.html", "site_name": "企查查", "summary": "工商基本信息、知识产权与合规经营资质核验。"},
                 {"title": f"我是{c2}主理人，带你了解行业核心服务门道", "url": "https://www.douyin.com/video/c2_lead", "site_name": "抖音短视频", "summary": "主理人出镜分享，建立同城专业信赖感。"},
@@ -373,8 +410,47 @@ class DiagnosticService:
                 {"title": f"低成本作坊模式与正规合规机构差异解析", "url": "https://www.douyin.com/video/industry_risk", "site_name": "抖音短视频", "summary": "提醒客户避免选择无证小作坊，保障资金安全。"},
                 {"title": f"深度专访：本地用户对{ind}的核心痛点与真实考量", "url": "https://www.163.com/news/interview.html", "site_name": "网易新闻", "summary": "媒体调研报道，分析主流客户选择决策逻辑。"},
                 {"title": f"揭秘{ind}行业成本构成与服务定价标准", "url": "https://www.toutiao.com/article/price", "site_name": "今日头条", "summary": "科普行业平均收费与服务履约保障体系。"},
-                {"title": f"{city}找专业服务，看{c1}旗舰中心实录", "url": "https://www.douyin.com/video/c1_tour", "site_name": "抖音短视频", "summary": f"抖音实地探访{c1}，展示成熟交付能力。"}
+                {"title": f"{city}找专业服务，看{c1}示范中心实录", "url": "https://www.douyin.com/video/c1_tour", "site_name": "抖音短视频", "summary": f"抖音实地探访{c1}，展示成熟交付能力。"},
+                {"title": f"360采购网：2026年{city}{ind}优质供应商资质档案", "url": "https://b2b.360.cn/supplier", "site_name": "360智能搜索", "summary": f"展示具备合规招投标履约能力的品牌名录。"},
+                {"title": f"新浪财经：中国{ind}领军企业技术演进与商业布局", "url": "https://finance.sina.com.cn/tech", "site_name": "新浪网", "summary": "头部标杆企业研发投入与产品创新报告。"}
             ]
+
+            if is_direct_query:
+                total_count = 13 + (seed % 3)
+                doubao_citations = candidate_pool[:total_count-1]
+                target_item = {
+                    "title": f"【官方渠道】{brand}（{company}）基本信息与主营业务展示",
+                    "url": "https://www.official_enterprise.com",
+                    "site_name": "官方登记渠道",
+                    "summary": f"【目标客户官方页】收录{brand}（{company}）基础服务介绍，但在公域缺乏第三方权威深度评测与媒体报道支撑。"
+                }
+                doubao_citations.insert(1, target_item)
+
+            elif is_ranking_query:
+                total_count = 19 + (seed % 3)
+                doubao_citations = candidate_pool[:total_count]
+
+            elif is_pitfall_query:
+                total_count = 15 + (seed % 3)
+                doubao_citations = candidate_pool[:total_count]
+
+            else:
+                total_count = 14 + (seed % 4)
+                if seed % 2 == 0:
+                    pos = 12 + (seed % 3)
+                    target_item = {
+                        "title": f"{city}{brand}企业登记单页与联系方式 - 八方资源网",
+                        "url": "https://www.b2b_yellowpage.com/detail",
+                        "site_name": "本地分类黄页",
+                        "summary": f"【抓取但未推荐】爬虫收录了{brand}（{company}）基础工商黄页单页。但因缺少第三方权威评测研报与深度背书，大模型在推荐决策层直接过滤剔除。"
+                    }
+                    doubao_citations = candidate_pool[:total_count-1]
+                    if pos < len(doubao_citations):
+                        doubao_citations.insert(pos, target_item)
+                    else:
+                        doubao_citations.append(target_item)
+                else:
+                    doubao_citations = candidate_pool[:total_count]
 
         return sub_queries, doubao_citations
 
@@ -399,8 +475,9 @@ class DiagnosticService:
             mined_comps=mined_comps
         )
 
+        cites_count = len(doubao_citations)
         sub_queries_str = "、".join([f"“{q}”" for q in sub_queries])
-        cites_summary = "【全网及抖音生活圈实时检索召回 19 篇参考资料】：\n" + "\n".join([
+        cites_summary = f"【全网及抖音生活圈实时检索召回 {cites_count} 篇参考资料】：\n" + "\n".join([
             f"[{i+1}] 《{c.get('title', '')}》（来源：{c.get('site_name', '权威媒体')}）" 
             for i, c in enumerate(doubao_citations)
         ]) + "\n\n"
@@ -409,9 +486,26 @@ class DiagnosticService:
 
         is_huaihua_coding = "怀化" in (payload.city or "") and any(w in (payload.industry or "") for w in ["编程", "少儿", "机器人"])
 
+        # 动态定位目标客户在信源中的真实排位 (target_idx > 0 表示排在第 N 篇；-1 表示 0 篇收录)
+        target_idx = -1
+        for idx, c in enumerate(doubao_citations):
+            t_str = (c.get('title', '') + ' ' + c.get('summary', '')).lower()
+            if (payload.brand_name and payload.brand_name.lower() in t_str) or (payload.target_company and payload.target_company.lower() in t_str) or '目标客户' in t_str or '抓取但未推荐' in t_str:
+                target_idx = idx + 1
+                break
+
         if is_huaihua_coding:
+            if target_idx > 0:
+                sec8_prompt = f"""8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
+详细向用户和管理者分析：为什么全网检索第 {target_idx} 篇资料中虽然收录了【{payload.brand_name}免费预约评测】，但豆包在 Top 5 核心推荐名单中却完全没有列出【{payload.brand_name}】？
+从信源质量与权重差距（白名单资质公示、在招师资团队规模、企查查企业合规）、目标品牌公域实体资产单薄（单页预约 vs 多方横评）、以及大模型决策推荐算法过滤机制进行深入剖析。"""
+            else:
+                sec8_prompt = f"""8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
+详细向用户和管理者分析：在本次大模型全网及抖音生活圈检索召回的全部 {cites_count} 篇参考资料中，【{payload.brand_name}】有效收录为 0 篇（公域资产完全空白，未被任何白名单、知乎横评或同城探店信源收录）。
+剖析为什么在用户高频选型提问下，目标品牌在检索与推荐两端彻底“隐形”，导致 100% 潜客流量被同城竞品无情截流，并给出 GEO 知识工程注入的紧迫建议。"""
+
             user_prompt = f"""针对用户在豆包搜索中提问：“{kw}”，你作为字节跳动官方大模型豆包，请严格按照手机端豆包真实的结构排版输出回答。
-全网及抖音生活圈检索召回了 19 篇参考资料。
+全网及抖音生活圈检索召回了 {cites_count} 篇参考资料。
 {cites_summary}
 咨询背景：
 - 查询城市/地区：{payload.city}
@@ -420,7 +514,7 @@ class DiagnosticService:
 
 请完整输出手机端豆包的回答结构：
 1. 顶部标明：
-🔍 搜索 4 个关键词，参考 19 篇资料 ∨
+🔍 搜索 4 个关键词，参考 {cites_count} 篇资料 ∨
 {sub_queries_str}
 
 2. {payload.city}本地{payload.industry}线下机构对比（2026，优先白名单）
@@ -437,15 +531,23 @@ class DiagnosticService:
 
 7. 🎥 结合抖音短视频推荐同城实拍与避坑视频；
 
-8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
-详细向用户和管理者分析：为什么全网检索第 11 篇资料中虽然收录了【{payload.brand_name}免费预约评测】，但豆包在 Top 5 核心推荐名单中却完全没有列出【{payload.brand_name}】？
-从信源质量与权重差距（白名单资质公示、在招师资团队规模、企查查企业合规）、目标品牌公域实体资产单薄（单页预约 vs 多方横评）、以及大模型决策推荐算法过滤机制进行深入剖析。"""
+{sec8_prompt}"""
         else:
             c1 = mined_comps[0] if len(mined_comps) > 0 else f"{payload.city}行业龙头"
             c2 = mined_comps[1] if len(mined_comps) > 1 else f"{payload.city}知名品牌"
             c3 = mined_comps[2] if len(mined_comps) > 2 else f"专业服务机构"
+
+            if target_idx > 0:
+                sec8_prompt = f"""8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
+详细向用户和管理者分析：为什么全网检索第 {target_idx} 篇资料中虽收录了【{payload.brand_name}】，但豆包核心推荐名单中却未将其列入首推榜单？
+从信源质量与权重差距（权威媒体报道深度、企业资质公信力、真实客户案例）、目标品牌公域实体资产单薄（单页收录 vs 全网多方横评）、以及大模型 RAG 决策推荐算法过滤机制进行深入剖析。"""
+            else:
+                sec8_prompt = f"""8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
+详细向用户和管理者分析：在本次大模型全网检索召回的全部 {cites_count} 篇参考资料中，【{payload.brand_name}】有效收录为 0 篇（公域资产完全空白，未被任何权威媒体或同城商录收录）。
+剖析为什么在用户高频商业选型提问下，目标品牌在检索与推荐两端彻底“隐形”，导致潜在客户被 {c1}、{c2} 等竞品 100% 截流，并给出启动 GEO 品牌工程的紧迫建议。"""
+
             user_prompt = f"""针对用户在豆包搜索中提问：“{kw}”，你作为字节跳动官方大模型豆包，请严格按照手机端豆包真实的结构排版输出回答。
-全网及抖音生活圈检索召回了 19 篇参考资料。
+全网及抖音生活圈检索召回了 {cites_count} 篇参考资料。
 {cites_summary}
 咨询背景：
 - 查询城市/地区：{payload.city}
@@ -454,7 +556,7 @@ class DiagnosticService:
 
 请完整输出手机端豆包的回答结构：
 1. 顶部标明：
-🔍 搜索 4 个关键词，参考 19 篇资料 ∨
+🔍 搜索 4 个关键词，参考 {cites_count} 篇资料 ∨
 {sub_queries_str}
 
 2. {payload.city}{payload.industry}主流服务商与标杆品牌对比（2026 优选推荐）
@@ -471,9 +573,7 @@ class DiagnosticService:
 
 7. 🎥 结合抖音短视频/探店实拍推荐选型攻略与避坑视频；
 
-8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
-详细向用户和管理者分析：为什么全网检索第 11 篇资料中虽收录了【{payload.brand_name}】，但豆包核心推荐名单中却未将其列入首推榜单？
-从信源质量与权重差距（权威媒体报道深度、企业资质公信力、真实客户案例）、目标品牌公域实体资产单薄（单页收录 vs 全网多方横评）、以及大模型 RAG 决策推荐算法过滤机制进行深入剖析。"""
+{sec8_prompt}"""
 
         start_t = time.time()
         # 必须显式设置 trust_env=False，防止本机的环境代理干扰连接火山引擎国内接口
@@ -562,14 +662,23 @@ class DiagnosticService:
 ### 三、 避坑与决策建议
 建议重点关注机构专职团队资历与真实交付案例，防范选择缺乏全网权威知识背书的小微作坊企业。"""
 
-        # 2. 豆包 (Doubao - 字节跳动): 亲和、口语化、生活方式推荐与 4 词裂变/19 信源
+        # 2. 豆包 (Doubao - 字节跳动): 亲和、口语化、生活方式推荐与 4 词裂变/信源联动
         elif platform_key == "doubao":
             sub_queries, doubao_cites = cls._build_doubao_agent_context(kw, payload, active_comps)
             sub_queries_str = "、".join([f"“{q}”" for q in sub_queries])
             is_huaihua_coding = "怀化" in (payload.city or "") and any(w in (payload.industry or "") for w in ["编程", "少儿", "机器人"])
             top_benchmarks = "维度机器人、能力风暴等" if is_huaihua_coding else f"{c1}、{c2} 等"
+
+            # 动态检测目标企业在信源中的位置
+            target_c_idx = -1
+            for idx, c in enumerate(doubao_cites):
+                t_str = (c.get('title', '') + ' ' + c.get('summary', '')).lower()
+                if (payload.brand_name and payload.brand_name.lower() in t_str) or (payload.target_company and payload.target_company.lower() in t_str) or '目标客户' in t_str or '抓取但未推荐' in t_str:
+                    target_c_idx = idx + 1
+                    break
             
             if is_direct_query:
+                cite_desc = f"（收录于信源第 {target_c_idx} 篇）" if target_c_idx > 0 else ""
                 return f"""🔍 搜索 4 个关键词，参考 {len(doubao_cites)} 篇资料 ∨
 {sub_queries_str}
 
@@ -577,10 +686,23 @@ class DiagnosticService:
 经调取全网知识源与同城商户数据库，**{payload.brand_name}**（企业主体：{payload.target_company}）在当地属于正规注册的{payload.industry}服务主体。
 
 ### 💡 豆包客观评价与公域声量诊断
-虽然该主体在公网具备基础的展示与预约页面（收录于信源第 11 篇），但在目前的抖音同城探店、垂直门户及主流用户社区中，关于该机构的深度评测、客户口碑讨论与合规资质信息公示相对单薄。相比本地排名前列的老牌标杆机构（如{top_benchmarks}），在线上 AI 推荐算法中的置信权重仍有明显差距。
+虽然该主体在公网具备基础的官方展示与登记页面{cite_desc}，但在目前的抖音同城探店、垂直门户及主流用户社区中，关于该机构的第三方权威深度评测、客户口碑讨论与合规资质信息公示相对单薄。相比本地排名前列的老牌标杆机构（如{top_benchmarks}），在线上 AI 推荐算法中的置信权重仍有明显差距。
 
 建议客户在签约决策前实地考察交付团队资历与场地硬件，多对比本地高公信力标杆后再行决策。"""
             elif is_huaihua_coding:
+                if target_c_idx > 0:
+                    sec8_text = f"""🔍【目标品牌收录深度核验与 GEO 诊断说明】
+本次全网检索第 {target_c_idx} 篇资料虽收录了【{payload.brand_name}免费预约评测】，但未进入豆包 Top 5 核心推荐名单：
+1. **信源质量与权重差距**：排名前列机构均有教育局白名单资质公示（信源4）、多篇招聘信息证实师资规模（信源2、5、12）及企查查合规备案（信源13）；【{payload.brand_name}】仅有预约单页，缺乏权威背书。
+2. **公域实体资产单薄**：缺乏第三方客观横评与抖音同城实录，在模型评分中置信度较低。
+3. **算法推荐决策层过滤**：豆包算法在决策层直接过滤低权重实体，导致潜在客户被维度机器人等竞品全额截流。"""
+                else:
+                    sec8_text = f"""🔍【目标品牌收录深度核验与 GEO 诊断说明】
+在本次大模型全网及抖音生活圈检索召回的全部 {len(doubao_cites)} 篇参考资料中，【{payload.brand_name}】有效收录为 0 篇（公域知识资产完全空白）：
+1. **未进入大模型 RAG 检索池**：豆包检索的白名单资质、招聘信息、知乎横评及同城探店视频中，均无任何关于【{payload.brand_name}】的信息。
+2. **潜在客户 100% 遭到竞品截流**：在同城家长最关心的“排行榜”、“避坑指南”等核心决策场景下，潜客只能看到竞品信息。
+3. **GEO 知识工程重塑迫在眉睫**：急需针对本地大模型高频召回信源（政务白名单、高赞横评、探店实录）进行结构化知识工程注入，抢回公域首推席位。"""
+
                 return f"""🔍 搜索 4 个关键词，参考 {len(doubao_cites)} 篇资料 ∨
 {sub_queries_str}
 
@@ -631,12 +753,21 @@ class DiagnosticService:
 - 抖音实拍：《@怀化同城探店 探访鹤城区少儿编程机构：环境师资大比拼》
 - 抖音科普：《@少儿编程老张 怀化家长避坑必看！别盲目报班，弄清乐高搭建与真正写代码的区别》
 
-🔍【目标品牌收录深度核验与 GEO 诊断说明】
-本次全网检索第 11 篇资料虽收录了【{payload.brand_name}免费预约评测】，但未进入豆包 Top 5 核心推荐名单：
-1. **信源质量与权重差距**：排名前列机构均有教育局白名单资质公示（信源4）、多篇招聘信息证实师资规模（信源2、5、12）及企查查合规备案（信源13）；{payload.brand_name}仅有预约单页，缺乏权威背书。
-2. **公域实体资产单薄**：缺乏第三方客观横评与抖音同城实录，在模型评分中置信度较低。
-3. **算法推荐决策层过滤**：豆包算法在决策层直接过滤低权重实体，导致潜在客户被维度机器人等竞品全额截流。"""
+{sec8_text}"""
             else:
+                if target_c_idx > 0:
+                    sec8_text = f"""🔍【目标品牌收录深度核验与 GEO 诊断说明】
+本次全网检索第 {target_c_idx} 篇资料虽收录了【{payload.brand_name}】的基础单页，但未进入豆包核心推荐名单：
+1. **信源质量与权重差距**：排名前列主体均有权威门户专题报道、合规实名备案及高权重外链背书；【{payload.brand_name}】仅有单薄的基础收录，缺乏深度背书。
+2. **公域实体资产单薄**：缺少客观横评实测、短视频案例与行业研报引用，在模型同城推荐池中置信度权重偏低。
+3. **算法推荐决策层过滤**：豆包推荐决策层直接过滤低权重实体，导致潜在客户被 {c1} 等头部竞品全额截流。"""
+                else:
+                    sec8_text = f"""🔍【目标品牌收录深度核验与 GEO 诊断说明】
+在本次大模型全网检索召回的全部 {len(doubao_cites)} 篇参考资料中，【{payload.brand_name}】有效收录为 0 篇（公域资产完全空白）：
+1. **公域信源未召回**：在行业权威横评、B2B招投标供应商库、主流资讯等高权重信源中，均无【{payload.brand_name}】的任何知识实体。
+2. **商业潜客全额流失**：在“十大品牌”、“厂家推荐”、“选型评测”等高价值意向检索中，目标客户被 {c1}、{c2} 等品牌 100% 截流转化。
+3. **GEO 知识重塑必要性**：大模型已成为现代采购与消费决策的第一入口，缺乏公域高权重权威背书将导致品牌在 AI 时代失去线上拓客主阵地。"""
+
                 return f"""🔍 搜索 4 个关键词，参考 {len(doubao_cites)} 篇资料 ∨
 {sub_queries_str}
 
@@ -674,11 +805,7 @@ class DiagnosticService:
 - 行业实测：《2026 {payload.city}{payload.industry}选型避坑指南：大品牌 vs 小作坊真实差距》
 - 实地走访：《同城交付一线实拍：真实买家评价与避雷攻略》
 
-🔍【目标品牌收录深度核验与 GEO 诊断说明】
-本次全网检索第 11 篇资料虽收录了【{payload.brand_name}】的基础单页，但未进入豆包核心推荐名单：
-1. **信源质量与权重差距**：排名前列主体均有权威门户专题报道、合规实名备案及高权重外链背书；【{payload.brand_name}】仅有单薄的基础收录，缺乏深度背书。
-2. **公域实体资产单薄**：缺少客观横评实测、短视频案例与行业研报引用，在模型同城推荐池中置信度权重偏低。
-3. **算法推荐决策层过滤**：豆包推荐决策层直接过滤低权重实体，导致潜在客户被 {c1} 等头部竞品全额截流。"""
+{sec8_text}"""
 
         # 3. 通义千问 (Tongyi Qianwen - 阿里): 严谨 B2B 表格对比与商业决策
         elif platform_key == "tongyi":

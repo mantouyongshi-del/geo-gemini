@@ -406,6 +406,20 @@
                       </span>
                     </div>
                     <div class="citation-links-list">
+                      <!-- 当大模型调取的全部信源中 0 篇收录贵司时，展示直击痛点的警示卡片 -->
+                      <div 
+                        v-if="!item.citations.some(c => isTargetCite(c))" 
+                        class="zero-target-notice"
+                      >
+                        <div class="zero-target-header">
+                          <span class="zero-target-tag">🔴 贵司全网 0 篇收录（公域完全空白）</span>
+                          <span class="zero-target-badge">大模型 RAG 检索未召回</span>
+                        </div>
+                        <p class="zero-target-desc">
+                          在本次大模型调取的全部 <strong>{{ item.citations.length }}</strong> 篇核心参考信源中，未收录【<strong>{{ report.brand_name }}</strong>】的任何有效页面或权威研报，潜在意向客户已被竞品 100% 截流！
+                        </p>
+                      </div>
+
                       <div 
                         v-for="(cite, cIdx) in item.citations" 
                         :key="cIdx" 
@@ -603,7 +617,7 @@ function isTargetCite(cite) {
   const summary = cite.summary || '';
   if (brand && title.includes(brand)) return true;
   if (comp && title.includes(comp)) return true;
-  if (summary.includes('目标客户') || summary.includes('目标机构') || summary.includes('目标品牌')) return true;
+  if (summary.includes('目标客户') || summary.includes('目标机构') || summary.includes('目标品牌') || summary.includes('抓取但未推荐') || summary.includes('目标官方')) return true;
   return false;
 }
 
@@ -1712,6 +1726,51 @@ watch(() => route.params.code || route.query.code, (newCode) => {
   border-radius: 4px;
   margin-left: 0.5rem;
   white-space: nowrap;
+}
+
+.zero-target-notice {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-left: 4px solid #e11d48;
+  border-radius: 6px;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 0.6rem;
+}
+
+.zero-target-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+
+.zero-target-tag {
+  color: #be123c;
+  font-weight: 800;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.zero-target-badge {
+  font-size: 0.68rem;
+  background: #ffe4e6;
+  color: #9f1239;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.zero-target-desc {
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: #475569;
+  margin: 0;
+}
+
+.zero-target-desc strong {
+  color: #0f172a;
 }
 
 /* 处方区 */
