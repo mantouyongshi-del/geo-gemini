@@ -26,7 +26,7 @@
       <header class="paper-header">
         <div class="header-seal-row">
           <div class="brand-title-wrap">
-            <h1 class="brand-main-title">蜉蝣小宝</h1>
+            <img src="/logo.png" alt="蜉蝣小宝" class="report-brand-logo" />
             <span class="brand-sub-title">企业 AI 搜索引擎可见度诊断体检书</span>
           </div>
           <div class="official-seal">
@@ -714,6 +714,14 @@ watch(() => route.params.code || route.query.code, (newCode) => {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1.25rem;
+}
+
+.report-brand-logo {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 0.4rem;
 }
 
 .brand-main-title {

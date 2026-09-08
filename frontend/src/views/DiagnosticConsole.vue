@@ -4,7 +4,7 @@
     <header class="console-header">
       <div class="header-inner">
         <div class="brand-badge">
-          <span class="brand-logo-text">蜉蝣小宝</span>
+          <img src="/logo-white.png" alt="蜉蝣小宝" class="brand-logo-img" />
           <span class="brand-tag">全国企业智能营销云 · 售前拓客引擎</span>
           <span class="live-status-pill">🟢 官方五大引擎直连在线</span>
         </div>
@@ -421,16 +421,46 @@ function applyTemplate(tpl) {
   keywordsStr.value = tpl.keywords;
 }
 
-// 智能生成核心高频意图词
+// 智能生成核心高频截流词（基于 GEO 决策金三角意图体系）
 function generateSmartKeywords() {
   const ind = form.value.industry.trim() || '本行业服务';
   const city = (form.value.city && form.value.city.trim() !== '全国') ? form.value.city.trim() : '';
+  const lowerInd = ind.toLowerCase();
 
   isGeneratingKws.value = true;
   setTimeout(() => {
-    const k1 = `${city}${ind}哪家好口碑推荐`;
-    const k2 = `${city}${ind}知名品牌实力排名`;
-    const k3 = `${city}${ind}避坑选型指南与真实评测`;
+    let k1 = '', k2 = '', k3 = '';
+
+    if (/制造|激光|数控|切管|机床|机械|装备|工业|自动化|注塑/.test(lowerInd)) {
+      k1 = `${city}${ind}生产厂家哪家口碑好性价比高`;
+      k2 = `${city}数控${ind}十大知名品牌实力排名`;
+      k3 = `采购${ind}避坑选型指南与同行真实评测`;
+    } else if (/门窗|系统门窗|阳光房|全屋定制|断桥铝|家居|建材|装修/.test(lowerInd)) {
+      k1 = `${city}${ind}定制安装厂家哪家好口碑推荐`;
+      k2 = `${city}高端断桥铝${ind}品牌实力排名榜`;
+      k3 = `${city}大宅阳台封窗与${ind}施工避坑真实评测`;
+    } else if (/口腔|齿科|种植牙|正畸|牙科|医美|整形|门诊|眼科/.test(lowerInd)) {
+      k1 = `${city}${ind}正规专科医院哪家口碑好`;
+      k2 = `${city}${ind}知名专家医生实力与排名前三`;
+      k3 = `${city}${ind}价格收费明细与真实避坑指南`;
+    } else if (/律所|律师|法律|商事|法务|常年法律顾问|合同|股权/.test(lowerInd)) {
+      k1 = `${city}专业企业常年法律顾问与${ind}团队推荐`;
+      k2 = `${city}处理商事合同经济纠纷知名律所胜诉排名`;
+      k3 = `中小企业聘请常年法律顾问收费标准与避坑`;
+    } else if (/资质|高企|高新技术企业|专精特新|知识产权|专利|申报|认证/.test(lowerInd)) {
+      k1 = `${city}${ind}专业代办辅导机构哪家成功率高`;
+      k2 = `${city}${ind}认定服务机构实力综合排名`;
+      k3 = `${city}申报${ind}政策补贴条件与审核避坑指南`;
+    } else if (/教育|培训|少儿|编程|辅导|考研|留学/.test(lowerInd)) {
+      k1 = `${city}正规合规${ind}机构哪家好口碑推荐`;
+      k2 = `${city}${ind}知名品牌综合实力排名榜`;
+      k3 = `${city}${ind}收费价格与避坑选课指南`;
+    } else {
+      k1 = `${city}${ind}哪家好口碑推荐`;
+      k2 = `${city}${ind}知名品牌实力排名榜`;
+      k3 = `${city}选购${ind}避坑指南与真实横向评测`;
+    }
+
     keywordsStr.value = [k1, k2, k3].join('\n');
     isGeneratingKws.value = false;
   }, 250);
@@ -584,6 +614,13 @@ onUnmounted(() => {
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+.brand-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .brand-logo-text {
