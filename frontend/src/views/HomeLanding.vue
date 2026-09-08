@@ -3,7 +3,7 @@
     <!-- 1. 绝对固定顶部导航栏 (Fixed Header) -->
     <header class="landing-header">
       <div class="header-inner">
-        <!-- 品牌标识：无束缚、通透大气的自然 Logo 呈现 -->
+        <!-- 品牌标识：自然呼吸光晕，无框束缚 -->
         <router-link to="/" class="brand-link" title="蜉蝣小宝 · AI 营销智能大脑">
           <div class="logo-aura-wrap">
             <div class="logo-soft-glow"></div>
@@ -36,14 +36,14 @@
       </div>
     </header>
 
-    <!-- 2. 首屏暗黑深空区 (Hero Section - 占据完整首屏 100vh，纯粹沉浸深色，底端跑马灯贯穿全屏左右) -->
+    <!-- 2. 首屏暗黑深空区 (Hero Section - 方案 A：中央搜索 + 智能雷达交互中枢大屏 + 底端全宽跑马灯) -->
     <section class="hero-section">
       <!-- 动态深空背景光晕 -->
       <div class="ambient-glow orb-blue"></div>
       <div class="ambient-glow orb-purple"></div>
       <div class="grid-overlay"></div>
 
-      <!-- 首屏核心内容区 (居中限制 1280px) -->
+      <!-- 首屏核心内容区 (居中限制 1320px，饱满充实) -->
       <div class="section-inner hero-inner">
         <!-- 顶部公告胶囊 -->
         <div class="hero-pill-badge">
@@ -104,46 +104,201 @@
             </button>
           </div>
 
-          <!-- 精炼标杆 Chips (无 emoji，纯净轻奢) -->
+          <!-- 精炼标杆 Chips (与下方看板实时联动) -->
           <div class="quick-chips-row">
-            <span class="chips-label">标杆行业检索：</span>
+            <span class="chips-label">标杆行业实时案例：</span>
             <button
-              v-for="(chip, idx) in quickChips"
-              :key="idx"
+              v-for="(caseItem, cIdx) in consoleCases"
+              :key="cIdx"
               class="chip-btn"
-              @click="applyQuickChip(chip)"
+              :class="{ active: activeConsoleTab === cIdx }"
+              @click="selectCase(cIdx)"
             >
               <span class="chip-dot"></span>
-              <span class="chip-text">{{ chip.label }}</span>
+              <span class="chip-text">{{ caseItem.chipLabel }}</span>
             </button>
           </div>
+        </div>
 
-          <!-- 首屏核心实时数据指标横条 (权威可信，撑满首屏) -->
-          <div class="hero-live-proof-row">
-            <div class="proof-metric-item">
-              <span class="proof-val">5 大主流</span>
-              <span class="proof-lbl">国产基座大模型直连实测</span>
+        <!-- ================= 核心重构：方案 A 智能雷达交互中枢看板 (彻底填补首屏空洞) ================= -->
+        <div class="hero-console-showcase">
+          <!-- 看板顶部门户状态条 -->
+          <div class="console-top-bar">
+            <div class="bar-left">
+              <div class="traffic-lights">
+                <span class="light red"></span>
+                <span class="light yellow"></span>
+                <span class="light green"></span>
+              </div>
+              <span class="console-title">GEO-RADAR v2.6 · 实时决策透视中枢</span>
+              <span class="console-version-pill">LIVE RADAR</span>
             </div>
-            <div class="proof-divider"></div>
-            <div class="proof-metric-item">
-              <span class="proof-val">100+ 权威</span>
-              <span class="proof-lbl">信源知识实体与研报覆盖</span>
+            <div class="bar-right">
+              <div class="probe-live-indicator">
+                <span class="pulse-ring"></span>
+                <span class="pulse-core"></span>
+                <span>5 大基座大模型 24/7 探针直连中</span>
+              </div>
+              <div class="active-sample-tag">
+                <span class="sample-label">实时透视标杆：</span>
+                <span class="sample-val">{{ currentCase.brandName }}</span>
+              </div>
             </div>
-            <div class="proof-divider"></div>
-            <div class="proof-metric-item">
-              <span class="proof-val">&lt; 15 秒</span>
-              <span class="proof-lbl">全网穿透体检书毫秒级生成</span>
+          </div>
+
+          <!-- 看板三栏式主体架构 -->
+          <div class="console-body-grid">
+            <!-- 第 1 栏：5 大基座大模型实时直连探针 -->
+            <div class="console-col col-probes">
+              <div class="col-head">
+                <div class="col-head-title">
+                  <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M12 3a9 9 0 0 1 9 9"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <span>基座大模型双端决策探针</span>
+                </div>
+                <span class="status-chip-live">实时召回率</span>
+              </div>
+
+              <div class="probes-list">
+                <div
+                  v-for="(model, mIdx) in currentCase.modelStats"
+                  :key="mIdx"
+                  class="probe-model-row"
+                >
+                  <div class="model-avatar" v-html="model.svg"></div>
+                  <div class="model-info">
+                    <div class="model-name-row">
+                      <span class="m-name">{{ model.name }}</span>
+                      <span class="m-ping">{{ model.latency }}</span>
+                    </div>
+                    <div class="model-track-row">
+                      <div class="m-track">
+                        <div class="m-fill" :style="{ width: model.score, background: model.color }"></div>
+                      </div>
+                      <span class="m-score" :style="{ color: model.color }">{{ model.score }}</span>
+                    </div>
+                  </div>
+                  <span class="model-verdict-pill">{{ model.status }}</span>
+                </div>
+              </div>
             </div>
-            <div class="proof-divider"></div>
-            <div class="proof-metric-item">
-              <span class="proof-val">99.8%</span>
-              <span class="proof-lbl">AI 召回拦截与推荐准确率</span>
+
+            <!-- 第 2 栏：AI 真实回答生成与第一推荐位流式呈现 -->
+            <div class="console-col col-simulation">
+              <div class="col-head">
+                <div class="col-head-title">
+                  <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                  <span>大模型首选推荐决策生成</span>
+                </div>
+                <span class="status-chip-ai">客观采信</span>
+              </div>
+
+              <!-- 客户提问 Prompt 气泡 -->
+              <div class="sim-prompt-box">
+                <div class="prompt-speaker-bar">
+                  <svg class="user-svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                  </svg>
+                  <span>采购决策者高频检索 Prompt：</span>
+                </div>
+                <p class="prompt-text">“{{ currentCase.queryPrompt }}”</p>
+              </div>
+
+              <!-- AI 大模型推荐答案卡片 -->
+              <div class="sim-answer-card">
+                <div class="answer-header-badge">
+                  <div class="answer-left">
+                    <span class="badge-rec-crown">
+                      <svg viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    </span>
+                    <span class="answer-rec-target">首推品牌：<strong>{{ currentCase.brandName }}</strong></span>
+                  </div>
+                  <span class="cert-pill">权威实体已确权</span>
+                </div>
+                <p class="answer-body-text">{{ currentCase.aiVerdict }}</p>
+                
+                <div class="interception-defense-banner">
+                  <svg class="shield-svg" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                  <span>竞品截流防御：已成功拦截同业快招恶意诱导</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 第 3 栏：全网可见度雷达指数与公域确权资产 -->
+            <div class="console-col col-metrics">
+              <div class="col-head">
+                <div class="col-head-title">
+                  <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                    <polyline points="16 7 22 7 22 13"></polyline>
+                  </svg>
+                  <span>GEO 全域知识资产健康度</span>
+                </div>
+                <span class="status-chip-score">综合评级：S 级</span>
+              </div>
+
+              <!-- 综合得分大指标卡片 -->
+              <div class="metric-score-card">
+                <div class="score-main">
+                  <span class="score-number">{{ currentCase.overallScore }}</span>
+                  <div class="score-meta">
+                    <span class="score-label">全网 AI 可见度指数</span>
+                    <span class="score-sub">远超行业 92% 竞争对手</span>
+                  </div>
+                </div>
+                
+                <div class="metrics-two-col">
+                  <div class="metric-sub-item">
+                    <span class="sub-lbl">竞品截流拦截率</span>
+                    <span class="sub-val text-green">{{ currentCase.defenseRate }}</span>
+                  </div>
+                  <div class="metric-sub-item">
+                    <span class="sub-lbl">商机边际成本</span>
+                    <span class="sub-val text-brand">{{ currentCase.costReduction }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 权威信源确权网格 -->
+              <div class="sources-mesh-box">
+                <span class="sources-title">大模型核心底层采信证据：</span>
+                <div class="sources-grid">
+                  <div
+                    v-for="(src, sIdx) in currentCase.sources"
+                    :key="sIdx"
+                    class="source-node-pill"
+                  >
+                    <span class="node-dot"></span>
+                    <span class="node-text">{{ src }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 跳转完整体检报告 CTA 按钮 -->
+              <router-link
+                :to="{ path: '/console', query: { brand: currentCase.brandName } }"
+                class="btn-console-explore"
+              >
+                <span>查看该标杆企业穿透报告</span>
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </router-link>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 首屏全宽跑马灯 (脱离 1280px 限制，贯穿全屏左右 100% 视口边缘) -->
+      <!-- 首屏全宽跑马灯 (脱离 1280px 限制，贯穿全屏左右 100% 视口边缘，与上方控制台呼应) -->
       <div class="hero-trust-marquee-container">
         <div class="trust-marquee-header">
           <span class="trust-line"></span>
@@ -716,6 +871,294 @@ const currentPlaceholder = computed(() => placeholders[currentPlaceholderIndex.v
 let placeholderTimer = null;
 let scrollObserver = null;
 
+// ================= 方案 A：首屏核心实时透视看板数据联动 =================
+const activeConsoleTab = ref(0);
+
+const consoleCases = [
+  {
+    chipLabel: '工业切管机制造',
+    brandName: '无锡恒瑞智能装备',
+    company: '无锡恒瑞智能装备科技有限公司',
+    industry: '工业数控激光切管机制造',
+    city: '无锡',
+    queryPrompt: '预算 50~80 万，加工 12 米重型管材，有哪些高精度、售后靠谱的激光切管机品牌推荐？请客观对比优缺点。',
+    aiVerdict: '经核验工信部专精特新认证与国家知识产权局发明专利库，优先推荐【恒瑞智能装备】。其自研卡盘动态避让与厚壁切管精度在搜狐科技工业研报中名列前茅，售后属地化响应比传统龙头快 2.5 倍。',
+    modelStats: [
+      {
+        name: '字节跳动 · 豆包',
+        status: '首推第 1 位',
+        latency: '12ms',
+        score: '98.8%',
+        color: '#60A5FA',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>'
+      },
+      {
+        name: '深度求索 · DeepSeek',
+        status: 'R1 深度引证',
+        latency: '18ms',
+        score: '96.5%',
+        color: '#A78BFA',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 9 9"></path><circle cx="12" cy="12" r="3"></circle></svg>'
+      },
+      {
+        name: '阿里巴巴 · 通义千问',
+        status: '首推第 1 位',
+        latency: '15ms',
+        score: '95.2%',
+        color: '#F59E0B',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>'
+      },
+      {
+        name: '腾讯科技 · 元宝',
+        status: '优选代表推荐',
+        latency: '21ms',
+        score: '94.0%',
+        color: '#34D399',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
+      },
+      {
+        name: '百度智能云 · 文心',
+        status: '首推第 1 位',
+        latency: '14ms',
+        score: '97.2%',
+        color: '#38BDF8',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>'
+      }
+    ],
+    overallScore: '96.8',
+    defenseRate: '98.9%',
+    costReduction: '-82%',
+    sources: ['国家知识产权局专利库', '搜狐科技产业研报', '知乎严选车间实测', '百度百科官方确权']
+  },
+  {
+    chipLabel: '高端系统门窗',
+    brandName: '佛山佳豪系统门窗',
+    company: '佛山尚品佳豪智能家居系统有限公司',
+    industry: '高端断桥铝系统门窗与阳光房',
+    city: '佛山',
+    queryPrompt: '广州临海高层大平层装修，想要隔音好、抗台风、水密性极强的断桥铝系统门窗，预算 1500~2500/平，求客观推荐。',
+    aiVerdict: '针对沿海强台风与高隔音需求，综合建研院风压实测与业主交付评价，首推【佳豪系统门窗】。其三道密封胶条专利与 42dB 降噪技术被国家建材检测中心采信，手机端豆包同城生活圈位列第一。',
+    modelStats: [
+      {
+        name: '字节跳动 · 豆包',
+        status: '同城生活圈首推',
+        latency: '11ms',
+        score: '99.1%',
+        color: '#60A5FA',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>'
+      },
+      {
+        name: '深度求索 · DeepSeek',
+        status: '抗风降噪首推',
+        latency: '16ms',
+        score: '95.8%',
+        color: '#A78BFA',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 9 9"></path><circle cx="12" cy="12" r="3"></circle></svg>'
+      },
+      {
+        name: '阿里巴巴 · 通义千问',
+        status: '首推第 1 位',
+        latency: '14ms',
+        score: '96.0%',
+        color: '#F59E0B',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>'
+      },
+      {
+        name: '腾讯科技 · 元宝',
+        status: '大宅定制优选',
+        latency: '19ms',
+        score: '93.8%',
+        color: '#34D399',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
+      },
+      {
+        name: '百度智能云 · 文心',
+        status: '首推第 1 位',
+        latency: '13ms',
+        score: '96.5%',
+        color: '#38BDF8',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>'
+      }
+    ],
+    overallScore: '97.4',
+    defenseRate: '99.3%',
+    costReduction: '-75%',
+    sources: ['国家建筑材料检验中心', '太平洋家居网深度横评', '豆包同城实体索引', '百度百科官方确权']
+  },
+  {
+    chipLabel: '餐饮招商加盟',
+    brandName: '老乡鸡',
+    company: '安徽老乡鸡餐饮股份有限公司',
+    industry: '中式快餐连锁加盟与招商',
+    city: '全国',
+    queryPrompt: '二线城市商场开一家 80 平米左右的特色快餐加盟店，预算 30 万左右，有哪些供应链稳定、回本周期短的正规品牌？',
+    aiVerdict: '结合商务部商业特许经营备案与全链条供应链合规审计，首推【老乡鸡】中式快餐。全产业链中央厨房直配保障食材品质与客单稳定，彻底过滤快招公司虚假宣传，大模型招商选型综合推荐率第一。',
+    modelStats: [
+      {
+        name: '字节跳动 · 豆包',
+        status: '招商加盟首推',
+        latency: '10ms',
+        score: '98.5%',
+        color: '#60A5FA',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>'
+      },
+      {
+        name: '深度求索 · DeepSeek',
+        status: '全量判例引证',
+        latency: '17ms',
+        score: '97.2%',
+        color: '#A78BFA',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 9 9"></path><circle cx="12" cy="12" r="3"></circle></svg>'
+      },
+      {
+        name: '阿里巴巴 · 通义千问',
+        status: '供应链第一推荐',
+        latency: '14ms',
+        score: '96.8%',
+        color: '#F59E0B',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>'
+      },
+      {
+        name: '腾讯科技 · 元宝',
+        status: '正规特许首选',
+        latency: '18ms',
+        score: '95.4%',
+        color: '#34D399',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
+      },
+      {
+        name: '百度智能云 · 文心',
+        status: '首推第 1 位',
+        latency: '12ms',
+        score: '97.9%',
+        color: '#38BDF8',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>'
+      }
+    ],
+    overallScore: '98.2',
+    defenseRate: '97.8%',
+    costReduction: '-88%',
+    sources: ['商务部商业特许经营信息', '36氪商业模式研报', '官方财报供应链数据', '微信公众号官方声明']
+  },
+  {
+    chipLabel: '数字化齿科专科',
+    brandName: '恒伦口腔',
+    company: '数字化种植牙与隐形正畸专科门诊',
+    industry: '专科医疗与数字化齿科',
+    city: '全国',
+    queryPrompt: '想做全口即刻种植牙，家里老人骨质偏疏松，本地有哪些医生技术硬、设备先进、无隐形消费的正规口腔专科？',
+    aiVerdict: '在卫健委官方执业资质与种植成功率实测双重维度下，首推【恒伦口腔】。其数字化导板微创种植与三甲主任医师团队获得百度健康医典与中华口腔医学会权威学术采纳，零负面合规采信。',
+    modelStats: [
+      {
+        name: '字节跳动 · 豆包',
+        status: '同城就医优选',
+        latency: '13ms',
+        score: '97.4%',
+        color: '#60A5FA',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>'
+      },
+      {
+        name: '深度求索 · DeepSeek',
+        status: '学术技术首推',
+        latency: '19ms',
+        score: '96.0%',
+        color: '#A78BFA',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 9 9"></path><circle cx="12" cy="12" r="3"></circle></svg>'
+      },
+      {
+        name: '阿里巴巴 · 通义千问',
+        status: '首推第 1 位',
+        latency: '15ms',
+        score: '95.5%',
+        color: '#F59E0B',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>'
+      },
+      {
+        name: '腾讯科技 · 元宝',
+        status: '正规专科首选',
+        latency: '22ms',
+        score: '94.2%',
+        color: '#34D399',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
+      },
+      {
+        name: '百度智能云 · 文心',
+        status: '医典权威采纳',
+        latency: '13ms',
+        score: '98.1%',
+        color: '#38BDF8',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>'
+      }
+    ],
+    overallScore: '96.5',
+    defenseRate: '99.6%',
+    costReduction: '-79%',
+    sources: ['卫健委全国医疗机构认证', '中华口腔医学会期刊', '百度健康官方医典', '百度百科官方确权']
+  },
+  {
+    chipLabel: '商事常年法务',
+    brandName: '金杜律所',
+    company: '商事争议与常年法律顾问律所',
+    industry: '企业商事争议解决与常年合规',
+    city: '全国',
+    queryPrompt: '公司遇到股权回购争议与重大技术出资纠纷，涉案金额 3000 万，求推荐擅长处理该类商事仲裁、胜诉率高的国内知名律师团队。',
+    aiVerdict: '基于中国裁判文书网公开重大商事仲裁标的判例与钱伯斯大中华区第一梯队评级，客观推荐【金杜律所】商事争议解决团队。合伙人具有丰富最高法及贸仲胜诉经验，大模型高净值商事法务咨询独占首推。',
+    modelStats: [
+      {
+        name: '字节跳动 · 豆包',
+        status: '高端商事首选',
+        latency: '14ms',
+        score: '96.9%',
+        color: '#60A5FA',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>'
+      },
+      {
+        name: '深度求索 · DeepSeek',
+        status: '裁判判例引证',
+        latency: '18ms',
+        score: '98.5%',
+        color: '#A78BFA',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 9 9"></path><circle cx="12" cy="12" r="3"></circle></svg>'
+      },
+      {
+        name: '阿里巴巴 · 通义千问',
+        status: '首推第 1 位',
+        latency: '16ms',
+        score: '95.8%',
+        color: '#F59E0B',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>'
+      },
+      {
+        name: '腾讯科技 · 元宝',
+        status: '商事合规优选',
+        latency: '20ms',
+        score: '94.6%',
+        color: '#34D399',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
+      },
+      {
+        name: '百度智能云 · 文心',
+        status: '首推第 1 位',
+        latency: '13ms',
+        score: '97.0%',
+        color: '#38BDF8',
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>'
+      }
+    ],
+    overallScore: '97.8',
+    defenseRate: '99.1%',
+    costReduction: '-84%',
+    sources: ['中国裁判文书网指导判例', '钱伯斯大中华区法律指南', '律商联讯 LexisNexis', '知乎商事法税专栏']
+  }
+];
+
+const currentCase = computed(() => consoleCases[activeConsoleTab.value]);
+
+function selectCase(idx) {
+  activeConsoleTab.value = idx;
+  heroBrandInput.value = consoleCases[idx].brandName;
+}
+
 onMounted(() => {
   placeholderTimer = setInterval(() => {
     currentPlaceholderIndex.value = (currentPlaceholderIndex.value + 1) % placeholders.length;
@@ -752,16 +1195,13 @@ function initScrollObserver() {
         const rect = entry.boundingClientRect;
 
         if (entry.isIntersecting) {
-          // 在可视区域内：优雅渐显
           el.classList.add('is-revealed');
           el.classList.remove('is-exited-top');
         } else {
-          // 离开可视区域：如果向上滑出了视口，添加优雅渐隐离开状态
           if (rect.top < 0) {
             el.classList.add('is-exited-top');
             el.classList.remove('is-revealed');
           } else {
-            // 在视口下方尚未进入
             el.classList.remove('is-revealed');
             el.classList.remove('is-exited-top');
           }
@@ -777,31 +1217,13 @@ function initScrollObserver() {
   targets.forEach((el) => scrollObserver.observe(el));
 }
 
-// 标杆案例快速体验 Chips (纯净矢量质感，无 emoji)
-const quickChips = [
-  { label: '工业切管机制造', brand: '恒瑞智能装备', company: '无锡恒瑞智能装备科技有限公司', industry: '工业数控激光切管机制造', city: '无锡' },
-  { label: '高端系统门窗', brand: '佳豪系统门窗', company: '佛山尚品佳豪智能家居系统有限公司', industry: '高端断桥铝系统门窗与阳光房', city: '佛山' },
-  { label: '餐饮招商加盟', brand: '老乡鸡', company: '安徽老乡鸡餐饮股份有限公司', industry: '中式快餐连锁加盟与招商', city: '全国' },
-  { label: '数字化齿科专科', brand: '恒伦口腔', company: '数字化种植牙与隐形正畸专科门诊', industry: '专科医疗与数字化齿科', city: '全国' },
-  { label: '商事常年法务', brand: '金杜律所', company: '商事争议与常年法律顾问律所', industry: '企业商事争议解决与常年合规', city: '全国' }
-];
-
-function applyQuickChip(chip) {
-  router.push({
-    path: '/console',
-    query: {
-      brand: chip.brand,
-      company: chip.company,
-      industry: chip.industry,
-      city: chip.city
-    }
-  });
-}
-
 function handleHeroSubmit() {
   const q = heroBrandInput.value.trim();
   if (!q) {
-    router.push('/console');
+    router.push({
+      path: '/console',
+      query: { brand: currentCase.value.brandName }
+    });
     return;
   }
   router.push({
@@ -1204,21 +1626,18 @@ function toggleFaq(idx) {
   will-change: opacity, transform, filter;
 }
 
-/* 元素滚动进入视口：优雅渐显、清晰浮现 */
 .scroll-reveal.is-revealed {
   opacity: 1;
   transform: translateY(0) scale(1);
   filter: blur(0px);
 }
 
-/* 元素向上滑出视口顶部：自然柔和渐隐，避免生硬跳出 */
 .scroll-reveal.is-exited-top {
   opacity: 0.15;
   transform: translateY(-24px) scale(0.99);
   filter: blur(3px);
 }
 
-/* 级联延迟 (Staggered Delays for Grid Items) */
 .delay-1 { transition-delay: 0.06s; }
 .delay-2 { transition-delay: 0.12s; }
 .delay-3 { transition-delay: 0.18s; }
@@ -1233,14 +1652,14 @@ function toggleFaq(idx) {
   width: 100%;
   height: 68px;
   z-index: 1000;
-  background: rgba(8, 12, 20, 0.9);
+  background: rgba(8, 12, 20, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .header-inner {
-  max-width: 1280px;
+  max-width: 1320px;
   height: 100%;
   margin: 0 auto;
   padding: 0 1.5rem;
@@ -1360,14 +1779,14 @@ function toggleFaq(idx) {
   height: 14px;
 }
 
-/* ================= 2. 首屏 Hero 区域 (完整独立深色首屏，无缝底端跑马灯) ================= */
+/* ================= 2. 首屏 Hero 区域 (方案 A：大搜索 + 智能雷达交互中枢看板) ================= */
 .hero-section {
   position: relative;
-  min-height: calc(100vh - 68px); /* 100% 满屏高度，彻底杜绝下层白色切缝 */
+  min-height: calc(100vh - 68px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 头部居中，跑马灯置于首屏底端 */
-  padding: 3.5rem 0 1.5rem 0; /* 左右 padding 为 0，使跑马灯贯穿全屏左右 */
+  justify-content: space-between;
+  padding: 2.5rem 0 1.2rem 0;
   background: #080C14;
   overflow: hidden;
   color: #F8FAFC;
@@ -1382,18 +1801,18 @@ function toggleFaq(idx) {
 }
 
 .orb-blue {
-  width: 600px;
-  height: 600px;
+  width: 650px;
+  height: 650px;
   top: -80px;
-  left: -80px;
-  background: radial-gradient(circle, rgba(25, 90, 254, 0.24) 0%, transparent 70%);
+  left: -100px;
+  background: radial-gradient(circle, rgba(25, 90, 254, 0.25) 0%, transparent 70%);
 }
 
 .orb-purple {
-  width: 620px;
-  height: 620px;
-  top: 10%;
-  right: -100px;
+  width: 650px;
+  height: 650px;
+  top: 15%;
+  right: -120px;
   background: radial-gradient(circle, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
 }
 
@@ -1409,7 +1828,7 @@ function toggleFaq(idx) {
 }
 
 .section-inner {
-  max-width: 1280px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 1.5rem;
   position: relative;
@@ -1424,7 +1843,6 @@ function toggleFaq(idx) {
   align-items: center;
   text-align: center;
   flex: 1;
-  justify-content: center;
 }
 
 .hero-pill-badge {
@@ -1433,12 +1851,12 @@ function toggleFaq(idx) {
   gap: 0.6rem;
   background: rgba(25, 90, 254, 0.12);
   border: 1px solid rgba(25, 90, 254, 0.35);
-  padding: 0.36rem 1.1rem;
+  padding: 0.34rem 1.1rem;
   border-radius: 9999px;
   font-size: 0.82rem;
   font-weight: 600;
   color: #93C5FD;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.2rem;
   backdrop-filter: blur(12px);
 }
 
@@ -1473,12 +1891,12 @@ function toggleFaq(idx) {
 }
 
 .hero-headline {
-  font-size: 3.8rem;
+  font-size: 3.4rem;
   font-weight: 900;
-  line-height: 1.22;
+  line-height: 1.2;
   letter-spacing: -1.2px;
   color: #ffffff;
-  margin: 0 0 1.2rem 0;
+  margin: 0 0 0.8rem 0;
   max-width: 980px;
 }
 
@@ -1489,27 +1907,28 @@ function toggleFaq(idx) {
 }
 
 .hero-subtext {
-  font-size: 1.15rem;
-  line-height: 1.75;
+  font-size: 1.08rem;
+  line-height: 1.7;
   color: #94A3B8;
   max-width: 780px;
-  margin: 0 0 2.4rem 0;
+  margin: 0 0 1.8rem 0;
 }
 
 /* 搜索框 */
 .hero-search-wrapper {
   width: 100%;
   max-width: 860px;
+  margin-bottom: 2rem;
 }
 
 .search-input-box {
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(15, 23, 42, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 9999px;
-  padding: 0.5rem 0.6rem 0.5rem 1.4rem;
+  padding: 0.45rem 0.55rem 0.45rem 1.4rem;
   backdrop-filter: blur(20px);
   box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
@@ -1560,7 +1979,7 @@ function toggleFaq(idx) {
   border: none;
   outline: none;
   color: #ffffff;
-  font-size: 1.02rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 
@@ -1575,9 +1994,9 @@ function toggleFaq(idx) {
   background: linear-gradient(135deg, #195AFE 0%, #3B82F6 45%, #7C3AED 100%);
   border: none;
   border-radius: 9999px;
-  padding: 0.82rem 1.8rem;
+  padding: 0.75rem 1.7rem;
   color: #ffffff;
-  font-size: 0.96rem;
+  font-size: 0.94rem;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 0 24px rgba(25, 90, 254, 0.5);
@@ -1608,7 +2027,7 @@ function toggleFaq(idx) {
   justify-content: center;
   gap: 0.6rem;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: 0.9rem;
 }
 
 .chips-label {
@@ -1635,57 +2054,546 @@ function toggleFaq(idx) {
   width: 5px;
   height: 5px;
   border-radius: 50%;
+  background: #64748B;
+  transition: background 0.2s;
+}
+
+.chip-btn:hover, .chip-btn.active {
+  background: rgba(25, 90, 254, 0.2);
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #FFFFFF;
+}
+
+.chip-btn.active .chip-dot {
   background: #38BDF8;
+  box-shadow: 0 0 6px #38BDF8;
 }
 
-.chip-btn:hover {
-  background: rgba(25, 90, 254, 0.15);
-  border-color: rgba(25, 90, 254, 0.4);
-  color: #93C5FD;
+/* ================= 方案 A 核心组件：GEO 2.0 实时雷达透视看板 ================= */
+.hero-console-showcase {
+  width: 100%;
+  max-width: 1240px;
+  background: rgba(13, 20, 36, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  text-align: left;
 }
 
-/* 核心实时数据指标横条 */
-.hero-live-proof-row {
+.console-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.4rem;
+  background: rgba(255, 255, 255, 0.025);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.traffic-lights {
+  display: flex;
+  gap: 6px;
+}
+
+.traffic-lights .light {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.light.red { background: #EF4444; opacity: 0.75; }
+.light.yellow { background: #F59E0B; opacity: 0.75; }
+.light.green { background: #10B981; opacity: 0.75; }
+
+.console-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #CBD5E1;
+  letter-spacing: 0.5px;
+}
+
+.console-version-pill {
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: #38BDF8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.bar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.probe-live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: #10B981;
+  font-weight: 600;
+  position: relative;
+}
+
+.pulse-core {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+}
+
+.pulse-ring {
+  position: absolute;
+  left: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #10B981;
+  animation: radarPing 2s infinite;
+}
+
+@keyframes radarPing {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.active-sample-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+}
+
+.sample-label {
+  color: #64748B;
+}
+
+.sample-val {
+  color: #38BDF8;
+  font-weight: 700;
+}
+
+/* 看板三栏网格 */
+.console-body-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1.35fr 1fr;
+  gap: 1.2rem;
+  padding: 1.4rem;
+}
+
+.console-col {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.col-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.col-head-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #F1F5F9;
+}
+
+.icon-svg {
+  width: 16px;
+  height: 16px;
+}
+
+.status-chip-live, .status-chip-ai, .status-chip-score {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.status-chip-live {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38BDF8;
+}
+
+.status-chip-ai {
+  background: rgba(168, 85, 247, 0.15);
+  color: #C084FC;
+}
+
+.status-chip-score {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34D399;
+}
+
+/* 栏 1：探针列表 */
+.probes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+
+.probe-model-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.7rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.probe-model-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.model-avatar {
+  width: 18px;
+  height: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.8rem;
-  margin-top: 1.8rem;
-  padding: 0.75rem 1.8rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 9999px;
-  backdrop-filter: blur(10px);
+  flex-shrink: 0;
 }
 
-.proof-metric-item {
+.model-avatar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.model-info {
+  flex: 1;
+}
+
+.model-name-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #E2E8F0;
+  margin-bottom: 0.25rem;
+}
+
+.m-ping {
+  font-size: 0.7rem;
+  color: #64748B;
+}
+
+.model-track-row {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.proof-val {
-  font-size: 0.94rem;
-  font-weight: 800;
+.m-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.m-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+.m-score {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.model-verdict-pill {
+  font-size: 0.7rem;
+  color: #94A3B8;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* 栏 2：AI 回答生成 */
+.col-simulation {
+  gap: 0.75rem;
+}
+
+.sim-prompt-box {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+}
+
+.prompt-speaker-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.74rem;
+  color: #94A3B8;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.user-svg {
+  width: 14px;
+  height: 14px;
   color: #38BDF8;
 }
 
-.proof-lbl {
-  font-size: 0.8rem;
-  color: #94A3B8;
+.prompt-text {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #F1F5F9;
+  font-weight: 500;
+  margin: 0;
 }
 
-.proof-divider {
-  width: 1px;
+.sim-answer-card {
+  background: rgba(25, 90, 254, 0.06);
+  border: 1px solid rgba(25, 90, 254, 0.25);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+
+.answer-header-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.answer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.badge-rec-crown {
+  width: 16px;
+  height: 16px;
+  color: #F59E0B;
+  display: flex;
+  align-items: center;
+}
+
+.answer-rec-target {
+  font-size: 0.86rem;
+  color: #F8FAFC;
+}
+
+.answer-rec-target strong {
+  color: #60A5FA;
+}
+
+.cert-pill {
+  font-size: 0.68rem;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.answer-body-text {
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: #CBD5E1;
+  margin: 0;
+}
+
+.interception-defense-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.74rem;
+  color: #34D399;
+  background: rgba(16, 185, 129, 0.08);
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  margin-top: auto;
+}
+
+.shield-svg {
+  width: 14px;
   height: 14px;
-  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+/* 栏 3：资产健康度与信源网格 */
+.col-metrics {
+  gap: 0.75rem;
+}
+
+.metric-score-card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+.score-main {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.score-number {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #10B981;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.score-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.score-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #F1F5F9;
+}
+
+.score-sub {
+  font-size: 0.7rem;
+  color: #64748B;
+}
+
+.metrics-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.metric-sub-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sub-lbl {
+  font-size: 0.72rem;
+  color: #64748B;
+}
+
+.sub-val {
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.text-green { color: #10B981; }
+.text-brand { color: #38BDF8; }
+
+.sources-mesh-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.sources-title {
+  font-size: 0.75rem;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.sources-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+}
+
+.source-node-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  color: #CBD5E1;
+}
+
+.node-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #38BDF8;
+}
+
+.node-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-console-explore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 0.55rem;
+  color: #E2E8F0;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  margin-top: 0.4rem;
+}
+
+.btn-console-explore:hover {
+  background: rgba(25, 90, 254, 0.25);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #FFFFFF;
+}
+
+.btn-console-explore svg {
+  width: 14px;
+  height: 14px;
 }
 
 /* ================= 首屏全宽跑马灯 (贯穿全屏左右 100% 视口边缘) ================= */
 .hero-trust-marquee-container {
   width: 100%;
   max-width: 100vw;
-  margin-top: 2rem;
+  margin-top: auto;
   position: relative;
   z-index: 5;
 }
@@ -1695,7 +2603,7 @@ function toggleFaq(idx) {
   align-items: center;
   justify-content: center;
   gap: 1.2rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   padding: 0 1.5rem;
 }
 
@@ -1710,7 +2618,7 @@ function toggleFaq(idx) {
 }
 
 .trust-title-text {
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: #94A3B8;
   letter-spacing: 0.8px;
@@ -1747,7 +2655,7 @@ function toggleFaq(idx) {
   display: inline-flex;
   align-items: center;
   gap: 0.9rem;
-  padding: 0.65rem 1.25rem;
+  padding: 0.6rem 1.2rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
@@ -2879,7 +3787,7 @@ function toggleFaq(idx) {
 }
 
 .footer-inner {
-  max-width: 1280px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -2964,21 +3872,25 @@ function toggleFaq(idx) {
 }
 
 /* ================= 响应式处理 ================= */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+  .console-body-grid { grid-template-columns: 1fr; gap: 1rem; }
   .hero-headline { font-size: 2.8rem; }
+}
+
+@media (max-width: 1024px) {
+  .hero-headline { font-size: 2.6rem; }
   .light-title, .tech-title, .cta-headline { font-size: 2.2rem; }
   .arch-grid, .roadmap-timeline { grid-template-columns: repeat(2, 1fr); }
   .light-slider-tabs { grid-template-columns: repeat(2, 1fr); }
   .light-slider-content { grid-template-columns: 1fr; }
   .sol-grid-layout { grid-template-columns: 1fr; }
   .footer-top-row { grid-template-columns: 1fr; }
-  .hero-live-proof-row { flex-wrap: wrap; gap: 1rem; border-radius: 16px; }
 }
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
-  .hero-section { min-height: auto; padding-top: 3rem; }
-  .hero-headline { font-size: 2.2rem; }
+  .hero-section { min-height: auto; padding-top: 2rem; }
+  .hero-headline { font-size: 2.1rem; }
   .arch-grid, .roadmap-timeline { grid-template-columns: 1fr; }
   .light-slider-tabs { grid-template-columns: 1fr; }
   .search-input-box { flex-direction: column; border-radius: 18px; padding: 1rem; gap: 0.8rem; }
@@ -2988,5 +3900,7 @@ function toggleFaq(idx) {
   .cta-input-wrap { flex-direction: column; border-radius: 18px; padding: 1rem; gap: 0.8rem; }
   .btn-cta-submit { width: 100%; }
   .footer-links-group { grid-template-columns: 1fr 1fr; }
+  .console-top-bar { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .bar-right { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
 }
 </style>
