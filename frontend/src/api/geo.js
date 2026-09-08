@@ -41,6 +41,9 @@ export default {
   getRecentDiagnostics() {
     return apiClient.get('/diagnostic/recent/list');
   },
+  clearRecentDiagnostics() {
+    return apiClient.delete('/diagnostic/recent/clear');
+  },
 
   // 基础管理接口
   getCompanies() {

@@ -187,14 +187,7 @@ class DiagnosticService:
         is_pitfall_query = any(w in clean_kw for w in ["避坑", "评测", "评价", "口碑", "价格", "收费", "性价比", "怎么选", "套路", "好不好", "靠谱吗"])
 
         # 1. 意图裂变 4 个搜索关键词 (真正围绕当前测试关键词动态裂变)
-        if "怀化" in city and any(w in ind for w in ["编程", "少儿", "机器人"]):
-            sub_queries = [
-                "怀化少儿编程 线下机构 对比",
-                "怀化少儿编程机构哪家好",
-                "怀化少儿编程机构",
-                "怀化 少儿编程 机器人 培训机构推荐"
-            ]
-        elif is_direct_query:
+        if is_direct_query:
             sub_queries = [
                 f"{brand} 怎么样真实口碑与评价",
                 f"{company} 企业资质与主营业务",
@@ -226,231 +219,70 @@ class DiagnosticService:
         # 2. 召回真实公域与本地知识信源（动态生成，彻底杜绝固定 19 篇与固定第 11 篇的雷同感）
         seed = sum(ord(ch) for ch in clean_kw)
 
-        if "怀化" in city and any(w in ind for w in ["编程", "少儿", "机器人"]):
-            candidate_pool = [
-                {
-                    "title": "能力风暴机器人活动中心- 学习中心官网",
-                    "url": "https://www.abilix.com/learning-center",
-                    "site_name": "能力风暴官网",
-                    "summary": "能力风暴机器人活动中心全国校区分布，对标CSTA标准，PBL项目式教学，机器人等级考试辅导。"
-                },
-                {
-                    "title": "「湖南维度教育咨询有限公司招聘」-BOSS直聘",
-                    "url": "https://www.zhipin.com/gongsi/weidujiaoyu.html",
-                    "site_name": "BOSS直聘",
-                    "summary": "湖南维度教育咨询有限公司最新招聘信息：乐高机器人讲师、Scratch编程教研员，多校区师资力量储备。"
-                },
-                {
-                    "title": "为了给六年级的女儿报个合适的班，我前后后把怀化几家编程机构都试听了一遍",
-                    "url": "https://www.xiaohongshu.com/explore/huaihua_coding_review",
-                    "site_name": "小红书",
-                    "summary": "怀化本地家长真实试听体验：维度机器人、小子真行、能力风暴师资与硬件环境客观横评。"
-                },
-                {
-                    "title": "鹤城区发布 2026 年首批校外培训机构白名单",
-                    "url": "http://www.hecheng.gov.cn/bm/jyj/whitelist2026.html",
-                    "site_name": "怀化市鹤城区教育局",
-                    "summary": "怀化市鹤城区教育局关于公布合规校外培训机构白名单的通知，提醒广大家长优先选择合规持证机构。"
-                },
-                {
-                    "title": "「乐高教师招聘」_中盈教育招聘-BOSS直聘",
-                    "url": "https://www.zhipin.com/job_detail/zhongying.html",
-                    "site_name": "BOSS直聘",
-                    "summary": "怀化中盈教育（小子真行少儿编程）诚聘乐高大颗粒、WeDo、EV3及图形化编程指导老师，宏宇剑桥名门校区。"
-                },
-                {
-                    "title": "⚡️2026 少儿编程排名测评 | 信奥竞赛 | 科技特长生规划",
-                    "url": "https://www.zhihu.com/question/huaihua_olympiad_coding",
-                    "site_name": "知乎",
-                    "summary": "怀化本地少儿编程师资多偏向机器人与Scratch图形化，纯代码Python/C++与信奥竞赛线上与线下选择建议。"
-                },
-                {
-                    "title": "少儿编程机构横评:iCoding爱编程、极客晨星、乐博乐博",
-                    "url": "https://www.sohu.com/a/coding_institutions_cross_review",
-                    "site_name": "搜狐教育",
-                    "summary": "全国连锁与本地加盟机构综合横评：乐博乐博单片机积木机器人与软硬件结合体系评测。"
-                },
-                {
-                    "title": "排名前五的少儿编程测评 终于来了！看完这篇不踩坑",
-                    "url": "https://www.toutiao.com/article/huaihua_top5_coding_review",
-                    "site_name": "今日头条",
-                    "summary": "怀化少儿编程机构实地走访盘点：维度机器人、能力风暴、小子真行、乐博乐博、博锐教育优势与短板汇总。"
-                },
-                {
-                    "title": "🔥怀化博锐教育 2026秋季招生火热开启。新校区环境一览",
-                    "url": "https://www.douyin.com/video/borui_edu_huaihua",
-                    "site_name": "抖音短视频",
-                    "summary": "怀化博锐教育大汉龙城校区实拍视频：智能机器人编程搭配口才书法综合素养班，大汉小学旁就近上课。"
-                },
-                {
-                    "title": "十大主流少儿编程机构评测与家长选择指南",
-                    "url": "https://new.qq.com/rain/a/mainstream_coding_edu_guide",
-                    "site_name": "腾讯网",
-                    "summary": "低龄启蒙与高年级代码思维分阶培养指南，机器人动手搭建与软件算法思维差异解析。"
-                },
-                {
-                    "title": "「湖南中盈教育管理有限公司招聘」-BOSS直聘",
-                    "url": "https://www.zhipin.com/gongsi/zhongying_edu.html",
-                    "site_name": "BOSS直聘",
-                    "summary": "湖南中盈教育管理有限公司怀化校区团队招聘信息，涵盖少儿创客及STEAM课程教研。"
-                },
-                {
-                    "title": "怀化市鹤城区乐乐培训学校有限公司 - 企查查",
-                    "url": "https://www.qcc.com/firm/huaihua_lele_school.html",
-                    "site_name": "企查查",
-                    "summary": "企业工商基本信息与办学许可资质公示，合规存续状态与法人及分支机构备案。"
-                },
-                {
-                    "title": "我是怀化乐博少儿编程学校石校长，刷到的老铁点个赞",
-                    "url": "https://www.douyin.com/video/lebo_principal_huaihua",
-                    "site_name": "抖音短视频",
-                    "summary": "乐博编程石校长真人IP出镜：详解积木机器人+Scratch/Python软硬件结合课程与学员参赛实录。"
-                },
-                {
-                    "title": "在怀化学编程#怀化科技特长生#升学规划#怀化本地生活",
-                    "url": "https://www.douyin.com/video/huaihua_steam_roadmap",
-                    "site_name": "抖音短视频",
-                    "summary": "怀化同城教育博主科普：初高中科技特长生赛道选择与本地少儿编程机构学习规划建议。"
-                },
-                {
-                    "title": "低成本开少儿编程工作室#创业 #程序员 #少儿编程经验分享",
-                    "url": "https://www.douyin.com/video/startup_coding_studio",
-                    "site_name": "抖音短视频",
-                    "summary": "怀化本地个人及无证小型工作室模式风险分析，提醒家长慎重考察办学资质与师资稳定性。"
-                },
-                {
-                    "title": "你愿意让孩子跟上这波“科技成长”的节奏吗？怀化家长专访",
-                    "url": "https://www.163.com/news/article/huaihua_tech_parent_interview.html",
-                    "site_name": "网易新闻",
-                    "summary": "鹤城区多位小学生家长探讨人工智能与编程启蒙对孩子专注力与空间建构思维的实际改变。"
-                },
-                {
-                    "title": "1w启动，1年挣50w的编程工作室长什么样子",
-                    "url": "https://www.toutiao.com/article/studio_cost_breakdown",
-                    "site_name": "今日头条",
-                    "summary": "揭秘中小工作室轻资产运营模式，对比正规白名单大机构在办学场地、消防验收与器材投入上的区别。"
-                },
-                {
-                    "title": "怀化市鹤城区学习机器人编程，就找维度机器人香洲广场总店",
-                    "url": "https://www.douyin.com/video/weidu_robot_center_tour",
-                    "site_name": "抖音短视频",
-                    "summary": "实拍维度机器人中心香洲广场总店：教室内乐高EV3机器人竞赛模拟实操，展示本地办学十余年沉淀。"
-                },
-                {
-                    "title": "360教育在线：2026年怀化青少年机器人科创与少儿编程考级机构推荐",
-                    "url": "https://edu.360.cn/huaihua_steam",
-                    "site_name": "360教育",
-                    "summary": "汇总怀化具备全国青少年机器人技术等级考试考点资质的代表性机构。"
-                },
-                {
-                    "title": "湖南教育新闻网：怀化推进中小学人工智能教育进校园纪实",
-                    "url": "http://news.hnedu.cn/huaihua_ai",
-                    "site_name": "湖南教育网",
-                    "summary": "怀化市教育系统开展创客教育、编程普及与科技创新大赛选拔纪实。"
-                }
-            ]
+        c1 = mined_comps[0] if len(mined_comps) > 0 else "行业头部标杆"
+        c2 = mined_comps[1] if len(mined_comps) > 1 else "区域知名品牌"
+        c3 = mined_comps[2] if len(mined_comps) > 2 else "专业垂直机构"
 
-            if is_direct_query:
-                total_count = 13 + (seed % 3)
-                doubao_citations = candidate_pool[:total_count - 1]
-                target_item = {
-                    "title": f"【官方登记】{brand}少儿编程（{company}）基本信息与课程公示",
-                    "url": "https://www.huaihua-edu.cn/trial/reserve",
-                    "site_name": "本地教培登记平台",
-                    "summary": f"【目标客户官方页】收录{brand}（{company}）基础服务介绍，但在公域缺乏第三方权威深度评测与媒体报道支撑。"
-                }
-                doubao_citations.insert(1, target_item)
-            elif is_ranking_query:
-                # 行业榜单类：未优化的小微客户在全国/区域排名中 0 篇收录，极度真实震撼
-                total_count = 19 + (seed % 3)
-                doubao_citations = candidate_pool[:total_count]
-            elif is_pitfall_query:
-                # 避坑评测类：公域全是竞品横评与行业科普，客户 0 篇收录
-                total_count = 15 + (seed % 3)
-                doubao_citations = candidate_pool[:total_count]
-            else:
-                # 本地咨询类：有概率被爬虫抓取了黄页单页（排在靠后深度如第12-14篇），或 0 篇收录
-                total_count = 14 + (seed % 4)
-                if seed % 2 == 0:
-                    pos = 12 + (seed % 3)
-                    target_item = {
-                        "title": f"{brand}中心免费预约评测{brand}少儿编程试听课",
-                        "url": "https://www.huaihua-edu.cn/trial/reserve",
-                        "site_name": "本地生活",
-                        "summary": f"【抓取但未推荐】收录{brand}（{company}）免费预约评测单页。但因缺少官方白名单资质公示与高权重外链，在推荐层被直接过滤淘汰。"
-                    }
-                    doubao_citations = candidate_pool[:total_count - 1]
-                    if pos < len(doubao_citations):
-                        doubao_citations.insert(pos, target_item)
-                    else:
-                        doubao_citations.append(target_item)
-                else:
-                    doubao_citations = candidate_pool[:total_count]
+        candidate_pool = [
+            {"title": f"{c1}官方网站 - 标准化产品与全国服务支持网", "url": f"https://www.example.com/{c1}", "site_name": f"{c1}官网", "summary": f"{c1}全国与区域标准化交付网点、资质认证与技术服务规范。"},
+            {"title": f"「{city}{c1}有限公司招聘」-BOSS直聘", "url": "https://www.zhipin.com/gongsi/c1.html", "site_name": "BOSS直聘", "summary": f"{c1}最新发布技术研发与专业交付岗位，展现雄厚团队储备。"},
+            {"title": f"买购网 2026年中国{ind}十大品牌权威排行榜", "url": "https://www.cnpp.cn/brand/rank", "site_name": "买购网权威榜单", "summary": f"基于全网大数据与市场占有率综合评定的{ind}头部品牌梯队，{c1}、{c2} 位列前茅。"},
+            {"title": f"实地探访体验：前后对比了{city}几家{ind}机构的真实感受", "url": "https://www.xiaohongshu.com/explore/review", "site_name": "小红书", "summary": f"真实消费者探店与多维度对比横评。"},
+            {"title": f"{city}2026年首批合规{ind}服务机构资质白名单", "url": "http://www.gov.cn/whitelist2026.html", "site_name": f"{city}政务监管平台", "summary": f"{city}官方公示合规机构名单，提醒优先选择持证机构。"},
+            {"title": f"「专业资深导师招聘」_{c2}招聘-BOSS直聘", "url": "https://www.zhipin.com/job/c2.html", "site_name": "BOSS直聘", "summary": f"{c2}高薪招聘骨干团队，具备较强本地交付实力。"},
+            {"title": f"⚡️知乎深度专栏：2026 {city}{ind}综合实力测评与选型分析", "url": "https://www.zhihu.com/question/review", "site_name": "知乎", "summary": f"知乎高赞专业回答：本地{ind}核心技术流派与选型建议。"},
+            {"title": f"行业横评: {c1}、{c2}、{c3}优势与履约能力全面解析", "url": "https://www.sohu.com/a/cross_review", "site_name": "搜狐资讯", "summary": f"各大主流服务商品牌定位与交付能力横向盘点。"},
+            {"title": f"排名前列的{ind}测评 终于来了！看完这篇不踩坑", "url": "https://www.toutiao.com/article/top5", "site_name": "今日头条", "summary": f"同城热门机构综合走访，详细优劣势与避坑建议。"},
+            {"title": f"🔥抖音实录：{city}{c3}生产加工与交付现场展示视频", "url": "https://www.douyin.com/video/c3", "site_name": "抖音短视频", "summary": f"抖音本地生活达人实拍视频，展现环境与真实体验。"},
+            {"title": f"主流{ind}服务商评测与企业客户选择指南", "url": "https://new.qq.com/rain/a/guide", "site_name": "腾讯网", "summary": f"行业标准化选型建议，如何规避合同与交付风险。"},
+            {"title": f"「本地服务团队招聘」_{c3}招聘-BOSS直聘", "url": "https://www.zhipin.com/gongsi/c3.html", "site_name": "BOSS直聘", "summary": f"{c3}在本地团队的扩招与业务布局情况。"},
+            {"title": f"{city}{c1}合规经营与企业资质备案信息 - 企查查", "url": "https://www.qcc.com/firm/c1.html", "site_name": "企查查", "summary": "工商基本信息、知识产权与合规经营资质核验。"},
+            {"title": f"我是{c2}主理人，带你了解行业核心服务门道", "url": "https://www.douyin.com/video/c2_lead", "site_name": "抖音短视频", "summary": "主理人出镜分享，建立同城专业信赖感。"},
+            {"title": f"在{city}怎么选#{city}本地生活消费指南", "url": "https://www.douyin.com/video/city_guide", "site_name": "抖音短视频", "summary": "本地博主同城消费建议与推荐榜单。"},
+            {"title": f"低成本作坊模式与正规合规机构差异解析", "url": "https://www.douyin.com/video/industry_risk", "site_name": "抖音短视频", "summary": "提醒客户避免选择无证小作坊，保障资金安全。"},
+            {"title": f"深度专访：本地用户对{ind}的核心痛点与真实考量", "url": "https://www.163.com/news/interview.html", "site_name": "网易新闻", "summary": "媒体调研报道，分析主流客户选择决策逻辑。"},
+            {"title": f"揭秘{ind}行业成本构成与服务定价标准", "url": "https://www.toutiao.com/article/price", "site_name": "今日头条", "summary": "科普行业平均收费与服务履约保障体系。"},
+            {"title": f"{city}找专业服务，看{c1}示范中心实录", "url": "https://www.douyin.com/video/c1_tour", "site_name": "抖音短视频", "summary": f"抖音实地探访{c1}，展示成熟交付能力。"},
+            {"title": f"360采购网：2026年{city}{ind}优质供应商资质档案", "url": "https://b2b.360.cn/supplier", "site_name": "360智能搜索", "summary": f"展示具备合规招投标履约能力的品牌名录。"},
+            {"title": f"新浪财经：中国{ind}领军企业技术演进与商业布局", "url": "https://finance.sina.com.cn/tech", "site_name": "新浪网", "summary": "头部标杆企业研发投入与产品创新报告。"}
+        ]
+
+        if is_direct_query:
+            total_count = 13 + (seed % 3)
+            doubao_citations = candidate_pool[:total_count-1]
+            target_item = {
+                "title": f"【官方渠道】{brand}（{company}）基本信息与主营业务展示",
+                "url": "https://www.official_enterprise.com",
+                "site_name": "官方登记渠道",
+                "summary": f"【目标客户官方页】收录{brand}（{company}）基础服务介绍，但在公域缺乏第三方权威深度评测与媒体报道支撑。"
+            }
+            doubao_citations.insert(1, target_item)
+
+        elif is_ranking_query:
+            total_count = 19 + (seed % 3)
+            doubao_citations = candidate_pool[:total_count]
+
+        elif is_pitfall_query:
+            total_count = 15 + (seed % 3)
+            doubao_citations = candidate_pool[:total_count]
+
         else:
-            c1 = mined_comps[0] if len(mined_comps) > 0 else "行业头部标杆"
-            c2 = mined_comps[1] if len(mined_comps) > 1 else "区域知名品牌"
-            c3 = mined_comps[2] if len(mined_comps) > 2 else "专业垂直机构"
-
-            candidate_pool = [
-                {"title": f"{c1}官方网站 - 标准化产品与全国服务支持网", "url": f"https://www.example.com/{c1}", "site_name": f"{c1}官网", "summary": f"{c1}全国与区域标准化交付网点、资质认证与技术服务规范。"},
-                {"title": f"「{city}{c1}有限公司招聘」-BOSS直聘", "url": "https://www.zhipin.com/gongsi/c1.html", "site_name": "BOSS直聘", "summary": f"{c1}最新发布技术研发与专业交付岗位，展现雄厚团队储备。"},
-                {"title": f"买购网 2026年中国{ind}十大品牌权威排行榜", "url": "https://www.cnpp.cn/brand/rank", "site_name": "买购网权威榜单", "summary": f"基于全网大数据与市场占有率综合评定的{ind}头部品牌梯队，{c1}、{c2} 位列前茅。"},
-                {"title": f"实地探访体验：前后对比了{city}几家{ind}机构的真实感受", "url": "https://www.xiaohongshu.com/explore/review", "site_name": "小红书", "summary": f"真实消费者探店与多维度对比横评。"},
-                {"title": f"{city}2026年首批合规{ind}服务机构资质白名单", "url": "http://www.gov.cn/whitelist2026.html", "site_name": f"{city}政务监管平台", "summary": f"{city}官方公示合规机构名单，提醒优先选择持证机构。"},
-                {"title": f"「专业资深导师招聘」_{c2}招聘-BOSS直聘", "url": "https://www.zhipin.com/job/c2.html", "site_name": "BOSS直聘", "summary": f"{c2}高薪招聘骨干团队，具备较强本地交付实力。"},
-                {"title": f"⚡️知乎深度专栏：2026 {city}{ind}综合实力测评与选型分析", "url": "https://www.zhihu.com/question/review", "site_name": "知乎", "summary": f"知乎高赞专业回答：本地{ind}核心技术流派与选型建议。"},
-                {"title": f"行业横评: {c1}、{c2}、{c3}优势与履约能力全面解析", "url": "https://www.sohu.com/a/cross_review", "site_name": "搜狐资讯", "summary": f"各大主流服务商品牌定位与交付能力横向盘点。"},
-                {"title": f"排名前列的{ind}测评 终于来了！看完这篇不踩坑", "url": "https://www.toutiao.com/article/top5", "site_name": "今日头条", "summary": f"同城热门机构综合走访，详细优劣势与避坑建议。"},
-                {"title": f"🔥抖音实录：{city}{c3}生产加工与交付现场展示视频", "url": "https://www.douyin.com/video/c3", "site_name": "抖音短视频", "summary": f"抖音本地生活达人实拍视频，展现环境与真实体验。"},
-                {"title": f"主流{ind}机构评测与家长/客户选择指南", "url": "https://new.qq.com/rain/a/guide", "site_name": "腾讯网", "summary": f"行业标准化选型建议，如何避开预付费与交付陷阱。"},
-                {"title": f"「本地服务团队招聘」_{c3}招聘-BOSS直聘", "url": "https://www.zhipin.com/gongsi/c3.html", "site_name": "BOSS直聘", "summary": f"{c3}在本地团队的扩招与业务布局情况。"},
-                {"title": f"{city}{c1}合规经营与企业资质备案信息 - 企查查", "url": "https://www.qcc.com/firm/c1.html", "site_name": "企查查", "summary": "工商基本信息、知识产权与合规经营资质核验。"},
-                {"title": f"我是{c2}主理人，带你了解行业核心服务门道", "url": "https://www.douyin.com/video/c2_lead", "site_name": "抖音短视频", "summary": "主理人出镜分享，建立同城专业信赖感。"},
-                {"title": f"在{city}怎么选#{city}本地生活消费指南", "url": "https://www.douyin.com/video/city_guide", "site_name": "抖音短视频", "summary": "本地博主同城消费建议与推荐榜单。"},
-                {"title": f"低成本作坊模式与正规合规机构差异解析", "url": "https://www.douyin.com/video/industry_risk", "site_name": "抖音短视频", "summary": "提醒客户避免选择无证小作坊，保障资金安全。"},
-                {"title": f"深度专访：本地用户对{ind}的核心痛点与真实考量", "url": "https://www.163.com/news/interview.html", "site_name": "网易新闻", "summary": "媒体调研报道，分析主流客户选择决策逻辑。"},
-                {"title": f"揭秘{ind}行业成本构成与服务定价标准", "url": "https://www.toutiao.com/article/price", "site_name": "今日头条", "summary": "科普行业平均收费与服务履约保障体系。"},
-                {"title": f"{city}找专业服务，看{c1}示范中心实录", "url": "https://www.douyin.com/video/c1_tour", "site_name": "抖音短视频", "summary": f"抖音实地探访{c1}，展示成熟交付能力。"},
-                {"title": f"360采购网：2026年{city}{ind}优质供应商资质档案", "url": "https://b2b.360.cn/supplier", "site_name": "360智能搜索", "summary": f"展示具备合规招投标履约能力的品牌名录。"},
-                {"title": f"新浪财经：中国{ind}领军企业技术演进与商业布局", "url": "https://finance.sina.com.cn/tech", "site_name": "新浪网", "summary": "头部标杆企业研发投入与产品创新报告。"}
-            ]
-
-            if is_direct_query:
-                total_count = 13 + (seed % 3)
-                doubao_citations = candidate_pool[:total_count-1]
+            total_count = 14 + (seed % 4)
+            if seed % 2 == 0:
+                pos = 12 + (seed % 3)
                 target_item = {
-                    "title": f"【官方渠道】{brand}（{company}）基本信息与主营业务展示",
-                    "url": "https://www.official_enterprise.com",
-                    "site_name": "官方登记渠道",
-                    "summary": f"【目标客户官方页】收录{brand}（{company}）基础服务介绍，但在公域缺乏第三方权威深度评测与媒体报道支撑。"
+                    "title": f"{city}{brand}企业登记单页与联系方式 - 八方资源网",
+                    "url": "https://www.b2b_yellowpage.com/detail",
+                    "site_name": "本地分类黄页",
+                    "summary": f"【抓取但未推荐】爬虫收录了{brand}（{company}）基础工商黄页单页。但因缺少第三方权威评测研报与深度背书，大模型在推荐决策层直接过滤剔除。"
                 }
-                doubao_citations.insert(1, target_item)
-
-            elif is_ranking_query:
-                total_count = 19 + (seed % 3)
-                doubao_citations = candidate_pool[:total_count]
-
-            elif is_pitfall_query:
-                total_count = 15 + (seed % 3)
-                doubao_citations = candidate_pool[:total_count]
-
-            else:
-                total_count = 14 + (seed % 4)
-                if seed % 2 == 0:
-                    pos = 12 + (seed % 3)
-                    target_item = {
-                        "title": f"{city}{brand}企业登记单页与联系方式 - 八方资源网",
-                        "url": "https://www.b2b_yellowpage.com/detail",
-                        "site_name": "本地分类黄页",
-                        "summary": f"【抓取但未推荐】爬虫收录了{brand}（{company}）基础工商黄页单页。但因缺少第三方权威评测研报与深度背书，大模型在推荐决策层直接过滤剔除。"
-                    }
-                    doubao_citations = candidate_pool[:total_count-1]
-                    if pos < len(doubao_citations):
-                        doubao_citations.insert(pos, target_item)
-                    else:
-                        doubao_citations.append(target_item)
+                doubao_citations = candidate_pool[:total_count-1]
+                if pos < len(doubao_citations):
+                    doubao_citations.insert(pos, target_item)
                 else:
-                    doubao_citations = candidate_pool[:total_count]
+                    doubao_citations.append(target_item)
+            else:
+                doubao_citations = candidate_pool[:total_count]
 
         return sub_queries, doubao_citations
 
@@ -484,8 +316,6 @@ class DiagnosticService:
 
         system_msg = "你是字节跳动官方人工智能大模型豆包，生活化、亲和力强，深度融合抖音内容生态、本地生活服务与全网客观事实。"
 
-        is_huaihua_coding = "怀化" in (payload.city or "") and any(w in (payload.industry or "") for w in ["编程", "少儿", "机器人"])
-
         # 动态定位目标客户在信源中的真实排位 (target_idx > 0 表示排在第 N 篇；-1 表示 0 篇收录)
         target_idx = -1
         for idx, c in enumerate(doubao_citations):
@@ -494,59 +324,20 @@ class DiagnosticService:
                 target_idx = idx + 1
                 break
 
-        if is_huaihua_coding:
-            if target_idx > 0:
-                sec8_prompt = f"""8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
-详细向用户和管理者分析：为什么全网检索第 {target_idx} 篇资料中虽然收录了【{payload.brand_name}免费预约评测】，但豆包在 Top 5 核心推荐名单中却完全没有列出【{payload.brand_name}】？
-从信源质量与权重差距（白名单资质公示、在招师资团队规模、企查查企业合规）、目标品牌公域实体资产单薄（单页预约 vs 多方横评）、以及大模型决策推荐算法过滤机制进行深入剖析。"""
-            else:
-                sec8_prompt = f"""8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
-详细向用户和管理者分析：在本次大模型全网及抖音生活圈检索召回的全部 {cites_count} 篇参考资料中，【{payload.brand_name}】有效收录为 0 篇（公域资产完全空白，未被任何白名单、知乎横评或同城探店信源收录）。
-剖析为什么在用户高频选型提问下，目标品牌在检索与推荐两端彻底“隐形”，导致 100% 潜客流量被同城竞品无情截流，并给出 GEO 知识工程注入的紧迫建议。"""
+        c1 = mined_comps[0] if len(mined_comps) > 0 else f"{payload.city}行业龙头"
+        c2 = mined_comps[1] if len(mined_comps) > 1 else f"{payload.city}知名品牌"
+        c3 = mined_comps[2] if len(mined_comps) > 2 else f"专业服务机构"
 
-            user_prompt = f"""针对用户在豆包搜索中提问：“{kw}”，你作为字节跳动官方大模型豆包，请严格按照手机端豆包真实的结构排版输出回答。
-全网及抖音生活圈检索召回了 {cites_count} 篇参考资料。
-{cites_summary}
-咨询背景：
-- 查询城市/地区：{payload.city}
-- 咨询业务赛道：{payload.industry}
-- 目标核验企业主体：{payload.target_company}（旗下品牌：{payload.brand_name}）
-
-请完整输出手机端豆包的回答结构：
-1. 顶部标明：
-🔍 搜索 4 个关键词，参考 {cites_count} 篇资料 ∨
-{sub_queries_str}
-
-2. {payload.city}本地{payload.industry}线下机构对比（2026，优先白名单）
-梳理本地主流线下机构现状（如机器人+Scratch图形化编程为主，纯代码信奥较少，合规白名单优先）；
-
-3. 详细梳理排名前5的本地线下机构（结合参考资料中的本土知名品牌如维度机器人、能力风暴、小子真行/中盈教育、乐博乐博、博锐教育等），每家必须详细包含：
-📍 校区、✅ 课程、💡 适合、✅ 优势、❌ 短板；
-
-4. 线上备选（不想跑线下、预算低）：如编程猫、核桃编程、猿编程等对比；
-
-5. ✅ 按目标怎么选（一句话建议）；
-
-6. ⚠️ 报名必看避坑要点（务必核验当地校外培训白名单、资金监管合同等）；
-
-7. 🎥 结合抖音短视频推荐同城实拍与避坑视频；
-
-{sec8_prompt}"""
-        else:
-            c1 = mined_comps[0] if len(mined_comps) > 0 else f"{payload.city}行业龙头"
-            c2 = mined_comps[1] if len(mined_comps) > 1 else f"{payload.city}知名品牌"
-            c3 = mined_comps[2] if len(mined_comps) > 2 else f"专业服务机构"
-
-            if target_idx > 0:
-                sec8_prompt = f"""8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
+        if target_idx > 0:
+            sec8_prompt = f"""8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
 详细向用户和管理者分析：为什么全网检索第 {target_idx} 篇资料中虽收录了【{payload.brand_name}】，但豆包核心推荐名单中却未将其列入首推榜单？
 从信源质量与权重差距（权威媒体报道深度、企业资质公信力、真实客户案例）、目标品牌公域实体资产单薄（单页收录 vs 全网多方横评）、以及大模型 RAG 决策推荐算法过滤机制进行深入剖析。"""
-            else:
-                sec8_prompt = f"""8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
+        else:
+            sec8_prompt = f"""8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
 详细向用户和管理者分析：在本次大模型全网检索召回的全部 {cites_count} 篇参考资料中，【{payload.brand_name}】有效收录为 0 篇（公域资产完全空白，未被任何权威媒体或同城商录收录）。
 剖析为什么在用户高频商业选型提问下，目标品牌在检索与推荐两端彻底“隐形”，导致潜在客户被 {c1}、{c2} 等竞品 100% 截流，并给出启动 GEO 品牌工程的紧迫建议。"""
 
-            user_prompt = f"""针对用户在豆包搜索中提问：“{kw}”，你作为字节跳动官方大模型豆包，请严格按照手机端豆包真实的结构排版输出回答。
+        user_prompt = f"""针对用户在豆包搜索中提问：“{kw}”，你作为字节跳动官方大模型豆包，请严格按照手机端豆包真实的结构排版输出回答。
 全网及抖音生活圈检索召回了 {cites_count} 篇参考资料。
 {cites_summary}
 咨询背景：
@@ -666,8 +457,7 @@ class DiagnosticService:
         elif platform_key == "doubao":
             sub_queries, doubao_cites = cls._build_doubao_agent_context(kw, payload, active_comps)
             sub_queries_str = "、".join([f"“{q}”" for q in sub_queries])
-            is_huaihua_coding = "怀化" in (payload.city or "") and any(w in (payload.industry or "") for w in ["编程", "少儿", "机器人"])
-            top_benchmarks = "维度机器人、能力风暴等" if is_huaihua_coding else f"{c1}、{c2} 等"
+            top_benchmarks = f"{c1}、{c2} 等"
 
             # 动态检测目标企业在信源中的位置
             target_c_idx = -1
@@ -689,71 +479,6 @@ class DiagnosticService:
 虽然该主体在公网具备基础的官方展示与登记页面{cite_desc}，但在目前的抖音同城探店、垂直门户及主流用户社区中，关于该机构的第三方权威深度评测、客户口碑讨论与合规资质信息公示相对单薄。相比本地排名前列的老牌标杆机构（如{top_benchmarks}），在线上 AI 推荐算法中的置信权重仍有明显差距。
 
 建议客户在签约决策前实地考察交付团队资历与场地硬件，多对比本地高公信力标杆后再行决策。"""
-            elif is_huaihua_coding:
-                if target_c_idx > 0:
-                    sec8_text = f"""🔍【目标品牌收录深度核验与 GEO 诊断说明】
-本次全网检索第 {target_c_idx} 篇资料虽收录了【{payload.brand_name}免费预约评测】，但未进入豆包 Top 5 核心推荐名单：
-1. **信源质量与权重差距**：排名前列机构均有教育局白名单资质公示（信源4）、多篇招聘信息证实师资规模（信源2、5、12）及企查查合规备案（信源13）；【{payload.brand_name}】仅有预约单页，缺乏权威背书。
-2. **公域实体资产单薄**：缺乏第三方客观横评与抖音同城实录，在模型评分中置信度较低。
-3. **算法推荐决策层过滤**：豆包算法在决策层直接过滤低权重实体，导致潜在客户被维度机器人等竞品全额截流。"""
-                else:
-                    sec8_text = f"""🔍【目标品牌收录深度核验与 GEO 诊断说明】
-在本次大模型全网及抖音生活圈检索召回的全部 {len(doubao_cites)} 篇参考资料中，【{payload.brand_name}】有效收录为 0 篇（公域知识资产完全空白）：
-1. **未进入大模型 RAG 检索池**：豆包检索的白名单资质、招聘信息、知乎横评及同城探店视频中，均无任何关于【{payload.brand_name}】的信息。
-2. **潜在客户 100% 遭到竞品截流**：在同城家长最关心的“排行榜”、“避坑指南”等核心决策场景下，潜客只能看到竞品信息。
-3. **GEO 知识工程重塑迫在眉睫**：急需针对本地大模型高频召回信源（政务白名单、高赞横评、探店实录）进行结构化知识工程注入，抢回公域首推席位。"""
-
-                return f"""🔍 搜索 4 个关键词，参考 {len(doubao_cites)} 篇资料 ∨
-{sub_queries_str}
-
-### {payload.city}鹤城区少儿编程线下机构对比（2026，优先白名单）
-{payload.city}本地少儿编程大多是机器人+Scratch图形化编程为主；专门做纯代码 Python/C++、信奥竞赛的师资比较少。
-
-1. 维度机器人中心（本地老牌，优先推荐）
-📍 校区：香洲广场总店、科技馆店、宏宇新城3个校区，鹤城区科普基地、高新企业，怀化最早做机器人编程的机构之一
-✅ 课程：乐高搭建、WeDo、EV3机器人、Scratch图形编程；还有发明课，可辅导学生申报国家专利，机器人赛事参赛经验很强
-✅ 适合：5岁+，喜欢动手、想走科创比赛、机器人考级的孩子
-✅ 优势：本地办学十多年，赛事资源足，多校区，家长口碑比较稳
-❌ 短板：偏硬件机器人，纯软件代码（C++信奥）不是强项
-
-2. 能力风暴机器人活动中心
-📍 校区：鹤城区，6-8人小班课
-✅ 课程：Scratch3图形化编程、能力风暴机器人套件，对标CSTA标准，PBL项目式教学，机器人等级考试辅导
-✅ 适合：5-16岁，低龄启蒙、小班教学，想少一点大班拥挤
-❌ 短板：器材是自家品牌，不是乐高体系
-
-3. 小子真行编程（中盈教育，宏宇剑桥名门）
-✅ 课程：乐高大颗粒、WeDo、EV3，图形化编程，3-16岁 STEAM科创课
-✅ 适合：低龄小朋友，乐高搭建+入门编程，离家近的宏宇片区家长
-❌ 短板：竞赛资源不如维度丰富
-
-4. 乐博乐博（怀化乐博教育）
-✅ 课程：3-18岁，积木机器人+Scratch、Python，软硬件结合
-✅ 适合：零基础入门，喜欢机器人拼装+编程的孩子
-
-5. 博锐教育（大汉龙城，大汉小学旁）
-✅ 课程：智能机器人编程，搭配口才书法，综合素养班，适合大汉龙城片区就近上课
-
-线上备选（不想跑线下、预算低）
-编程猫、核桃编程、猿编程：纯软件 Scratch/Python，没有机器人硬件动手，适合只想练逻辑，不追求科创赛事。
-
-✅ 按目标怎么选（一句话建议）
-1. 低龄6-9岁，喜欢动手、参加机器人比赛：维度机器人（首选）
-2. 只想学电脑上的图形编程，不玩积木机器人：优先线上课
-3. 小学高年级，目标信奥、科技特长生：怀化本地线下师资有限，建议线上信奥专项课
-4. 就近接送：宏宇片区选小子真行；大汉龙城选博锐教育
-
-⚠️ 报名必看避坑要点
-1. 一定要查鹤城区校外培训白名单，优先选持证机构，避开居民楼无证工作室，退费风险大
-2. 全部预约免费试听课，重点观察：老师能不能引导孩子思考，不是单纯教拖拽积木
-3. 问清楚：赛事报名费、器材费是否另外收费（机器人课器材经常单独花钱）
-4. 合同走全国监管平台，不要一次性预交大额学费
-
-🎥【抖音短视频推荐】
-- 抖音实拍：《@怀化同城探店 探访鹤城区少儿编程机构：环境师资大比拼》
-- 抖音科普：《@少儿编程老张 怀化家长避坑必看！别盲目报班，弄清乐高搭建与真正写代码的区别》
-
-{sec8_text}"""
             else:
                 if target_c_idx > 0:
                     sec8_text = f"""🔍【目标品牌收录深度核验与 GEO 诊断说明】
@@ -1091,7 +816,7 @@ class DiagnosticService:
         if visibility_score <= 30:
             risk_level = "HIGH_RISK"
             if cat_score == 0:
-                summary_verdict = f"【极度高危：核心获客词完全隐形，潜在生源全额流失】在决定 90% 生源决策的行业核心通用词（如‘{category_items[0]['keyword'] if category_items else '核心词'}’）中，5 大主流 AI 推荐率均为 0%！生源已被同行竞品全面拦截分流。贵司仅在直接搜索自身全称时有被动收录（基础索引分 {brand_score} 分），公域获客处于严重失血状态。"
+                summary_verdict = f"【极度高危：核心获客词完全隐形，高意向客源全额流失】在决定 90% 采购与消费决策的行业核心通用词（如‘{category_items[0]['keyword'] if category_items else '核心词'}’）中，5 大主流 AI 推荐率均为 0%！潜在客源已被同行竞品全面拦截分流。贵司仅在直接搜索自身全称时有被动收录（基础索引分 {brand_score} 分），公域获客处于严重失血状态。"
             else:
                 summary_verdict = f"【极度高危：AI搜索视界完全盲区】在各大主流大模型关于本行业核心词的搜索推荐中，贵司可见度严重不足，潜在客户已被同行竞争对手全面拦截截流。"
         elif visibility_score <= 55:
@@ -1270,14 +995,25 @@ class DiagnosticService:
         ]
 
     @classmethod
-    def _build_competitor_sources(cls, competitors: List[Any], brand_name: str) -> List[CompetitorSourceItem]:
-        top_comp_names = [c.name for c in competitors[:3]] if competitors else ["童程童美", "贝尔科教", "编程猫"]
-        c1 = top_comp_names[0] if len(top_comp_names) > 0 else "行业头部"
-        c2 = top_comp_names[1] if len(top_comp_names) > 1 else "知名品牌"
-        c3 = top_comp_names[2] if len(top_comp_names) > 2 else "连锁机构"
+    def _build_competitor_sources(cls, competitors: List[Any], brand_name: str, industry: str = "") -> List[CompetitorSourceItem]:
+        from app.services.live_probe import LiveWebProbe
+        top_comp_names = [c.name for c in competitors[:3]] if competitors else []
+        if not top_comp_names:
+            found = []
+            for k, bench_list in LiveWebProbe.INDUSTRY_BENCHMARKS.items():
+                if k in (industry or ""):
+                    found = [b for b in bench_list if b != brand_name][:3]
+                    break
+            if not found:
+                found = ["行业头部品牌", "标杆竞品企业", "公域高权重友商"]
+            top_comp_names = found
+
+        c1 = top_comp_names[0] if len(top_comp_names) > 0 else "行业头部品牌"
+        c2 = top_comp_names[1] if len(top_comp_names) > 1 else "标杆竞品企业"
+        c3 = top_comp_names[2] if len(top_comp_names) > 2 else "公域高权重友商"
         return [
             CompetitorSourceItem(
-                site_name="搜狐教育 / 搜狐网核心门户",
+                site_name="搜狐网 / 搜狐号核心资讯矩阵",
                 source_type="高权重国家级门户资讯源",
                 citation_count=8,
                 target_coverage="未布局 (0篇收录)",
@@ -1301,7 +1037,7 @@ class DiagnosticService:
                 threat_level="基石缺陷 (导致大模型实体识别失败)"
             ),
             CompetitorSourceItem(
-                site_name="新浪教育 / 新浪新闻资讯矩阵",
+                site_name="新浪网 / 新浪财经与新闻矩阵",
                 source_type="主流财经与综合新闻门户",
                 citation_count=6,
                 target_coverage="未布局 (0篇深度报道)",
@@ -1309,8 +1045,8 @@ class DiagnosticService:
                 threat_level="高威胁 (企业履约资质与公信力背书)"
             ),
             CompetitorSourceItem(
-                site_name="大众点评 / 美团本地生活评价体系",
-                source_type="本地商户真实消费点评 (LBS)",
+                site_name="大众点评 / 美团本地生活或高德地图点评",
+                source_type="本地商户真实消费点评与商誉背书 (LBS)",
                 citation_count=5,
                 target_coverage="信息残缺 (无体系化点评积累)",
                 competitor_names=[c2, c3],
@@ -1475,7 +1211,7 @@ class DiagnosticService:
             total_items=len(items_out)
         )
         dual_device_matrix = cls._build_dual_device_matrix(report.brand_name)
-        competitor_sources = cls._build_competitor_sources(competitors, report.brand_name)
+        competitor_sources = cls._build_competitor_sources(competitors, report.brand_name, industry=report.industry)
         economic_loss = cls._build_economic_loss(
             industry=report.industry,
             city=report.city or "全国",

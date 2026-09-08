@@ -25,16 +25,6 @@ async def run_enterprise_diagnostic(payload: DiagnosticCreateRequest, db: Sessio
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"体检执行异常: {str(e)}")
 
-@router.get("/{report_code}", response_model=DiagnosticReportOut)
-def get_diagnostic_report(report_code: str, db: Session = Depends(get_db)):
-    """
-    通过专属报告码获取公开只读体检诊断书 (支持微信 H5 扫码打开与一键打印 PDF)
-    """
-    try:
-        return DiagnosticService.get_report_by_code(report_code, db)
-    except ValueError:
-        raise HTTPException(status_code=404, detail="未找到该体检报告，可能已过期或链接有误")
-
 @router.get("/recent/list")
 def list_recent_diagnostics(limit: int = 15, db: Session = Depends(get_db)):
     """
@@ -54,3 +44,28 @@ def list_recent_diagnostics(limit: int = 15, db: Session = Depends(get_db)):
             "share_url": f"http://localhost:5173/#/diagnostic_report?code={r.report_code}"
         })
     return results
+
+@router.delete("/recent/clear")
+def clear_recent_diagnostics(db: Session = Depends(get_db)):
+    """
+    一键清空所有历史体检诊断报告数据
+    """
+    try:
+        from app.models.diagnostic import DiagnosticItem
+        db.query(DiagnosticItem).delete()
+        deleted_count = db.query(DiagnosticReport).delete()
+        db.commit()
+        return {"success": True, "deleted_count": deleted_count, "message": "历史诊断记录已成功清空"}
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"清空历史数据失败: {str(e)}")
+
+@router.get("/{report_code}", response_model=DiagnosticReportOut)
+def get_diagnostic_report(report_code: str, db: Session = Depends(get_db)):
+    """
+    通过专属报告码获取公开只读体检诊断书 (支持微信 H5 扫码打开与一键打印 PDF)
+    """
+    try:
+        return DiagnosticService.get_report_by_code(report_code, db)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="未找到该体检报告，可能已过期或链接有误")

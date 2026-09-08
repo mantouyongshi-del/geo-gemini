@@ -151,15 +151,13 @@ class LiveWebProbe:
                         if "zhihu.com" in b or "知乎" in raw_title:
                             site_name = "知乎"
                         elif "sohu.com" in b or "搜狐" in raw_title:
-                            site_name = "搜狐教育"
+                            site_name = "搜狐资讯"
                         elif "163.com" in b or "网易" in raw_title:
                             site_name = "网易新闻"
                         elif "sina.com" in b or "新浪" in raw_title:
                             site_name = "新浪网"
                         elif "peixun360" in b or "培训360" in raw_title:
                             site_name = "培训360网"
-                        elif "童程童美" in raw_title:
-                            site_name = "童程童美少儿编程官网"
                         elif raw_cite:
                             site_name = raw_cite.split()[0].replace("www.", "").split("/")[0]
                         
@@ -173,19 +171,19 @@ class LiveWebProbe:
         except Exception as e:
             print(f"[LiveWebProbe] Sogou search error: {e}")
 
-        # 2. 注入字节跳动全生态 RAG 信源（抖音短视频、头条资讯）与全网权威生活知识库
+        # 2. 注入字节跳动全生态 RAG 信源（抖音短视频、头条资讯）与全网权威生活知识库（自适应全行业，拒绝写死特定赛道）
         supplemental_sources = [
-            ("抖音生活服务·实拍探店", f"抖音短视频《@同城亲子探店: 带娃实地打卡【{query}】万达校区与试听课实录》", f"https://www.douyin.com/search/{encoded_q}?type=video"),
-            ("抖音短视频·专家科普", f"抖音视频《@信息学奥赛名师: 【{query}】家长必看！三类盲目报班踩坑避雷指南》", f"https://www.douyin.com/search/{encoded_q}"),
-            ("今日头条·同城教育", f"今日头条专题：《2026年【{query}】本地生活家长打分口碑与综合品牌调研》", f"https://www.toutiao.com/search/?keyword={encoded_q}"),
-            ("小红书·真实家长笔记", f"小红书热门笔记：《怀化妈妈真实经历：【{query}】如何选到靠谱师资与避坑实测》", f"https://www.xiaohongshu.com/search_result?keyword={encoded_q}"),
-            ("大众点评·本地生活好评榜", f"【{query}】热门优选商户排行榜与真实家长学员长篇打分评价", f"https://www.dianping.com/search/keyword/0/{encoded_q}"),
+            ("抖音生活服务·实拍探店", f"抖音短视频《@同城优质探店: 实地走访【{query}】交付现场与真实买家实录》", f"https://www.douyin.com/search/{encoded_q}?type=video"),
+            ("抖音短视频·专家科普", f"抖音视频《@资深行业选型师: 【{query}】选型必看！三类盲目选择踩坑避雷指南》", f"https://www.douyin.com/search/{encoded_q}"),
+            ("今日头条·同城生活", f"今日头条专题：《2026年【{query}】本地口碑评测与综合品牌调研》", f"https://www.toutiao.com/search/?keyword={encoded_q}"),
+            ("小红书·真实买家笔记", f"小红书热门笔记：《真实消费者体验：【{query}】如何选到靠谱商家与避坑实测》", f"https://www.xiaohongshu.com/search_result?keyword={encoded_q}"),
+            ("大众点评·本地生活好评榜", f"【{query}】热门优选商户排行榜与真实客户长篇打分评价", f"https://www.dianping.com/search/keyword/0/{encoded_q}"),
             ("知乎精选·消费决策问答", f"关于“{query}”，真实用户体验与选型避坑指南深度评测", f"https://www.zhihu.com/question/{int(time.time()) % 10000000}"),
             ("搜狐网·行业深度专栏", f"2026年【{query}】行业品牌公信力与综合实力梯队盘点", f"https://www.sohu.com/a/{int(time.time())}_120098"),
-            ("腾讯网·商业资讯", f"权威解读：{query}核心机构师资履约与标准化交付体系", f"https://new.qq.com/rain/a/{int(time.time())}"),
+            ("腾讯网·商业资讯", f"权威解读：{query}核心服务商履约与标准化交付体系", f"https://new.qq.com/rain/a/{int(time.time())}"),
             ("新浪看点·产业研报", f"行业数字化营销洞察：{query}领域头部机构与中小企业可见度对比", f"https://k.sina.com.cn/article_{int(time.time())}.html"),
-            ("百度百科·行业权威词条", f"【{query}】行业准入标准、师资认证规范与核心知识图谱解析", f"https://baike.baidu.com/item/{encoded_q}"),
-            ("微信公众平台·行业专刊", f"中国少儿编程教育白皮书：{query}赛道校区分布与师资认证规范", f"https://weixin.sogou.com/weixin?query={encoded_q}")
+            ("百度百科·行业权威词条", f"【{query}】行业准入标准、资质认证规范与核心知识图谱解析", f"https://baike.baidu.com/item/{encoded_q}"),
+            ("微信公众平台·行业专刊", f"2026行业发展与消费白皮书：{query}市场格局与服务规范", f"https://weixin.sogou.com/weixin?query={encoded_q}")
         ]
 
         for s_name, s_title, s_url in supplemental_sources:
@@ -296,14 +294,11 @@ class LiveWebProbe:
 
         # 5. 如果提取出的有效真实竞品不足 3 家，优先结合真实行业基准矩阵补充公认龙头
         matched_industry_benchmarks = []
-        if ("怀化" in city or "怀化" in raw_text) and any(w in industry or w in raw_text for w in ["编程", "少儿", "机器人"]):
-            matched_industry_benchmarks = ["维度机器人中心", "能力风暴机器人", "小子真行(中盈教育)", "乐博乐博机器人", "博锐教育"]
-        else:
-            for key, bench_list in cls.INDUSTRY_BENCHMARKS.items():
-                if key in industry or key in raw_text:
-                    for bm in bench_list:
-                        if bm not in matched_industry_benchmarks and bm != target_brand:
-                            matched_industry_benchmarks.append(bm)
+        for key, bench_list in cls.INDUSTRY_BENCHMARKS.items():
+            if key in industry or key in raw_text:
+                for bm in bench_list:
+                    if bm not in matched_industry_benchmarks and bm != target_brand:
+                        matched_industry_benchmarks.append(bm)
 
         if not matched_industry_benchmarks:
             clean_ind = (industry or "行业").strip()

@@ -148,7 +148,12 @@ class LLMGateway:
             city=""
         )
         if not mined_comps:
-            mined_comps = ["老乡鸡", "皇派门窗", "大成律所"]
+            for key, bms in LiveWebProbe.INDUSTRY_BENCHMARKS.items():
+                if key in (industry or "") or key in prompt:
+                    mined_comps = bms[:3]
+                    break
+        if not mined_comps:
+            mined_comps = [f"{industry or '同行业'}标杆领军", f"{industry or '区域'}知名品牌", "示范服务主体"]
 
         c1 = mined_comps[0]
         c2 = mined_comps[1] if len(mined_comps) > 1 else "行业龙头企业"

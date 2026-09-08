@@ -269,6 +269,7 @@
               </div>
               <div class="history-header-right">
                 <span class="scroll-tip-tag" v-if="recentHistory.length > 3">🖱️ 滚动浏览</span>
+                <button v-if="recentHistory.length" class="btn-clear" @click="handleClearHistory" title="清空全部历史记录">🗑️ 清空</button>
                 <button class="btn-refresh" @click="loadHistory">🔄 刷新</button>
               </div>
             </div>
@@ -372,7 +373,7 @@ let timerInterval = null;
 
 const radarSteps = [
   { label: '向公网权威知识库发起全网实时探针检索与索引召回' },
-  { label: '穿透 字节跳动·豆包 手机端生态，召回 19 篇公域信源' },
+  { label: '穿透 字节跳动·豆包 手机端生态，动态召回全网及抖音生活圈公域信源' },
   { label: '连线 DeepSeek 深度推理引擎核验公信力资产与背书' },
   { label: '穿透 阿里千问 & 腾讯元宝 知识图谱，萃取竞品霸屏实体' },
   { label: '计算 GEO 四层渗透漏斗与商业经济流失模型' }
@@ -571,6 +572,22 @@ async function loadHistory() {
     recentHistory.value = res.data;
   } catch (e) {
     console.error(e);
+  }
+}
+
+async function handleClearHistory() {
+  if (!confirm('确定要清空全部本地历史体检记录吗？此操作不可恢复。')) {
+    return;
+  }
+  try {
+    const res = await geoApi.clearRecentDiagnostics();
+    if (res.data && res.data.success) {
+      recentHistory.value = [];
+      alert('已成功清空所有历史体检记录！');
+    }
+  } catch (e) {
+    console.error('清空历史记录失败:', e);
+    alert('清空失败，请稍后重试');
   }
 }
 
@@ -1233,6 +1250,27 @@ onUnmounted(() => {
   background: #f1f5f9;
   padding: 0.15rem 0.45rem;
   border-radius: 4px;
+}
+
+.btn-clear {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.btn-clear:hover {
+  background: rgba(239, 68, 68, 0.16);
+  border-color: #ef4444;
+  transform: translateY(-1px);
 }
 
 .btn-refresh {

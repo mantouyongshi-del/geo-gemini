@@ -268,7 +268,7 @@
             <span class="kw-counter-pill pill-money">基于 {{ report.city }} 本地搜索体量测算</span>
           </div>
           <span class="sec-desc">
-            将 AI 搜索可见度直接换算为企业每月的订单与生源流失，商业损失透明可验：
+            将 AI 搜索可见度直接换算为企业每月的订单与客源流失，商业损失透明可验：
           </span>
         </div>
 
@@ -280,7 +280,7 @@
           </div>
 
           <div class="econ-kpi-box">
-            <div class="econ-label">每月流失准客户/生源</div>
+            <div class="econ-label">每月流失准客户/商机</div>
             <div class="econ-val text-danger">{{ report.economic_loss.monthly_lost_leads_min }} ~ {{ report.economic_loss.monthly_lost_leads_max }} <span class="unit">人/月</span></div>
             <div class="econ-sub">被竞品在 AI 对话流中直接分流截胡</div>
           </div>
@@ -395,7 +395,7 @@
                     <pre class="raw-text">{{ item.raw_content }}</pre>
                   </div>
 
-                  <!-- 竞品引文溯源与豆包 19 篇信源联动 -->
+                  <!-- 竞品引文溯源与豆包动态信源联动 -->
                   <div class="rag-citations-box" v-if="item.citations && item.citations.length">
                     <div class="box-label">
                       <span v-if="item.platform === 'doubao'" class="doubao-citations-badge">
