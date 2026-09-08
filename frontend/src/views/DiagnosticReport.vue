@@ -159,10 +159,10 @@
         <div class="sec-title-row">
           <div class="title-with-counter">
             <h2 class="sec-title">📱 双端全网 AI 监控矩阵 (PC 桌面端 vs 手机移动端)</h2>
-            <span class="kw-counter-pill pill-alert">⚠️ 移动端流失率 100% (全网截流)</span>
+            <span class="kw-counter-pill" :class="mobileLossPillClass">{{ mobileLossText }}</span>
           </div>
           <span class="sec-desc">
-            90% 的本地买家与家长均使用手机端发起搜索与咨询。以下为双端细分渠道收录实测对比：
+            90% 的本地买家与决策层均使用手机端发起搜索与咨询。以下基于现场真实大模型实测探测结果，对比双端细分渠道收录情况：
           </span>
         </div>
 
@@ -171,7 +171,10 @@
             v-for="dm in report.dual_device_matrix" 
             :key="dm.platform_key"
             class="device-chip-card"
-            :class="dm.is_mobile ? 'chip-mobile' : 'chip-pc'"
+            :class="[
+              dm.is_mobile ? 'chip-mobile' : 'chip-pc',
+              dm.is_indexed ? 'card-indexed' : 'card-unindexed'
+            ]"
           >
             <div class="chip-top">
               <span class="device-type-tag" :class="dm.is_mobile ? 'tag-mob' : 'tag-pc'">
@@ -597,6 +600,29 @@ const groupedItems = computed(() => {
     }
   }
   return Array.from(map.values()).filter(g => g.items.length > 0);
+});
+
+const mobileLossRate = computed(() => {
+  if (!report.value || !report.value.dual_device_matrix || !report.value.dual_device_matrix.length) return 100;
+  const mobItems = report.value.dual_device_matrix.filter(m => m.is_mobile);
+  if (!mobItems.length) return 100;
+  const unindexed = mobItems.filter(m => !m.is_indexed).length;
+  return Math.round((unindexed / mobItems.length) * 100);
+});
+
+const mobileLossText = computed(() => {
+  const rate = mobileLossRate.value;
+  if (rate === 0) return '✓ 移动端全网收录 (0% 流失)';
+  if (rate <= 40) return `⚠️ 移动端流失率 ${rate}% (局部被截流)`;
+  if (rate <= 70) return `⚠️ 移动端流失率 ${rate}% (中度截流预警)`;
+  return `⚠️ 移动端流失率 ${rate}% (全网重度截流)`;
+});
+
+const mobileLossPillClass = computed(() => {
+  const rate = mobileLossRate.value;
+  if (rate === 0) return 'pill-success';
+  if (rate <= 40) return 'pill-warning';
+  return 'pill-alert';
 });
 
 function formatTime(ts) {
@@ -1113,6 +1139,18 @@ watch(() => route.params.code || route.query.code, (newCode) => {
   border: 1px solid #fca5a5;
 }
 
+.pill-warning {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.pill-success {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #6ee7b7;
+}
+
 .device-matrix-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -1127,6 +1165,17 @@ watch(() => route.params.code || route.query.code, (newCode) => {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.card-indexed {
+  background: #f8fafc;
+  border-color: #86efac;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.08);
+}
+
+.card-unindexed {
+  border-color: #cbd5e1;
 }
 
 .chip-mobile {

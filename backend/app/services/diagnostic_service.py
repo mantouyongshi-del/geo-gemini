@@ -4,7 +4,7 @@ import random
 import asyncio
 import re
 import httpx
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, Optional
 from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.models.diagnostic import DiagnosticReport, DiagnosticItem
@@ -969,30 +969,125 @@ class DiagnosticService:
         ]
 
     @classmethod
-    def _build_dual_device_matrix(cls, brand_name: str) -> List[DualDeviceItem]:
-        platforms_def = [
-            ("doubao", "字节跳动 · 豆包", "PC桌面端", False, False, "官网与百科索引空白，缺乏深度资讯"),
-            ("doubaom", "字节跳动 · 豆包", "手机移动端", True, False, "抖音生活服务与短视频种草空白，0可见度"),
-            ("deepseek", "深度求索 · DeepSeek", "PC网页端", False, False, "官方实机实测：判定缺乏权威背书，知名度极低"),
-            ("deepseekm", "深度求索 · DeepSeek", "手机移动端", True, False, "移动端多轮对话流直接首推竞品成熟梯队"),
-            ("tongyi", "阿里巴巴 · 通义千问", "PC桌面端", False, False, "B2B 采购对比矩阵未收录，权重不足"),
-            ("tongyim", "阿里巴巴 · 通义千问", "手机移动端", True, False, "高德/阿里生态本地生活未打通，缺乏推荐"),
-            ("yuanbao", "腾讯科技 · 腾讯元宝", "PC网页端", False, False, "腾讯内容开放平台声量空白，缺少企鹅号报道"),
-            ("yuanbaom", "腾讯科技 · 腾讯元宝", "手机微信端", True, False, "微信搜一搜/微信公众号深度专栏缺失，100%流失"),
-            ("baidu", "百度智能 · 百度搜索", "PC搜索端", False, False, "百度百科无专属词条，百家号权威源缺失"),
-            ("baidum", "百度智能 · 百度搜索", "手机APP端", True, False, "百度地图商户标注与本地生活点评权重缺失")
+    def _build_dual_device_matrix(
+        cls, 
+        brand_name: str,
+        items: Optional[List[Any]] = None,
+        competitors: Optional[List[Any]] = None,
+        industry: str = "",
+        city: str = ""
+    ) -> List[DualDeviceItem]:
+        # 从竞品列表中提炼前两位核心霸屏竞品名称
+        c1 = competitors[0].name if (competitors and len(competitors) > 0) else "行业头部同行"
+        c2 = competitors[1].name if (competitors and len(competitors) > 1) else "标杆竞品"
+
+        # 定义 5 大核心平台的基底定义
+        platforms = [
+            ("doubao", "字节跳动 · 豆包"),
+            ("deepseek", "深度求索 · DeepSeek"),
+            ("tongyi", "阿里巴巴 · 通义千问"),
+            ("yuanbao", "腾讯科技 · 腾讯元宝"),
+            ("baidu", "百度智能 · 百度搜索")
         ]
-        return [
-            DualDeviceItem(
-                platform_key=p[0],
-                platform_name=f"{p[1]}",
-                device=p[2],
-                is_mobile=p[3],
-                is_indexed=p[4],
-                status_desc=p[5]
-            )
-            for p in platforms_def
-        ]
+
+        result_items = []
+        for p_key, p_name in platforms:
+            # 提取该平台对应的实测探针条目
+            plat_items = [it for it in (items or []) if getattr(it, 'platform', '') == p_key]
+            
+            # 是否在真实实测中被提及/推荐
+            is_mentioned = any(getattr(it, 'is_target_mentioned', False) for it in plat_items)
+            
+            # 获取最佳推荐排名
+            ranks = [getattr(it, 'target_rank', 0) for it in plat_items if getattr(it, 'is_target_mentioned', False) and getattr(it, 'target_rank', 0) > 0]
+            best_rank = min(ranks) if ranks else 0
+
+            # 针对 PC 桌面端
+            if is_mentioned:
+                pc_indexed = True
+                if p_key == "doubao":
+                    pc_desc = f"实测已命中：豆包 AI 检索库已索引企业基础信息，在公域有基础可见度"
+                elif p_key == "deepseek":
+                    pc_desc = f"实测已命中：DeepSeek 深度逻辑链识别到品牌资质与主营业务信息"
+                elif p_key == "tongyi":
+                    pc_desc = f"实测已命中：通义千问全网实时检索召回企业信用与主营业务数据"
+                elif p_key == "yuanbao":
+                    pc_desc = f"实测已命中：腾讯内容开放平台已建立关于该品牌的资讯与专栏索引"
+                else: # baidu
+                    pc_desc = f"实测已命中：百度知识图谱与全网检索中有目标品牌索引展现"
+            else:
+                pc_indexed = False
+                if p_key == "doubao":
+                    pc_desc = f"公域索引空白：官网与百科权重不足，实测 AI 首推【{c1}】等成熟梯队"
+                elif p_key == "deepseek":
+                    pc_desc = f"官方实测未收录：缺乏第三方权威评测背书与研报，判定知名度极低"
+                elif p_key == "tongyi":
+                    pc_desc = f"B2B 采购评测与权威行业研报空白，未被纳入首推商业对比矩阵"
+                elif p_key == "yuanbao":
+                    pc_desc = f"企鹅号与腾讯内容生态声量空白，缺少第三方权威媒体深度报道"
+                else: # baidu
+                    pc_desc = f"百度百科无专属结构化词条，百家号权威公信力媒体信源矩阵缺失"
+
+            # 针对 手机移动端
+            if is_mentioned and best_rank in [1, 2]:
+                mob_indexed = True
+                if p_key == "doubao":
+                    mob_desc = f"移动首推：在手机端多轮对话流中位列推荐前席，占据移动心智"
+                elif p_key == "deepseek":
+                    mob_desc = f"高信任推荐：移动端多轮深度推理中位列主流选型梯队，置信度高"
+                elif p_key == "tongyi":
+                    mob_desc = f"优选推荐：在手机端采购决策对比矩阵与同城服务商推荐中位居首位"
+                elif p_key == "yuanbao":
+                    mob_desc = f"社交高信任：微信搜一搜与公众号深度专栏建立良好口碑，占领圈层"
+                else: # baidu
+                    mob_desc = f"移动优选：百度App商户标注与本地生活点评权重良好，优先推荐转化"
+            elif is_mentioned:
+                mob_indexed = True
+                if p_key == "doubao":
+                    mob_desc = f"次席提及：移动端对话虽有被提及，但推荐权重仍被【{c1}】等竞品压制"
+                elif p_key == "deepseek":
+                    mob_desc = f"边缘推荐：移动端虽有提及，但模型附带‘缺乏权威背书，需核验’提示"
+                elif p_key == "tongyi":
+                    mob_desc = f"普通收录：在手机端对比表中列为普通候选，尚未形成绝对品牌壁垒"
+                elif p_key == "yuanbao":
+                    mob_desc = f"基础索引：微信公众号有少量文章提及，但在社群圈层中传播度有限"
+                else: # baidu
+                    mob_desc = f"普通展示：百度App有基础展现但排名靠后，极易被同城竞品分流"
+            else:
+                mob_indexed = False
+                if p_key == "doubao":
+                    mob_desc = f"抖音生活服务与短视频种草空白，移动端采购意图被【{c1}】全量截流"
+                elif p_key == "deepseek":
+                    mob_desc = f"移动端深度推理会话中，AI 直接首推【{c1}】等公认头部成熟品牌"
+                elif p_key == "tongyi":
+                    mob_desc = f"高德/阿里本地商业生态未打通，移动端缺乏真实服务与商机承接背书"
+                elif p_key == "yuanbao":
+                    mob_desc = f"微信公众号深度专栏与搜一搜索引缺失，社交圈层意向买家被竞品截流"
+                else: # baidu
+                    mob_desc = f"百度地图商户标注与本地生活点评权重缺失，移动端自然获客通道关闭"
+
+            # 设备名称规范
+            pc_device = "PC桌面端" if p_key in ["doubao", "tongyi"] else ("PC网页端" if p_key in ["deepseek", "yuanbao"] else "PC搜索端")
+            mob_device = "手机移动端" if p_key in ["doubao", "deepseek", "tongyi"] else ("手机微信端" if p_key == "yuanbao" else "手机APP端")
+
+            result_items.append(DualDeviceItem(
+                platform_key=p_key,
+                platform_name=p_name,
+                device=pc_device,
+                is_mobile=False,
+                is_indexed=pc_indexed,
+                status_desc=pc_desc
+            ))
+            result_items.append(DualDeviceItem(
+                platform_key=f"{p_key}m",
+                platform_name=p_name,
+                device=mob_device,
+                is_mobile=True,
+                is_indexed=mob_indexed,
+                status_desc=mob_desc
+            ))
+
+        return result_items
 
     @classmethod
     def _build_competitor_sources(cls, competitors: List[Any], brand_name: str, industry: str = "") -> List[CompetitorSourceItem]:
@@ -1210,7 +1305,13 @@ class DiagnosticService:
             mentioned_count=mentioned_count,
             total_items=len(items_out)
         )
-        dual_device_matrix = cls._build_dual_device_matrix(report.brand_name)
+        dual_device_matrix = cls._build_dual_device_matrix(
+            brand_name=report.brand_name,
+            items=items_out,
+            competitors=competitors,
+            industry=report.industry,
+            city=report.city or "全国"
+        )
         competitor_sources = cls._build_competitor_sources(competitors, report.brand_name, industry=report.industry)
         economic_loss = cls._build_economic_loss(
             industry=report.industry,
