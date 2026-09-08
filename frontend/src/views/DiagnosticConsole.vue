@@ -260,7 +260,10 @@
                 <h3 class="history-title">⏱️ 本地最近体检记录</h3>
                 <span class="history-count" v-if="recentHistory.length">({{ recentHistory.length }} 份)</span>
               </div>
-              <button class="btn-refresh" @click="loadHistory">🔄 刷新</button>
+              <div class="history-header-right">
+                <span class="scroll-tip-tag" v-if="recentHistory.length > 3">🖱️ 滚动浏览</span>
+                <button class="btn-refresh" @click="loadHistory">🔄 刷新</button>
+              </div>
             </div>
 
             <div class="history-list">
@@ -1034,6 +1037,20 @@ onUnmounted(() => {
   font-weight: 600;
 }
 
+.history-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.scroll-tip-tag {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  background: #f1f5f9;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
 .btn-refresh {
   background: none;
   border: none;
@@ -1046,13 +1063,34 @@ onUnmounted(() => {
 .history-list {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.65rem;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 0.35rem;
+}
+
+.history-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.history-list::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 .history-item {
   border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 0.85rem;
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
   background: #f8fafc;
   transition: all 0.15s;
 }
