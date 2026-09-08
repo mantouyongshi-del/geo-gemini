@@ -5,7 +5,7 @@
       <div class="header-inner">
         <div class="brand-badge">
           <!-- Google Gemini 风格：流光绕周回旋光效容器 -->
-          <router-link to="/diagnostic" class="logo-beam-card" title="蜉蝣小宝 · AI 营销智能大脑 (点击回到首页)">
+          <router-link to="/" class="logo-beam-card" title="蜉蝣小宝 · AI 营销智能大脑 (点击回到品牌官网)">
             <div class="beam-halo"><div class="beam-halo-rotator"></div></div>
             <div class="beam-border-track"><div class="beam-border-rotator"></div></div>
             <div class="logo-inner-content">
@@ -16,6 +16,7 @@
           <span class="live-status-pill">🟢 官方五大引擎直连在线</span>
         </div>
         <div class="header-nav">
+          <router-link to="/" class="nav-link nav-home-link">🏠 品牌官网</router-link>
           <router-link to="/ai_report" class="nav-link">📊 客户报表看板</router-link>
           <router-link to="/diagnostic" class="nav-link active">🎯 准客户 AI 可见度体检</router-link>
         </div>

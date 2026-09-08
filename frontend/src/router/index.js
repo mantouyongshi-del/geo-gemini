@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import HomeLanding from '../views/HomeLanding.vue';
 import AiReport from '../views/AiReport.vue';
 import DiagnosticConsole from '../views/DiagnosticConsole.vue';
 import DiagnosticReport from '../views/DiagnosticReport.vue';
@@ -6,7 +7,15 @@ import DiagnosticReport from '../views/DiagnosticReport.vue';
 const routes = [
   {
     path: '/',
-    redirect: '/diagnostic'
+    name: 'HomeLanding',
+    component: HomeLanding,
+    meta: { title: '蜉蝣小宝 · GEO 新一代生成式 AI 搜索引擎商业认知与拓客中枢' }
+  },
+  {
+    path: '/console',
+    name: 'ConsoleAlias',
+    component: DiagnosticConsole,
+    meta: { title: '蜉蝣小宝 · 企业 AI 可见度售前体检工作台' }
   },
   {
     path: '/ai_report',
