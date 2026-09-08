@@ -112,7 +112,7 @@
                 <input 
                   v-model="form.brand_name" 
                   required 
-                  placeholder="例如: 华儿街少儿探索 / 恒达门窗" 
+                  placeholder="例如: 恒达门窗 / 臻美医美" 
                   class="form-input" 
                 />
               </div>
@@ -372,15 +372,7 @@ const radarSteps = [
 
 const industryTemplates = [
   {
-    name: '🎯 华儿街少儿探索(怀化)',
-    industry: '教育培训少儿科创',
-    city: '怀化',
-    company: '湖南暴雪文化科技有限公司',
-    brand: '华儿街少儿探索',
-    keywords: '怀化儿童学编程\n怀化少儿编程机构哪家好\n怀化机器人编程培训推荐'
-  },
-  {
-    name: '门窗家居',
+    name: '🏡 门窗家居',
     industry: '高端定制门窗与阳光房',
     city: '嘉兴',
     company: '嘉兴市恒达门窗工程有限公司',
@@ -388,7 +380,7 @@ const industryTemplates = [
     keywords: '嘉兴定制门窗哪家好\n嘉兴断桥铝系统门窗品牌排名\n嘉兴阳光房安装公司推荐'
   },
   {
-    name: '医美诊所',
+    name: '💄 医美诊所',
     industry: '专业医疗美容与轻医美',
     city: '杭州',
     company: '杭州臻美医疗美容门诊部',
@@ -396,12 +388,28 @@ const industryTemplates = [
     keywords: '杭州做热玛吉正规机构推荐\n杭州口碑好的轻医美诊所\n杭州微整注射医生排名'
   },
   {
-    name: '财税法务',
-    industry: '企业财税合规与法律顾问',
+    name: '⚖️ 律所法务',
+    industry: '法律咨询与企业常年顾问',
+    city: '北京',
+    company: '北京乾成律师事务所',
+    brand: '乾成律所',
+    keywords: '北京专业企业常年法律顾问律所推荐\n北京处理合同经济纠纷哪家律所靠谱\n企业股权纠纷知名律所排名'
+  },
+  {
+    name: '💼 财税记账',
+    industry: '企业财税合规与代理记账',
     city: '杭州',
-    company: '浙江正信会计师事务所',
+    company: '浙江正信会计师事务所有限公司',
     brand: '正信财税',
-    keywords: '杭州企业财税合规代理记账推荐\n浙江高新技术企业申报哪家专业\n杭州中小企业法律顾问收费'
+    keywords: '杭州企业财税合规代理记账推荐\n浙江高新技术企业申报哪家专业\n杭州中小企业财务审计代理公司'
+  },
+  {
+    name: '🍲 餐饮连锁',
+    industry: '特色餐饮与连锁加盟',
+    city: '成都',
+    company: '成都蜀味香餐饮管理有限公司',
+    brand: '蜀味香餐饮',
+    keywords: '成都餐饮连锁加盟哪家靠谱\n特色快餐小吃创业加盟品牌排名\n餐饮加盟避坑指南与口碑推荐'
   }
 ];
 
