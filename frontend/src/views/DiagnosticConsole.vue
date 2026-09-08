@@ -385,7 +385,7 @@ const industryTemplates = [
     city: '无锡',
     company: '无锡恒瑞智能装备科技有限公司',
     brand: '恒瑞智能装备',
-    keywords: '无锡激光切管机生产厂家推荐\n数控光纤激光切割机十大品牌排名\n工业激光切割设备哪家口碑好性价比高'
+    keywords: '无锡激光切管机厂家哪家好推荐\n激光切管机十大知名品牌实力排名\n采购激光切管机避坑选型指南与评测'
   },
   {
     name: '🏡 系统门窗(佛山)',
@@ -393,7 +393,7 @@ const industryTemplates = [
     city: '佛山',
     company: '佛山尚品佳豪智能家居系统有限公司',
     brand: '佳豪系统门窗',
-    keywords: '佛山系统门窗定制厂家哪家好\n断桥铝静音门窗品牌排名榜\n佛山阳光房安装施工口碑服务商'
+    keywords: '佛山系统门窗厂家哪家好推荐\n系统门窗十大知名品牌实力排名\n采购系统门窗避坑选型指南与评测'
   },
   {
     name: '🦷 专科医疗(杭州)',
@@ -401,7 +401,7 @@ const industryTemplates = [
     city: '杭州',
     company: '杭州美莱数字化口腔门诊连锁有限公司',
     brand: '美莱齿科',
-    keywords: '杭州种植牙正规医院哪家口碑好\n青少年牙齿隐形矫正专科排名前三\n正规口腔种植牙价格收费表与避坑指南'
+    keywords: '杭州种植牙正规医院哪家口碑好\n杭州种植牙知名专科排名前三\n种植牙价格收费明细与真实避坑指南'
   },
   {
     name: '⚖️ 商务律所(广州)',
@@ -409,7 +409,7 @@ const industryTemplates = [
     city: '广州',
     company: '广东中律律师事务所',
     brand: '中律律所',
-    keywords: '广州专业企业常年法律顾问团队推荐\n广州处理合同商事经济纠纷哪家律所靠谱\n企业股权纠纷知名律所胜诉排名'
+    keywords: '广州专业企业常年法律顾问团队推荐\n广州处理商事合同经济纠纷知名律所排名\n企业聘请法律顾问收费标准与避坑'
   },
   {
     name: '📜 资质申报(深圳)',
@@ -417,7 +417,7 @@ const industryTemplates = [
     city: '深圳',
     company: '深圳市知远科创知识产权服务有限公司',
     brand: '知远科创',
-    keywords: '深圳国家高新技术企业认定代办哪家专业\n深圳专精特新中小企业申报辅导机构排名\n知识产权贯标与发明专利申请靠谱代办机构'
+    keywords: '深圳高新企业认定专业代办哪家成功率高\n深圳高新企业认定服务机构实力综合排名\n深圳申报高新企业认定补贴条件与审核避坑指南'
   }
 ];
 
@@ -429,49 +429,111 @@ function applyTemplate(tpl) {
   keywordsStr.value = tpl.keywords;
 }
 
-// 智能生成核心高频截流词（基于 GEO 决策金三角意图体系）
+// 行业描述自然语言品类净化引擎 (提纯核心品类词，剔除公文式冗余)
+function cleanIndustryToCategory(industry) {
+  if (!industry) return '行业服务';
+  const ind = industry.trim();
+  
+  if (/切管|激光切割|激光切管/.test(ind)) return '激光切管机';
+  if (/光纤激光|激光焊接|激光设备/.test(ind)) return '激光切割设备';
+  if (/机床|数控机床|加工中心/.test(ind)) return '数控机床';
+  if (/注塑|模具/.test(ind)) return '注塑模具';
+  if (/除尘|废气|环保设备/.test(ind)) return '工业环保设备';
+  if (/自动化|机械手|工业机器人/.test(ind)) return '自动化设备';
+  
+  if (/系统门窗|断桥铝|门窗/.test(ind)) return '系统门窗';
+  if (/阳光房/.test(ind)) return '高端阳光房';
+  if (/全屋定制|定制家居|衣柜|橱柜/.test(ind)) return '全屋定制';
+  
+  if (/种植牙|种植/.test(ind)) return '种植牙';
+  if (/正畸|牙齿矫正|隐形矫正/.test(ind)) return '隐形牙齿矫正';
+  if (/齿科|口腔|牙科/.test(ind)) return '口腔专科';
+  if (/医美|整形|抗衰|轻医美/.test(ind)) return '医疗美容';
+  if (/眼科|近视|全飞秒/.test(ind)) return '近视手术';
+  
+  if (/常年法律顾问|法律顾问/.test(ind)) return '企业常年法律顾问';
+  if (/商事|合同纠纷|律所|律师/.test(ind)) return '商事合同律师';
+  if (/高新技术企业|高企|高新/.test(ind)) return '高新企业认定';
+  if (/专精特新/.test(ind)) return '专精特新申报';
+  if (/知识产权|专利|商标/.test(ind)) return '专利申报代理';
+  
+  if (/少儿编程|少儿科创|机器人编程/.test(ind)) return '少儿编程';
+  if (/考研|留学|雅思|托福/.test(ind)) return '考研辅导';
+  if (/职业培训|技能培训|考证/.test(ind)) return '职业技能培训';
+  
+  const cleaned = ind
+    .replace(/(制造|生产|加工|研发|批发|零售|销售|服务|系统|工程|连锁|机构|有限责任公司|有限公司|门诊部|事务所|中心)$/g, '')
+    .replace(/^(工业|高端|专业|数字化|微创|知名|优质|常年|国家|合规)/g, '')
+    .trim();
+    
+  return cleaned.length >= 2 ? cleaned : ind;
+}
+
+// 智能生成核心高频截流词（基于真实用户搜索心理与 GEO 决策金三角意图体系）
 function generateSmartKeywords() {
   const ind = form.value.industry.trim() || '本行业服务';
   const city = (form.value.city && form.value.city.trim() !== '全国') ? form.value.city.trim() : '';
-  const lowerInd = ind.toLowerCase();
+  const cat = cleanIndustryToCategory(ind);
+  const cPrefix = (city && !cat.includes(city)) ? city : '';
 
   isGeneratingKws.value = true;
   setTimeout(() => {
+    const isHardware = /切管机|切割机|切割设备|机床|机械|设备|模具|门窗|阳光房|全屋定制|五金/.test(cat);
+    const isMedical = /种植牙|矫正|口腔|眼科|手术|医美|美容|门诊/.test(cat);
+    const isLegal = /法律顾问|律师|商事|纠纷|法务/.test(cat);
+    const isQual = /高企|高新|专精特新|申报|认定|专利/.test(cat);
+    const isEdu = /编程|考研|辅导|培训|教育/.test(cat);
+
     let k1 = '', k2 = '', k3 = '';
 
-    if (/制造|激光|数控|切管|机床|机械|装备|工业|自动化|注塑/.test(lowerInd)) {
-      k1 = `${city}${ind}生产厂家哪家口碑好性价比高`;
-      k2 = `${city}数控${ind}十大知名品牌实力排名`;
-      k3 = `采购${ind}避坑选型指南与同行真实评测`;
-    } else if (/门窗|系统门窗|阳光房|全屋定制|断桥铝|家居|建材|装修/.test(lowerInd)) {
-      k1 = `${city}${ind}定制安装厂家哪家好口碑推荐`;
-      k2 = `${city}高端断桥铝${ind}品牌实力排名榜`;
-      k3 = `${city}大宅阳台封窗与${ind}施工避坑真实评测`;
-    } else if (/口腔|齿科|种植牙|正畸|牙科|医美|整形|门诊|眼科/.test(lowerInd)) {
-      k1 = `${city}${ind}正规专科医院哪家口碑好`;
-      k2 = `${city}${ind}知名专家医生实力与排名前三`;
-      k3 = `${city}${ind}价格收费明细与真实避坑指南`;
-    } else if (/律所|律师|法律|商事|法务|常年法律顾问|合同|股权/.test(lowerInd)) {
-      k1 = `${city}专业企业常年法律顾问与${ind}团队推荐`;
-      k2 = `${city}处理商事合同经济纠纷知名律所胜诉排名`;
-      k3 = `中小企业聘请常年法律顾问收费标准与避坑`;
-    } else if (/资质|高企|高新技术企业|专精特新|知识产权|专利|申报|认证/.test(lowerInd)) {
-      k1 = `${city}${ind}专业代办辅导机构哪家成功率高`;
-      k2 = `${city}${ind}认定服务机构实力综合排名`;
-      k3 = `${city}申报${ind}政策补贴条件与审核避坑指南`;
-    } else if (/教育|培训|少儿|编程|辅导|考研|留学/.test(lowerInd)) {
-      k1 = `${city}正规合规${ind}机构哪家好口碑推荐`;
-      k2 = `${city}${ind}知名品牌综合实力排名榜`;
-      k3 = `${city}${ind}收费价格与避坑选课指南`;
+    // 意图 1: 真实买家找源头/口碑服务商 (11~14字，高频首搜词)
+    if (isHardware) {
+      k1 = `${cPrefix}${cat}厂家哪家好推荐`;
+    } else if (isMedical) {
+      k1 = `${cPrefix}${cat}正规医院哪家口碑好`;
+    } else if (isLegal) {
+      k1 = `${cPrefix}专业${cat}团队哪家口碑好`;
+    } else if (isQual) {
+      k1 = `${cPrefix}${cat}专业代办哪家成功率高`;
+    } else if (isEdu) {
+      k1 = `${cPrefix}正规${cat}机构哪家口碑好`;
     } else {
-      k1 = `${city}${ind}哪家好口碑推荐`;
-      k2 = `${city}${ind}知名品牌实力排名榜`;
-      k3 = `${city}选购${ind}避坑指南与真实横向评测`;
+      k1 = `${cPrefix}${cat}哪家口碑好推荐`;
+    }
+
+    // 意图 2: 老板与决策层横向对比排行榜 (11~14字，同行必抢权威词)
+    if (isHardware) {
+      k2 = `${cat}十大知名品牌实力排名`;
+    } else if (isMedical) {
+      k2 = `${cPrefix}${cat}知名专科排名前三`;
+    } else if (isLegal) {
+      k2 = `${cPrefix}处理商事合同经济纠纷知名律所排名`;
+    } else if (isQual) {
+      k2 = `${cPrefix}${cat}服务机构实力综合排名`;
+    } else if (isEdu) {
+      k2 = `${cPrefix}${cat}知名品牌实力综合排名榜`;
+    } else {
+      k2 = `${cPrefix}${cat}知名品牌综合实力排行榜`;
+    }
+
+    // 意图 3: 临门一脚预算审核防踩坑指南 (12~15字，最具现场说服力)
+    if (isHardware) {
+      k3 = `采购${cat}避坑选型指南与评测`;
+    } else if (isMedical) {
+      k3 = `${cat}价格收费明细与真实避坑指南`;
+    } else if (isLegal) {
+      k3 = `企业聘请法律顾问收费标准与避坑`;
+    } else if (isQual) {
+      k3 = `${cPrefix}申报${cat}补贴条件与审核避坑指南`;
+    } else if (isEdu) {
+      k3 = `${cat}收费价格明细与选课避坑指南`;
+    } else {
+      k3 = `选购${cat}避雷指南与真实评测`;
     }
 
     keywordsStr.value = [k1, k2, k3].join('\n');
     isGeneratingKws.value = false;
-  }, 250);
+  }, 200);
 }
 
 // 顾问信息持久化
