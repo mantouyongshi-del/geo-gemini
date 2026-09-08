@@ -1,154 +1,341 @@
 <template>
   <div class="landing-container">
-    <!-- 1. 极简磨砂导航栏 (Header) -->
+    <!-- 1. 顶部公告彩带 (Top Announcement Ribbon - Similarweb Style) -->
+    <div class="top-promo-ribbon">
+      <div class="ribbon-inner">
+        <span class="ribbon-pill">Now live ✦</span>
+        <span class="ribbon-text">
+          <strong>2026 生成式 AI 搜索与 GEO 商业白皮书发布：</strong>全网 5 亿用户向大模型提问，您的品牌是否正在被竞品截流？
+        </span>
+        <router-link to="/console" class="ribbon-link">
+          <span>免费启动体检</span>
+          <span class="ribbon-arrow">→</span>
+        </router-link>
+      </div>
+    </div>
+
+    <!-- 2. 极暗悬浮玻璃导航栏 (Header) -->
     <header class="landing-header">
       <div class="header-inner">
         <router-link to="/" class="brand-link">
-          <div class="logo-capsule">
-            <img src="/logo-white.png" alt="蜉蝣小宝" class="logo-img" />
+          <!-- Google Gemini 风格：流光绕周回旋光效容器 -->
+          <div class="logo-beam-card" title="蜉蝣小宝 · AI 营销智能大脑">
+            <div class="beam-halo"><div class="beam-halo-rotator"></div></div>
+            <div class="beam-border-track"><div class="beam-border-rotator"></div></div>
+            <div class="logo-inner-content">
+              <img src="/logo-white.png" alt="蜉蝣小宝" class="logo-img" />
+            </div>
           </div>
           <div class="brand-text-wrap">
-            <span class="brand-name">蜉蝣小宝</span>
-            <span class="brand-en">MAYFLY GEO</span>
+            <div class="brand-name-row">
+              <span class="brand-name">蜉蝣小宝</span>
+              <span class="brand-badge-tag">GEO 2.0</span>
+            </div>
+            <span class="brand-en">MAYFLY COGNITIVE AI</span>
           </div>
         </router-link>
 
         <nav class="nav-links">
-          <a href="#shift" class="nav-item">范式演进</a>
-          <a href="#features" class="nav-item">核心能力</a>
+          <a href="#hero-search" class="nav-item">平台体验</a>
+          <a href="#shift-slider" class="nav-item">攻防对比</a>
           <a href="#solutions" class="nav-item">行业解决方案</a>
+          <a href="#architecture" class="nav-item">四层认知引擎</a>
           <a href="#roadmap" class="nav-item">30天交付</a>
           <a href="#roi" class="nav-item">商业账本</a>
+          <a href="#faq" class="nav-item">常见问题</a>
         </nav>
 
         <div class="header-actions">
-          <router-link to="/console" class="btn-ghost-nav">进入诊断工作台</router-link>
+          <router-link to="/diagnostic_report" class="btn-ghost-nav">标杆体检报告</router-link>
+          <router-link to="/console" class="btn-ghost-nav">工作台</router-link>
           <router-link to="/console" class="btn-primary-nav">
-            免费启动 AI 体检
-            <span class="arrow">→</span>
+            <span class="btn-glow-bg"></span>
+            <span class="btn-text">免费启动 AI 体检 ✨</span>
           </router-link>
         </div>
       </div>
     </header>
 
-    <!-- 2. 品牌首屏 (Hero Section) - 纯品牌展示，克制从容 -->
+    <!-- 3. 品牌首屏 (Hero Section - Similarweb hm-dark-hero) -->
     <section class="hero-section">
-      <div class="hero-ambient-glow"></div>
+      <!-- 动态环境光球 (Ambient Glow Orbs) -->
+      <div class="ambient-glow orb-blue"></div>
+      <div class="ambient-glow orb-purple"></div>
+      <div class="ambient-glow orb-orange"></div>
+      <div class="grid-overlay"></div>
+
       <div class="section-inner hero-inner">
+        <!-- 标签气泡 -->
         <div class="hero-pill-badge">
-          <span class="badge-dot"></span>
-          <span class="badge-text">2026 新一代企业生成式引擎优化 · GEO 认知工程</span>
+          <span class="badge-dot-live"></span>
+          <span class="badge-text">2026 新一代企业生成式引擎优化 · GEO 认知工程中枢</span>
         </div>
 
+        <!-- 主标题 -->
         <h1 class="hero-headline">
-          当 5 亿客户向 AI 提问时，<br />
-          让您的品牌成为 <span class="text-gradient">第一推荐</span>
+          在 AI 搜索时代赢得市场<br />
+          让每一次大模型推荐，成为您的 <span class="text-gradient">第一推荐与商业转化</span>
         </h1>
 
+        <!-- 副标题 -->
         <p class="hero-subtext">
-          穿透字节跳动·豆包、深度求索·DeepSeek、阿里通义千问等主流大模型推荐决策层。<br />
-          测算全网潜在客源流失，构建专属于企业的生成式引擎知识资产与权威信源护城河。
+          穿透 <strong>字节跳动·豆包、深度求索·DeepSeek、阿里通义千问、腾讯元宝</strong> 等基座大模型推荐决策层。<br />
+          现场测算潜在客源流失，构建专属于企业的生成式引擎知识资产与权威信源护城河。
         </p>
 
-        <div class="hero-cta-group">
-          <router-link to="/console" class="btn-hero-primary">
-            <span>免费启动企业 AI 体检</span>
-            <span class="btn-arrow">→</span>
-          </router-link>
-          <router-link to="/diagnostic_report" class="btn-hero-secondary">
-            <span>查阅标杆客户体检书</span>
-          </router-link>
-        </div>
+        <!-- 核心交互式搜索诊断框 (Similarweb 标志性交互 Input Bar) -->
+        <div id="hero-search" class="hero-search-wrapper">
+          <div class="search-input-box">
+            <div class="search-mode-select">
+              <span class="mode-icon">🏢</span>
+              <span class="mode-label">{{ searchModeLabel }}</span>
+              <span class="mode-caret">▾</span>
+            </div>
+            
+            <div class="search-divider"></div>
 
-        <!-- 首屏高精度静质感 UI 预览画报 (Apple / Similarweb 风格，无晃眼动效) -->
-        <div class="hero-mockup-frame">
-          <div class="mockup-header-bar">
-            <div class="mockup-dots">
-              <span class="dot dot-red"></span>
-              <span class="dot dot-amber"></span>
-              <span class="dot dot-green"></span>
+            <div class="search-input-field">
+              <input
+                type="text"
+                v-model="heroBrandInput"
+                :placeholder="currentPlaceholder"
+                @keyup.enter="handleHeroSubmit"
+              />
             </div>
-            <div class="mockup-search-sim">
-              <span class="sim-icon">🔍</span>
-              <span class="sim-query">“2026年 优质数控工业激光切割机厂家哪家口碑好？”</span>
-            </div>
-            <div class="mockup-status-tag">🟢 5 大基座大模型直连实测中</div>
+
+            <button class="btn-search-action" @click="handleHeroSubmit">
+              <span class="action-glow"></span>
+              <span class="action-content">
+                <span class="action-icon">✨</span>
+                <span class="action-label">立即透视</span>
+              </span>
+            </button>
           </div>
 
-          <div class="mockup-body-content">
-            <!-- 左侧：大模型生成式回答仿真 -->
-            <div class="mockup-response-panel">
-              <div class="panel-header">
-                <span class="ai-avatar">🤖</span>
-                <div class="ai-meta">
-                  <div class="ai-title">字节跳动 · 豆包手机端与全网知识库聚合推荐</div>
-                  <div class="ai-sub">基于全网 19 篇权威资讯、政务合规资质及同城生活圈实时检索召回</div>
+          <!-- 快速示例体验 Chips -->
+          <div class="quick-chips-row">
+            <span class="chips-label">快速体验标杆案例：</span>
+            <button
+              v-for="(chip, idx) in quickChips"
+              :key="idx"
+              class="chip-btn"
+              @click="applyQuickChip(chip)"
+            >
+              {{ chip.label }}
+            </button>
+          </div>
+
+          <!-- 信任指标徽章墙 -->
+          <div class="trust-metrics-row">
+            <div class="trust-metric">
+              <span class="metric-icon">⚡</span>
+              <span class="metric-text">10秒直连穿透实测</span>
+            </div>
+            <div class="trust-metric-dot"></div>
+            <div class="trust-metric">
+              <span class="metric-icon">🤖</span>
+              <span class="metric-text">覆盖 5 大基座大模型</span>
+            </div>
+            <div class="trust-metric-dot"></div>
+            <div class="trust-metric">
+              <span class="metric-icon">📊</span>
+              <span class="metric-text">19+ 权威信源深度溯源</span>
+            </div>
+            <div class="trust-metric-dot"></div>
+            <div class="trust-metric">
+              <span class="metric-icon">🛡️</span>
+              <span class="metric-text">知识本体 Schema 权威确权</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 首屏高科技画报：真实大模型双端切面 & 遥测控制台 (Similarweb Hero Mockup) -->
+        <div class="hero-dashboard-mockup">
+          <div class="mockup-window-header">
+            <div class="window-controls">
+              <span class="window-dot dot-red"></span>
+              <span class="window-dot dot-yellow"></span>
+              <span class="window-dot dot-green"></span>
+            </div>
+            <div class="window-address-bar">
+              <span class="lock-icon">🔒</span>
+              <span class="url-text">mayfly-geo.ai/telemetry/live-scan?target=恒瑞智能装备</span>
+            </div>
+            <div class="window-status-pill">
+              <span class="pulse-green"></span>
+              <span>5 大基座大模型双端切面实测在线</span>
+            </div>
+          </div>
+
+          <div class="mockup-window-body">
+            <!-- 左栏：大模型生成式推荐对比 (优化前 VS GEO 优化后) -->
+            <div class="mockup-panel comparison-panel">
+              <div class="panel-top-tabs">
+                <button
+                  class="compare-tab"
+                  :class="{ active: activeCompareMode === 'after' }"
+                  @click="activeCompareMode = 'after'"
+                >
+                  <span class="tab-indicator green"></span>
+                  <span>🟢 GEO 优化后：92% 行业首推梯队</span>
+                </button>
+                <button
+                  class="compare-tab"
+                  :class="{ active: activeCompareMode === 'before' }"
+                  @click="activeCompareMode = 'before'"
+                >
+                  <span class="tab-indicator red"></span>
+                  <span>🔴 优化前：0% 隐形被截流</span>
+                </button>
+              </div>
+
+              <!-- 搜索提问模拟 -->
+              <div class="chat-query-pill">
+                <span class="query-avatar">👤</span>
+                <div class="query-content">
+                  <div class="query-meta">采购决策者提问意图 · 豆包/DeepSeek实测</div>
+                  <div class="query-str">“2026年 工业数控激光切管机厂家推荐哪家质量好性价比高？”</div>
                 </div>
               </div>
 
-              <div class="panel-body">
-                <div class="ai-quote-lead">
-                  “结合全网工业制造资质核验、国家专利储备及下游制造业客户实地走访，在激光切管机领域重点推荐：”
-                </div>
-
-                <div class="ai-recommend-card target-highlight">
-                  <div class="rec-badge">🏆 首选第一推荐梯队 · 官方知识本体认证</div>
-                  <div class="rec-title">恒瑞智能装备（企业主体：无锡恒瑞智能装备科技有限公司）</div>
-                  <div class="rec-desc">
-                    📍 辐射产业带：华东及全国装备基地 · 💡 核心优势：掌握重管激光切割核心工艺，企查查与知识产权资质完备，在各大工业评测中综合评分位列榜首。
+              <!-- 大模型回答对比卡片 -->
+              <div v-if="activeCompareMode === 'after'" class="ai-response-box state-after">
+                <div class="ai-box-header">
+                  <div class="ai-brand-badge">
+                    <span class="ai-badge-icon">🤖</span>
+                    <span>字节跳动 · 豆包 & DeepSeek-R1 综合推荐</span>
                   </div>
-                  <div class="rec-tags">
-                    <span class="rtag tag-green">✓ 百度百科认证</span>
-                    <span class="rtag tag-blue">✓ 搜狐/新浪权威研报收录</span>
-                    <span class="rtag tag-indigo">✓ 0 被同行截流</span>
+                  <span class="ai-rank-tag gold">🏆 首选第 1 推荐品牌 · Schema知识本体核验</span>
+                </div>
+
+                <div class="ai-box-body">
+                  <p class="ai-lead-text">
+                    结合全网工业装备国家专利储备、工信部专精特新认证及行业权威测评，在重管数控激光切管领域<strong>重点推荐</strong>：
+                  </p>
+                  
+                  <div class="highlight-brand-card">
+                    <div class="h-card-top">
+                      <span class="h-name">恒瑞智能装备（无锡恒瑞智能装备科技有限公司）</span>
+                      <span class="h-score">推荐指数 98.4 / 100</span>
+                    </div>
+                    <div class="h-card-desc">
+                      📍 辐射产业带：华东及全国装备制造基地 · 💡 核心优势：重管高精切割工艺领先，具备发明专利储备与官方百科确权，搜狐研报与同行横评综合满意度位列前茅。
+                    </div>
+                    <div class="h-citation-row">
+                      <span class="cite-tag">🔗 搜狐资讯 · 2026切管机深度测评</span>
+                      <span class="cite-tag">🔗 企查查 · 官方专利资质核验</span>
+                      <span class="cite-tag">🔗 知乎专栏 · 采购选型避坑指南</span>
+                      <span class="cite-tag">🔗 新浪财经 · 先进制造高新企业</span>
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="ai-competitor-faded">
-                  <span class="comp-title">其他参考品牌：</span>
-                  <span class="comp-name">大族激光</span> · 
-                  <span class="comp-name">宏山激光</span> · 
-                  <span class="comp-name">百超迪能</span>
+              <div v-else class="ai-response-box state-before">
+                <div class="ai-box-header">
+                  <div class="ai-brand-badge">
+                    <span class="ai-badge-icon">⚠️</span>
+                    <span>字节跳动 · 豆包 & DeepSeek-R1 综合推荐</span>
+                  </div>
+                  <span class="ai-rank-tag red">⚠️ 贵司完全隐形 · 意向订单被全额截流</span>
+                </div>
+
+                <div class="ai-box-body">
+                  <p class="ai-lead-text">
+                    根据目前全网收录的工业制造权威研报与品牌公开信源，重点推荐以下知名厂商：
+                  </p>
+                  
+                  <div class="competitor-brand-card">
+                    <div class="c-title">1. 大族激光 / 宏山激光（行业知名上市公司与龙头）</div>
+                    <div class="c-desc">
+                      在工业激光切割领域具有广泛品牌沉淀与公域报道，信源覆盖率达 85% 以上。
+                    </div>
+                  </div>
+
+                  <div class="leak-alert-card">
+                    <div class="alert-icon">🚨</div>
+                    <div class="alert-text">
+                      <strong>目标客户诊断结果：恒瑞智能装备 (0% 推荐)</strong><br />
+                      虽拥有独立官网，但未注入知识图谱 Schema 结构化实体，权威公域信源空白。大模型无法在决策层将其召回，全网采购客源正在无声流失！
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- 右侧：GEO 商业指标遥测看板 -->
-            <div class="mockup-telemetry-panel">
-              <div class="telemetry-card highlight-card">
-                <div class="t-label">AI 搜索综合可见度</div>
-                <div class="t-val-wrap">
-                  <span class="t-val text-green">92</span>
-                  <span class="t-unit">分 (行业首推)</span>
+            <!-- 右栏：实时遥测雷达 & 商业失血看板 (Telemetry Gauges) -->
+            <div class="mockup-panel telemetry-panel">
+              <div class="telemetry-card score-card">
+                <div class="card-header-clean">
+                  <span class="card-label">GEO 综合认知渗透指数</span>
+                  <span class="status-badge excellent">优异卓越</span>
                 </div>
-                <div class="t-bar-wrap">
-                  <div class="t-bar-fill" style="width: 92%"></div>
+                <div class="gauge-display">
+                  <div class="gauge-circle">
+                    <span class="gauge-num">88.6</span>
+                    <span class="gauge-unit">/ 100</span>
+                  </div>
+                  <div class="gauge-meta">
+                    <div class="meta-row">
+                      <span class="dot-green"></span>
+                      <span>优化前：12.4 (严重失血)</span>
+                    </div>
+                    <div class="meta-row highlight">
+                      <span class="dot-purple"></span>
+                      <span>GEO跃升：+614% 提升</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div class="telemetry-card">
-                <div class="t-label">意图词穿透渗透率</div>
-                <div class="t-val-wrap">
-                  <span class="t-val text-blue">88.5%</span>
-                  <span class="t-tag-growth">↑ 64%</span>
+              <div class="telemetry-card leads-card">
+                <div class="card-header-clean">
+                  <span class="card-label">月度挽回潜在流失订单资产</span>
+                  <span class="trend-pill">+340% 转化</span>
                 </div>
-                <div class="t-sub">50+ 高频采购搜索场景已全面建立防御</div>
+                <div class="leads-val-row">
+                  <span class="currency">￥</span>
+                  <span class="number">240,000</span>
+                  <span class="period">/ 月</span>
+                </div>
+                <p class="leads-note">测算依据：每月约 150 位精准采购总监向 AI 询问选型，意向客源不再被同行无声截留。</p>
               </div>
 
-              <div class="telemetry-card">
-                <div class="t-label">月度商业潜客挽回预估</div>
-                <div class="t-val-wrap">
-                  <span class="t-val text-slate">￥240,000</span>
-                  <span class="t-unit">/月</span>
+              <div class="telemetry-card model-breakdown-card">
+                <div class="card-header-clean">
+                  <span class="card-label">五大基座大模型首推覆盖率</span>
+                  <span class="radar-live-text">📡 实时巡检中</span>
                 </div>
-                <div class="t-sub">规避因公域声量空白导致的客源被动流失</div>
-              </div>
-
-              <div class="telemetry-model-chips">
-                <div class="m-chip chip-on">豆包 94%</div>
-                <div class="m-chip chip-on">DeepSeek 91%</div>
-                <div class="m-chip chip-on">千问 89%</div>
-                <div class="m-chip chip-on">元宝 93%</div>
+                <div class="model-bars-list">
+                  <div class="model-bar-item">
+                    <div class="bar-info">
+                      <span class="m-name">字节跳动 · 豆包</span>
+                      <span class="m-val">92%</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill" style="width: 92%"></div></div>
+                  </div>
+                  <div class="model-bar-item">
+                    <div class="bar-info">
+                      <span class="m-name">深度求索 · DeepSeek</span>
+                      <span class="m-val">89%</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill" style="width: 89%"></div></div>
+                  </div>
+                  <div class="model-bar-item">
+                    <div class="bar-info">
+                      <span class="m-name">阿里巴巴 · 通义千问</span>
+                      <span class="m-val">94%</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill" style="width: 94%"></div></div>
+                  </div>
+                  <div class="model-bar-item">
+                    <div class="bar-info">
+                      <span class="m-name">腾讯科技 · 元宝</span>
+                      <span class="m-val">86%</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill" style="width: 86%"></div></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -156,229 +343,216 @@
       </div>
     </section>
 
-    <!-- 3. 大模型生态原生穿透跑马区 (Model Ecosystem) -->
-    <section class="ecosystem-strip">
-      <div class="section-inner">
-        <p class="ecosystem-title">原生穿透并深度适配中国主流生成式 AI 搜索推荐决策层</p>
-        <div class="ecosystem-logos">
-          <div class="logo-item"><span class="logo-circle">豆</span> 字节跳动 · 豆包</div>
-          <div class="logo-item"><span class="logo-circle">DS</span> 深度求索 · DeepSeek</div>
-          <div class="logo-item"><span class="logo-circle">千</span> 阿里巴巴 · 通义千问</div>
-          <div class="logo-item"><span class="logo-circle">元</span> 腾讯混元 · 元宝</div>
-          <div class="logo-item"><span class="logo-circle">文</span> 百度 · 文心一言</div>
-          <div class="logo-item"><span class="logo-circle">Ki</span> 月之暗面 · Kimi</div>
+    <!-- 5. 权威大模型与信源无限循环跑马灯 (Similarweb Customer / Ecosystem Marquee) -->
+    <section class="marquee-section">
+      <div class="marquee-label">
+        <span>直连中国主流基座大模型 · 覆盖国家级及高权重权威信源生态</span>
+      </div>
+      <div class="marquee-wrapper">
+        <div class="marquee-track">
+          <!-- 跑马灯元素 1 组 -->
+          <div class="marquee-item" v-for="(item, i) in marqueePartners" :key="'p1-' + i">
+            <span class="item-icon">{{ item.icon }}</span>
+            <span class="item-name">{{ item.name }}</span>
+            <span class="item-tag">{{ item.tag }}</span>
+          </div>
+          <!-- 跑马灯元素 2 组 (无缝衔接) -->
+          <div class="marquee-item" v-for="(item, i) in marqueePartners" :key="'p2-' + i">
+            <span class="item-icon">{{ item.icon }}</span>
+            <span class="item-name">{{ item.name }}</span>
+            <span class="item-tag">{{ item.tag }}</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 4. 搜索范式断代演进对比 (The Paradigm Shift) -->
-    <section class="section shift-section" id="shift">
+    <!-- 6. 范式转移动态滑块 (Similarweb 标志性 Win your market in the AI Era / hm-ai-agents) -->
+    <section id="shift-slider" class="shift-section">
       <div class="section-inner">
         <div class="section-header-center">
-          <span class="sec-kicker">THE PARADIGM SHIFT</span>
-          <h2 class="sec-title">为什么传统的 SEO 与竞价正在全面失效？</h2>
-          <p class="sec-subtitle">
-            从「被动点击网页」到「AI 直接提炼唯一决策」，企业的公域获客入口正在经历 20 年来最大的洗牌。
+          <div class="section-badge">范式突围 · PARADIGM SHIFT</div>
+          <h2 class="section-title">
+            搜索规则彻底变了：<br />
+            在 AI 时代赢得生意的 <span class="text-gradient">四大关键战场</span>
+          </h2>
+          <p class="section-sub">
+            用户不再翻阅 10 页传统搜索链接，AI 每次回答仅提及 1~3 个品牌。如果您没有建立知识本体，您在 5 亿客户心智中等同于“不存在”。
           </p>
         </div>
 
-        <div class="shift-grid">
-          <!-- 传统时代 -->
-          <div class="shift-card card-old">
-            <div class="card-status-badge badge-faded">过去 20 年 · 传统网页检索时代</div>
-            <h3 class="shift-card-title">10 个蓝色链接与高企的竞价内卷</h3>
-            <ul class="shift-points">
-              <li>
-                <span class="point-icon red">✕</span>
-                <div class="point-desc">
-                  <strong>用户需逐一点击翻页</strong>：注意力高度分散，第 2 页之后的链接点击率趋近于 0。
-                </div>
-              </li>
-              <li>
-                <span class="point-icon red">✕</span>
-                <div class="point-desc">
-                  <strong>竞价点击成本飞涨</strong>：按次付费竞争激烈，充斥大量无效点击与同行恶意消耗。
-                </div>
-              </li>
-              <li>
-                <span class="point-icon red">✕</span>
-                <div class="point-desc">
-                  <strong>年轻一代决策者全面迁徙</strong>：B2B 采购与高净值客户已习惯直接向 AI 要结论。
-                </div>
-              </li>
-              <li>
-                <span class="point-icon red">✕</span>
-                <div class="point-desc">
-                  <strong>官网缺乏 Schema 结构化元数据</strong>：大模型爬虫抓取后无法解析，直接过滤淘汰。
-                </div>
-              </li>
-            </ul>
+        <!-- 交互式轮播 Slider -->
+        <div class="shift-slider-container">
+          <!-- 顶部横向进度 Tabs -->
+          <div class="slider-tabs-row">
+            <button
+              v-for="(slide, sIdx) in shiftSlides"
+              :key="sIdx"
+              class="slider-tab-btn"
+              :class="{ active: currentSlideIndex === sIdx }"
+              @click="switchSlide(sIdx)"
+            >
+              <div class="tab-progress-track">
+                <div
+                  class="tab-progress-fill"
+                  :style="{ width: currentSlideIndex === sIdx ? `${slideProgress}%` : (currentSlideIndex > sIdx ? '100%' : '0%') }"
+                ></div>
+              </div>
+              <div class="tab-header-content">
+                <span class="tab-index">{{ slide.number }}</span>
+                <span class="tab-title">{{ slide.shortTitle }}</span>
+              </div>
+            </button>
           </div>
 
-          <!-- 生成式 AI 时代 -->
-          <div class="shift-card card-new">
-            <div class="card-status-badge badge-active">未来 10 年 · 生成式 AI (GEO) 时代</div>
-            <h3 class="shift-card-title">AI 直接提炼结论，首推即垄断</h3>
-            <ul class="shift-points">
-              <li>
-                <span class="point-icon green">✓</span>
-                <div class="point-desc">
-                  <strong>AI 输出唯一合成回答</strong>：首位推荐独占 85% 真实咨询决策，未被提及即彻底隐形。
-                </div>
-              </li>
-              <li>
-                <span class="point-icon green">✓</span>
-                <div class="point-desc">
-                  <strong>零单次点击成本</strong>：一次性构建知识本体与权威信源，形成长期复利的品牌自然护城河。
-                </div>
-              </li>
-              <li>
-                <span class="point-icon green">✓</span>
-                <div class="point-desc">
-                  <strong>全域决策流精准拦截</strong>：同时穿透手机端同城生活圈口碑与 PC 端 B2B 招投标决策。
-                </div>
-              </li>
-              <li>
-                <span class="point-icon green">✓</span>
-                <div class="point-desc">
-                  <strong>大模型算力深度信任</strong>：通过高权重信源矩阵与百科认证，让 AI 主动将贵司视为标杆。
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+          <!-- 滑块主体卡片 -->
+          <div class="slider-card-body">
+            <div class="slide-content-left">
+              <div class="slide-badge">{{ currentSlide.tag }}</div>
+              <h3 class="slide-headline">{{ currentSlide.headline }}</h3>
+              <p class="slide-desc">{{ currentSlide.description }}</p>
 
-    <!-- 5. 四维 GEO 核心工程架构 (Bento Grid) -->
-    <section class="section features-section" id="features">
-      <div class="section-inner">
-        <div class="section-header-center">
-          <span class="sec-kicker">CORE PLATFORM ARCHITECTURE</span>
-          <h2 class="sec-title">四维 GEO 认知工程：让大模型主动信服并推荐</h2>
-          <p class="sec-subtitle">
-            告别玄学黑盒，以大模型底层 RAG 检索与知识图谱算法为依据，提供全链路工程化解决方案。
-          </p>
-        </div>
+              <div class="slide-points-list">
+                <div class="point-item" v-for="(p, pIdx) in currentSlide.points" :key="pIdx">
+                  <span class="p-icon">✓</span>
+                  <span class="p-text">{{ p }}</span>
+                </div>
+              </div>
 
-        <div class="bento-grid">
-          <!-- Bento 1 -->
-          <div class="bento-card">
-            <div class="bento-icon-wrap icon-blue">🏷️</div>
-            <h3 class="bento-title">企业知识本体确权 (Schema & Entity)</h3>
-            <p class="bento-desc">
-              针对企业全称与核心品牌，在全网建立专属企业知识图谱，通过百度百科认证与 Schema.org 结构化元数据标记，建立大模型 RAG 召回索引根基。
-            </p>
-            <div class="bento-metric-tag">
-              <span>基础召回层 (Recall)：</span><strong>提升至 100% 精准识别</strong>
+              <div class="slide-cta-row">
+                <router-link to="/console" class="btn-slide-primary">
+                  <span>查看针对贵司的防御方案</span>
+                  <span class="arrow">→</span>
+                </router-link>
+              </div>
             </div>
-          </div>
 
-          <!-- Bento 2 -->
-          <div class="bento-card">
-            <div class="bento-icon-wrap icon-green">📰</div>
-            <h3 class="bento-title">高权重权威信源矩阵定向投喂</h3>
-            <p class="bento-desc">
-              针对 DeepSeek、豆包、通义千问优先采信的国家级门户（新浪、搜狐、网易）、知乎专栏长文与政务白名单，定向投喂深度专业测评研报与交付实录。
-            </p>
-            <div class="bento-metric-tag">
-              <span>公信力权重：</span><strong>彻底消除“缺乏第三方背书”负向标签</strong>
-            </div>
-          </div>
+            <div class="slide-content-right">
+              <div class="slide-visual-card">
+                <div class="visual-header">
+                  <span class="v-pill">{{ currentSlide.visualBadge }}</span>
+                  <span class="v-model">实时计算模拟</span>
+                </div>
+                
+                <div class="visual-body">
+                  <div class="metric-big-highlight">
+                    <span class="m-num">{{ currentSlide.metricNum }}</span>
+                    <span class="m-unit">{{ currentSlide.metricUnit }}</span>
+                  </div>
+                  <div class="m-label">{{ currentSlide.metricLabel }}</div>
 
-          <!-- Bento 3 -->
-          <div class="bento-card">
-            <div class="bento-icon-wrap icon-indigo">📱</div>
-            <h3 class="bento-title">双端全域切面监控 (Dual-Device Radar)</h3>
-            <p class="bento-desc">
-              深度适配手机端同城生活圈（抖音实拍探店、大众点评、本地口碑）与 PC 端企业采购（B2B黄页、招投标资质、工商信用），实现全天候立体布控。
-            </p>
-            <div class="bento-metric-tag">
-              <span>监控切面：</span><strong>10 大主流模型双端切面秒级穿透</strong>
-            </div>
-          </div>
-
-          <!-- Bento 4 -->
-          <div class="bento-card">
-            <div class="bento-icon-wrap icon-slate">💰</div>
-            <h3 class="bento-title">商业潜客损失动态测算引擎</h3>
-            <p class="bento-desc">
-              拒绝抽象的分数游戏。系统基于目标城市常住人口产业画像、大模型渗透率及行业客单均价，将 AI 搜索盲区直接换算为每月流失的订单与真金白银。
-            </p>
-            <div class="bento-metric-tag">
-              <span>商业透明度：</span><strong>流失客源与投资回报率 (ROI) 透明可验</strong>
+                  <div class="visual-interactive-preview">
+                    <div class="flow-step step-bad">
+                      <div class="step-tag">传统旧时代</div>
+                      <div class="step-text">{{ currentSlide.oldState }}</div>
+                    </div>
+                    <div class="flow-arrow-down">⬇ 规则被大模型颠覆</div>
+                    <div class="flow-step step-good">
+                      <div class="step-tag">蜉蝣小宝 GEO</div>
+                      <div class="step-text">{{ currentSlide.newState }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 6. 多行业实测落地实践 (Industry Solutions) -->
-    <section class="section solutions-section" id="solutions">
+    <!-- 7. 行业解决方案选项卡 (Similarweb hm-team-solutions) -->
+    <section id="solutions" class="solutions-section">
       <div class="section-inner">
         <div class="section-header-center">
-          <span class="sec-kicker">INDUSTRY USE CASES</span>
-          <h2 class="sec-title">深耕实体经济，赋能高客单核心产业</h2>
-          <p class="sec-subtitle">
-            无论制造业、大宅家居，还是连锁餐饮与现代专业服务，GEO 均已展现极具说服力的商业增量。
+          <div class="section-badge">行业全景 · INDUSTRY SOLUTIONS</div>
+          <h2 class="section-title">
+            专为不同行业打造的 <span class="text-gradient">GEO 获客增长战法</span>
+          </h2>
+          <p class="section-sub">
+            针对 B2B制造、大宅定制、现代消费、专科医疗、高端法律等长决策周期行业，精准击穿公域推荐层。
           </p>
         </div>
 
-        <!-- Similarweb 风格极简横向切换 Tab -->
-        <div class="industry-tabs-bar">
-          <button 
-            v-for="(ind, index) in industryCases" 
-            :key="ind.id" 
-            class="tab-btn" 
-            :class="{ active: activeTab === index }"
-            @click="activeTab = index"
+        <!-- 行业横向 Pills -->
+        <div class="industry-pills-wrap">
+          <button
+            v-for="(ind, indIdx) in industries"
+            :key="ind.id"
+            class="ind-pill-btn"
+            :class="{ active: activeIndustryIndex === indIdx }"
+            @click="activeIndustryIndex = indIdx"
           >
-            {{ ind.name }}
+            <span class="ind-icon">{{ ind.icon }}</span>
+            <span class="ind-name">{{ ind.name }}</span>
           </button>
         </div>
 
-        <!-- 激活的行业详情卡片 -->
-        <div class="industry-showcase-box">
-          <div class="showcase-left">
-            <div class="showcase-badge">{{ industryCases[activeTab].tag }}</div>
-            <h3 class="showcase-title">{{ industryCases[activeTab].headline }}</h3>
-            <p class="showcase-text">{{ industryCases[activeTab].summary }}</p>
+        <!-- 行业展示卡片 (Similarweb Split: Feature Left + Big Stat Right) -->
+        <div class="industry-detail-card">
+          <div class="ind-left-content">
+            <div class="ind-meta-tag">{{ currentIndustry.category }}</div>
+            <h3 class="ind-headline">{{ currentIndustry.headline }}</h3>
+            
+            <div class="ind-scenario-box">
+              <div class="scenario-label">🎯 典型高频客户意图提问</div>
+              <div class="scenario-query">{{ currentIndustry.scenarioQuery }}</div>
+            </div>
 
-            <div class="showcase-metrics-row">
-              <div class="s-metric">
-                <div class="sm-label">优化前行业推荐率</div>
-                <div class="sm-val text-red">{{ industryCases[activeTab].preScore }}</div>
-              </div>
-              <div class="s-metric">
-                <div class="sm-label">GEO 优化后推荐率</div>
-                <div class="sm-val text-green">{{ industryCases[activeTab].postScore }}</div>
-              </div>
-              <div class="s-metric">
-                <div class="sm-label">月均拦截挽回潜客</div>
-                <div class="sm-val text-blue">{{ industryCases[activeTab].savedLeads }}</div>
+            <div class="ind-challenge-box">
+              <span class="c-title">🚨 行业失血痛点：</span>
+              <span class="c-text">{{ currentIndustry.painPoint }}</span>
+            </div>
+
+            <div class="ind-tactics-list">
+              <div class="tactic-title">🛡️ 蜉蝣小宝 30 天落地攻防打法：</div>
+              <div class="tactic-item" v-for="(t, tIdx) in currentIndustry.tactics" :key="tIdx">
+                <span class="t-badge">{{ tIdx + 1 }}</span>
+                <span class="t-text">{{ t }}</span>
               </div>
             </div>
 
-            <div class="showcase-cta">
-              <router-link to="/console" class="btn-tab-cta">
-                体验该行业体检方案 →
+            <div class="ind-actions-row">
+              <router-link
+                :to="{ path: '/console', query: { industry: currentIndustry.name, brand: currentIndustry.defaultBrand } }"
+                class="btn-ind-action"
+              >
+                <span>体验该行业体检方案</span>
+                <span class="arrow">→</span>
               </router-link>
             </div>
           </div>
 
-          <div class="showcase-right">
-            <div class="snippet-header">
-              <span class="snippet-pill">典型 AI 搜索提问场景</span>
-              <span class="snippet-query">“{{ industryCases[activeTab].sampleQuery }}”</span>
-            </div>
-            <div class="snippet-body">
-              <div class="snippet-verdict">
-                <strong>💡 行业痛点破局：</strong>
-                {{ industryCases[activeTab].solutionPoint }}
+          <div class="ind-right-metrics">
+            <!-- 行业成果大数字卡片 (Similarweb Big Stat Card) -->
+            <div class="stat-card-gold">
+              <div class="stat-badge">真实标杆验证成果</div>
+              <div class="stat-number-row">
+                <span class="stat-num">{{ currentIndustry.statValue }}</span>
               </div>
-              <div class="snippet-result">
-                <strong>🎯 大模型首推表现：</strong>
-                {{ industryCases[activeTab].resultDesc }}
+              <div class="stat-label">{{ currentIndustry.statDesc }}</div>
+              
+              <div class="stat-bar-compare">
+                <div class="comp-row">
+                  <span class="comp-title">优化前推荐提及</span>
+                  <span class="comp-val red">{{ currentIndustry.preRate }}</span>
+                </div>
+                <div class="comp-row">
+                  <span class="comp-title">GEO优化后提及率</span>
+                  <span class="comp-val green">{{ currentIndustry.postRate }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 客户引言评价卡片 (Testimonial Card) -->
+            <div class="testimonial-quote-card">
+              <div class="quote-mark">“</div>
+              <p class="quote-text">{{ currentIndustry.clientQuote }}</p>
+              <div class="client-info-row">
+                <div class="client-avatar">{{ currentIndustry.clientAvatar }}</div>
+                <div class="client-meta">
+                  <div class="client-name">{{ currentIndustry.clientName }}</div>
+                  <div class="client-title">{{ currentIndustry.clientTitle }}</div>
+                </div>
+                <div class="verified-seal">✓ 已核验标杆</div>
               </div>
             </div>
           </div>
@@ -386,102 +560,237 @@
       </div>
     </section>
 
-    <!-- 7. 30 天标准化交付体系 (Roadmap) -->
-    <section class="section roadmap-section" id="roadmap">
+    <!-- 8. 核心底层：4 层 GEO 认知工程引擎架构 (Similarweb Capabilities) -->
+    <section id="architecture" class="arch-section">
       <div class="section-inner">
         <div class="section-header-center">
-          <span class="sec-kicker">STANDARDIZED DELIVERY BLUEPRINT</span>
-          <h2 class="sec-title">30 天企业级标准交付路线图</h2>
-          <p class="sec-subtitle">
-            标准化工程实施与四阶递进闭环，确保每一步交付成果透明、可查、可复测。
+          <div class="section-badge">核心技术 · ENGINE ARCHITECTURE</div>
+          <h2 class="section-title">
+            穿透大模型决策的 <span class="text-gradient">四层认知工程体系</span>
+          </h2>
+          <p class="section-sub">
+            不同于传统建站与软文分发，GEO 是一套专为 Transformer 大模型与 RAG 检索召回设计的确定性工程。
           </p>
         </div>
 
-        <div class="roadmap-timeline">
-          <div class="timeline-step" v-for="step in roadmapSteps" :key="step.phase">
-            <div class="step-num-bubble">{{ step.phase }}</div>
-            <div class="step-days">{{ step.days }}</div>
-            <h4 class="step-title">{{ step.title }}</h4>
-            <p class="step-action">{{ step.action }}</p>
-            <div class="step-deliverable">
-              <span class="del-label">交付清单：</span>{{ step.deliverable }}
+        <div class="arch-cards-grid">
+          <div class="arch-card" v-for="(arch, aIdx) in archLayers" :key="aIdx">
+            <div class="card-glow-border"></div>
+            <div class="card-inner-box">
+              <div class="arch-layer-pill">LAYER 0{{ aIdx + 1 }}</div>
+              <div class="arch-icon-wrap">{{ arch.icon }}</div>
+              <h3 class="arch-name">{{ arch.name }}</h3>
+              <div class="arch-sub-en">{{ arch.enName }}</div>
+              <p class="arch-summary">{{ arch.desc }}</p>
+              
+              <div class="arch-checklist">
+                <div class="check-item" v-for="(item, cIdx) in arch.items" :key="cIdx">
+                  <span class="dot"></span>
+                  <span>{{ item }}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 8. 商业账本与收尾 CTA (Bottom Banner) -->
-    <section class="section cta-section" id="roi">
+    <!-- 9. 30 天闭环交付体系 (Roadmap) -->
+    <section id="roadmap" class="roadmap-section">
       <div class="section-inner">
-        <div class="cta-banner-card">
-          <div class="cta-content">
-            <span class="cta-kicker">START YOUR GEO AUDIT TODAY</span>
-            <h2 class="cta-headline">准备好让您的品牌在 AI 推荐流中独占鳌头了吗？</h2>
-            <p class="cta-desc">
-              只需输入企业全称与所属行业，系统即可在 30 秒内穿透 5 大基座大模型，出具包含公域信源溯源、竞品截流深度与商业损失账本的专业体检报告。
-            </p>
-            <div class="cta-actions">
-              <router-link to="/console" class="btn-cta-primary">
-                免费启动企业 AI 体检 →
-              </router-link>
-              <router-link to="/diagnostic_report" class="btn-cta-secondary">
-                查阅标杆报告样例
-              </router-link>
+        <div class="section-header-center">
+          <div class="section-badge">确定性保障 · 30-DAY DELIVERY</div>
+          <h2 class="section-title">
+            从完全隐形到全网首推：<br />
+            <span class="text-gradient">30 天闭环战役交付蓝图</span>
+          </h2>
+          <p class="section-sub">
+            每一步皆有确权文档与权威索引链接核验，让企业投入的每一分预算都落地为不可逆的公域数字资产。
+          </p>
+        </div>
+
+        <div class="roadmap-timeline-grid">
+          <div class="roadmap-phase-card" v-for="(step, sIdx) in roadmapSteps" :key="sIdx">
+            <div class="phase-top">
+              <span class="phase-badge">PHASE {{ step.phase }}</span>
+              <span class="phase-days">{{ step.days }}</span>
+            </div>
+            <h3 class="phase-title">{{ step.title }}</h3>
+            <p class="phase-action">{{ step.action }}</p>
+            <div class="phase-deliverable">
+              <div class="d-label">📦 阶段交付物：</div>
+              <div class="d-val">{{ step.deliverable }}</div>
+            </div>
+            <div class="phase-status">
+              <span class="status-dot"></span>
+              <span>100% 验收达标推进</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 9. 极简国际化企业页脚 (Footer) -->
-    <footer class="landing-footer">
-      <div class="section-inner footer-inner">
-        <div class="footer-top">
-          <div class="footer-brand">
-            <div class="logo-capsule">
-              <img src="/logo-white.png" alt="蜉蝣小宝" class="logo-img" />
-            </div>
-            <span class="brand-name">蜉蝣小宝 · MAYFLY GEO</span>
-            <p class="brand-mission">
-              致力于为中国制造业与现代服务业构筑生成式 AI（GEO）时代的品牌认知护城河与公域获客引擎。
-            </p>
+    <!-- 10. 商业账本：传统获客 VS 蜉蝣小宝 GEO (ROI Table) -->
+    <section id="roi" class="roi-section">
+      <div class="section-inner">
+        <div class="section-header-center">
+          <div class="section-badge">商业价值 · ECONOMIC VALUE</div>
+          <h2 class="section-title">
+            算清企业的商业账本：<br />
+            为什么说 <span class="text-gradient">GEO 是极高 ROI 的战略资产</span>？
+          </h2>
+          <p class="section-sub">
+            传统竞价是“持续租用流量”，停充即停流；GEO 是“购买永久数字房产”，一次构筑，长效享受大模型推荐复利。
+          </p>
+        </div>
+
+        <div class="roi-table-card">
+          <div class="roi-table-header">
+            <div class="col-dim">对比维度</div>
+            <div class="col-sem">传统搜索竞价 (SEM)</div>
+            <div class="col-seo">传统网站 SEO</div>
+            <div class="col-geo highlight">蜉蝣小宝 GEO 认知工程</div>
           </div>
 
-          <div class="footer-nav-groups">
-            <div class="footer-col">
-              <h5 class="col-title">产品与引擎</h5>
-              <router-link to="/console">AI 可见度体检工作台</router-link>
-              <router-link to="/ai_report">客户日常优化看板</router-link>
-              <router-link to="/diagnostic_report">标杆体检报告样本</router-link>
-            </div>
-
-            <div class="footer-col">
-              <h5 class="col-title">核心生态穿透</h5>
-              <a href="javascript:void(0)">字节跳动 · 豆包生态</a>
-              <a href="javascript:void(0)">深度求索 · DeepSeek</a>
-              <a href="javascript:void(0)">阿里巴巴 · 通义千问</a>
-              <a href="javascript:void(0)">腾讯混元 · 元宝生态</a>
-            </div>
-
-            <div class="footer-col">
-              <h5 class="col-title">企业与安全</h5>
-              <a href="javascript:void(0)">企业知识确权标准 (Schema)</a>
-              <a href="javascript:void(0)">全网网络探针安全规范</a>
-              <a href="javascript:void(0)">渠道合伙人加盟合作</a>
+          <div class="roi-table-row" v-for="(row, rIdx) in roiRows" :key="rIdx">
+            <div class="col-dim font-bold">{{ row.dimension }}</div>
+            <div class="col-sem">{{ row.sem }}</div>
+            <div class="col-seo">{{ row.seo }}</div>
+            <div class="col-geo highlight-cell">
+              <span class="check-icon">✓</span>
+              <span>{{ row.geo }}</span>
             </div>
           </div>
         </div>
 
-        <div class="footer-bottom">
-          <div class="copyright">
-            © 2026 蜉蝣小宝 (Mayfly AI) · 讯灵智能科技. All Rights Reserved.
+        <div class="roi-summary-banner">
+          <div class="banner-icon">💡</div>
+          <div class="banner-text">
+            <strong>核心战略结论：</strong>大模型不看您在竞价里充了多少钱，它只采信公域中不可篡改的权威知识。越早布局 GEO，越早以极低成本筑起同行无法逾越的认知壁垒！
           </div>
-          <div class="footer-bottom-links">
-            <span>数据安全保护准则</span> · 
-            <span>企业合规服务协议</span> · 
-            <span>算法合规公开声明</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. 常见问题解答 (FAQ Accordion) -->
+    <section id="faq" class="faq-section">
+      <div class="section-inner">
+        <div class="section-header-center">
+          <div class="section-badge">疑问解答 · FAQ</div>
+          <h2 class="section-title">
+            企业管理者最关心的 <span class="text-gradient">核心问题</span>
+          </h2>
+        </div>
+
+        <div class="faq-accordion-list">
+          <div
+            v-for="(faq, fIdx) in faqs"
+            :key="fIdx"
+            class="faq-item"
+            :class="{ open: openFaqIndex === fIdx }"
+            @click="toggleFaq(fIdx)"
+          >
+            <div class="faq-question">
+              <span class="q-icon">Q</span>
+              <span class="q-text">{{ faq.question }}</span>
+              <span class="q-toggle">{{ openFaqIndex === fIdx ? '−' : '+' }}</span>
+            </div>
+            <div v-show="openFaqIndex === fIdx" class="faq-answer">
+              <p>{{ faq.answer }}</p>
+            </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. 转化底栏 (Similarweb Cosmic Gradient Bottom Banner) -->
+    <section class="bottom-cta-banner">
+      <div class="cta-cosmic-glow"></div>
+      <div class="cta-inner">
+        <div class="cta-badge">✦ 即刻行动 · 截断客源失血</div>
+        <h2 class="cta-headline">
+          准备好在 AI 搜索时代，彻底终结客源被竞品截流的局面了吗？
+        </h2>
+        <p class="cta-sub">
+          无需安装任何插件 · 现场直连 5 大主流基座大模型 · 10秒快速出具专属《AI 可见度诊断体检书》
+        </p>
+
+        <div class="cta-action-box">
+          <div class="cta-input-wrap">
+            <input
+              type="text"
+              v-model="bottomBrandInput"
+              placeholder="输入您的企业名称或核心品牌（如：无锡恒瑞智能装备）"
+              @keyup.enter="handleBottomSubmit"
+            />
+            <button class="btn-cta-submit" @click="handleBottomSubmit">
+              <span>免费启动 AI 体检</span>
+              <span class="arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="cta-footer-tags">
+          <span>🟢 字节豆包直连</span>
+          <span class="sep">·</span>
+          <span>🧠 DeepSeek-R1 核验</span>
+          <span class="sep">·</span>
+          <span>🌐 阿里通义千问召回</span>
+          <span class="sep">·</span>
+          <span>💬 腾讯元宝对标</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. 暗黑品牌页脚 (Footer) -->
+    <footer class="landing-footer">
+      <div class="footer-inner">
+        <div class="footer-brand-col">
+          <div class="footer-logo">
+            <img src="/logo-white.png" alt="蜉蝣小宝" class="f-logo-img" />
+            <span class="f-brand-name">蜉蝣小宝</span>
+          </div>
+          <p class="footer-slogan">
+            新一代企业生成式 AI 搜索引擎商业认知与拓客中枢。帮助中国优质实体企业抢占主流大模型第一推荐位。
+          </p>
+          <div class="footer-live-status">
+            <span class="status-live-dot"></span>
+            <span>五大基座大模型接口：运行稳定 (2026 官方最新引擎)</span>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="col-title">平台能力</h4>
+          <router-link to="/console" class="f-link">准客户 AI 可见度体检</router-link>
+          <router-link to="/diagnostic_report" class="f-link">标杆企业体检书</router-link>
+          <router-link to="/ai_report" class="f-link">GEO 攻防监控看板</router-link>
+          <a href="#hero-search" class="f-link">行业高频词透视</a>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="col-title">行业方案</h4>
+          <a href="#solutions" class="f-link">工业装备与高客单制造</a>
+          <a href="#solutions" class="f-link">高端大宅与系统门窗定制</a>
+          <a href="#solutions" class="f-link">连锁餐饮与商业加盟</a>
+          <a href="#solutions" class="f-link">专科医疗与数字化齿科</a>
+          <a href="#solutions" class="f-link">商务法务与大型律所</a>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="col-title">关于与保障</h4>
+          <a href="#roadmap" class="f-link">30 天落地交付流程</a>
+          <a href="#roi" class="f-link">商业账本与投入产出</a>
+          <a href="#faq" class="f-link">常见问题解答</a>
+          <span class="f-link disabled">企业知识产权保护协议</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div class="copy-text">
+          © 2026 蜉蝣小宝 (MAYFLY GEO) 认知工程实验室. All Rights Reserved.
+        </div>
+        <div class="legal-text">
+          声明：本平台旨在测算大模型生成式搜索可见度，测评数据基于公域公开信源抓取与大模型标准接口客观召回。
         </div>
       </div>
     </footer>
@@ -489,91 +798,401 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-const activeTab = ref(0);
+const router = useRouter();
 
-const industryCases = [
+// 搜索栏交互状态
+const searchModeLabel = ref('品牌全网诊断');
+const heroBrandInput = ref('');
+const bottomBrandInput = ref('');
+
+// 动态循环切换的 Placeholder (Similarweb 风格打字循环)
+const placeholders = [
+  '例如：无锡恒瑞智能装备（数控激光切管机制造）',
+  '例如：佛山佳豪系统门窗（高端断桥铝系统门窗）',
+  '例如：老乡鸡 / 特色中式餐饮连锁（招商加盟）',
+  '例如：数字化种植牙与隐形正畸专科门诊',
+  '例如：企业常年法律顾问与商事纠纷解决律所'
+];
+const currentPlaceholderIndex = ref(0);
+const currentPlaceholder = computed(() => placeholders[currentPlaceholderIndex.value]);
+
+let placeholderTimer = null;
+onMounted(() => {
+  placeholderTimer = setInterval(() => {
+    currentPlaceholderIndex.value = (currentPlaceholderIndex.value + 1) % placeholders.length;
+  }, 3500);
+});
+
+// 快速体验 Chips
+const quickChips = [
+  { label: '🏭 工业数控激光切管机', brand: '恒瑞智能装备', company: '无锡恒瑞智能装备科技有限公司', industry: '工业数控激光切管机制造', city: '无锡' },
+  { label: '🏡 断桥铝高端系统门窗', brand: '佳豪系统门窗', company: '佛山尚品佳豪智能家居系统有限公司', industry: '高端断桥铝系统门窗与阳光房', city: '佛山' },
+  { label: '🍲 连锁快餐招商加盟', brand: '老乡鸡', company: '安徽老乡鸡餐饮股份有限公司', industry: '中式快餐连锁加盟与招商', city: '全国' },
+  { label: '🦷 数字化专科齿科', brand: '恒伦口腔', company: '数字化种植牙与隐形正畸专科门诊', industry: '专科医疗与数字化齿科', city: '全国' },
+  { label: '⚖️ 商事合同常法顾问', brand: '金杜律所', company: '商事争议与常年法律顾问律所', industry: '企业商事争议解决与常年合规', city: '全国' }
+];
+
+function applyQuickChip(chip) {
+  router.push({
+    path: '/console',
+    query: {
+      brand: chip.brand,
+      company: chip.company,
+      industry: chip.industry,
+      city: chip.city
+    }
+  });
+}
+
+function handleHeroSubmit() {
+  const q = heroBrandInput.value.trim();
+  if (!q) {
+    router.push('/console');
+    return;
+  }
+  router.push({
+    path: '/console',
+    query: { brand: q }
+  });
+}
+
+function handleBottomSubmit() {
+  const q = bottomBrandInput.value.trim();
+  if (!q) {
+    router.push('/console');
+    return;
+  }
+  router.push({
+    path: '/console',
+    query: { brand: q }
+  });
+}
+
+// 首屏画报 Before / After 模式切换
+const activeCompareMode = ref('after');
+
+// 跑马灯生态名单
+const marqueePartners = [
+  { icon: '⚡', name: '字节跳动 · 豆包', tag: '火山引擎方舟直连' },
+  { icon: '🧠', name: '深度求索 · DeepSeek', tag: 'R1深度推理全量核验' },
+  { icon: '🌐', name: '阿里巴巴 · 通义千问', tag: '百炼原生B2B召回' },
+  { icon: '💬', name: '腾讯科技 · 元宝', tag: '混元大模型生态' },
+  { icon: '🔍', name: '百度智能云 · 文心一言', tag: '搜索语义穿透' },
+  { icon: '📚', name: '百度百科官方确权', tag: '权威知识本体' },
+  { icon: '🛡️', name: '企查查商业资质', tag: '官方资质核验' },
+  { icon: '📰', name: '搜狐科技 · 工业评测', tag: '第一梯队采信信源' },
+  { icon: '📈', name: '新浪财经 · 产业研报', tag: '国家级高权重媒体' },
+  { icon: '💡', name: '知乎专业问答矩阵', tag: '深度决策背书' },
+  { icon: '📱', name: '抖音同城生活圈', tag: '移动端切面召回' },
+  { icon: '🍽️', name: '大众点评实体图谱', tag: '消费实体锚点' }
+];
+
+// 范式转移滑块 (Similarweb hm-ai-agents)
+const currentSlideIndex = ref(0);
+const slideProgress = ref(0);
+let slideTimer = null;
+let progressTimer = null;
+
+const shiftSlides = [
   {
-    id: 'laser',
-    name: '🏭 工业数控激光制造',
-    tag: '工业设备制造 · B2B高客单',
-    headline: '从 0% 推荐隐形到 92% 行业首推，月度挽回 24 万潜在设备订单',
-    summary: '高客单工业装备客户在选型激光切管机时，决策链路长、极度依赖权威资质与同行横评。未优化前企业仅有官网但公域空白，意图提问被行业龙头大族、宏山全额拦截。',
-    preScore: '0% (完全隐形)',
-    postScore: '92% (首推梯队)',
-    savedLeads: '￥240,000 / 月',
-    sampleQuery: '无锡光纤激光切管机厂家推荐哪家质量好？',
-    solutionPoint: '注入 Schema 知识本体确权，并在搜狐资讯与机械行业垂直媒体发布 18 篇深度研报，建立高置信度企业合规档案。',
-    resultDesc: '豆包与 DeepSeek 搜索中，被列为第一推荐品牌，核心优势点名标明“切管工艺成熟、合规资质完备”。'
+    number: '01',
+    shortTitle: '可见度隐形',
+    tag: '可见度革命 · VISIBILITY',
+    headline: '您的品牌在 AI 时代彻底隐形？在 AI 对话流中抢占第一提及率',
+    description: '传统 SEO 时代，用户翻阅 10 条网页链接，企业还能靠长尾词捡漏；AI 时代，大模型每次只直接输出 1~3 个推荐实体。若未注入知识图谱 Schema 结构化实体，您的品牌在 5 亿客户面前等同于“不存在”。',
+    points: [
+      '百度百科权威词条与知识图谱 Schema 唯一标识确权',
+      '攻破主流大模型底层 RAG 知识检索库，确立企业法定知识锚点',
+      '让每一次“哪家好”、“知名品牌”的提问，都将贵司排在首选第一梯队'
+    ],
+    visualBadge: '大模型实体召回率',
+    metricNum: '92%',
+    metricUnit: '首推胜率',
+    metricLabel: '行业权威首推率跃升',
+    oldState: '仅有官网，大模型知识库完全空白，提及率为 0%',
+    newState: 'Schema本体确权，5大模型稳居首选推荐位 (92%)'
   },
   {
-    id: 'window',
-    name: '🪟 高端门窗与大宅定制',
-    tag: '大宅定制与家居建材',
-    headline: '突破传统建材卖场瓶颈，在同城手机生活圈截获大宅业主直接咨询',
-    summary: '大宅装修业主决策前习惯在手机端豆包或抖音搜索“断桥铝门窗选哪家靠谱”。过去同行皇派、派雅大量霸屏，区域品牌面临严重客源失血。',
-    preScore: '12% (被动收录)',
-    postScore: '89% (同城优选)',
-    savedLeads: '￥180,000 / 月',
-    sampleQuery: '本地系统门窗十大品牌口碑横评与避坑指南',
-    solutionPoint: '双端切面协同：手机端打通抖音生活圈同城实录与真实买家评价，PC端沉淀门窗五金水密性/隔音国标参数长文。',
-    resultDesc: '在豆包“本地线下机构/服务商对比”中稳居前二，打消消费者对小作坊质量隐患的顾虑。'
+    number: '02',
+    shortTitle: '客源被截流',
+    tag: '意图防御 · TRAFFIC & DEFENSE',
+    headline: '搜索习惯转向 AI，您的潜在客源正被竞品无声截流',
+    description: '当企业采购决策者在手机端豆包或 DeepSeek 询问“选哪家靠谱”、“避坑指南”时，竞争对手早已通过权威研报公域投喂完成霸屏拦截，您的订单在决策第一步就被掠夺殆尽。',
+    points: [
+      '深度扫描 50+ 个行业高频采购拦截意图词库',
+      '反制竞品恶意单向对比，扭转大模型偏见评价',
+      '在买家产生购买意向的黄金 3 秒内，锁定专属品牌信任链路'
+    ],
+    visualBadge: '意图拦截防御率',
+    metricNum: '+340%',
+    metricUnit: '挽回订单',
+    metricLabel: '高意向采购线索回流',
+    oldState: '采购提问被竞品大族、宏山全量拦截，客户流失',
+    newState: '构建高权重测评公域矩阵，将采购需求定向截流至贵司'
   },
   {
-    id: 'catering',
-    name: '🍲 中高端连锁餐饮与加盟',
-    tag: '现代连锁消费与招商',
-    headline: '抢占全国快餐与特色餐饮第一提及率，招商加盟与堂食口碑双爆发',
-    summary: '餐饮行业竞争极度激烈，投资者向 AI 咨询加盟选型或消费者搜索宴请推荐时，AI 只采信大众点评与高权重美食媒体多维度背书的龙头。',
-    preScore: '18% (边缘提及)',
-    postScore: '94% (首选标杆)',
-    savedLeads: '￥320,000 / 月',
-    sampleQuery: '全国中式快餐连锁加盟哪个品牌扶持政策好？',
-    solutionPoint: '在知乎专业问答与主流财经门户沉淀供应链支持、门店存活率客观横评，建立高公信力加盟保障实体。',
-    resultDesc: '通义千问与元宝的商业决策对比矩阵中，被列为标准化成熟度最高的推荐品牌。'
+    number: '03',
+    shortTitle: '获客成本失控',
+    tag: '效率飞跃 · EFFICIENCY & ROI',
+    headline: '传统竞价单次点击翻倍，构建 0 持续边际成本的 GEO 护城河',
+    description: '百度竞价与信息流单次点击费用逐年暴涨，且停充即停流；GEO 沉淀的是公域中不可篡改的永久知识资产，一次建设，长效享受全网基座大模型的免费精准推荐。',
+    points: [
+      '摆脱无底洞式的关键词竞价点击扣费陷阱',
+      '权威媒体研报与百科资产永久收录，不随时间被轻易稀释',
+      '边际获客成本无限趋近于 0，构筑同行业极具抗周期韧性的增长壁垒'
+    ],
+    visualBadge: '单次提问边际成本',
+    metricNum: '￥0',
+    metricUnit: '单次扣费',
+    metricLabel: '永久知识资产复利',
+    oldState: '每次点击扣费 30~80 元，停充流量瞬间归零',
+    newState: '知识沉淀为大模型内生记忆，无需持续支付提问费'
   },
   {
-    id: 'medical',
-    name: '🦷 专科医疗与数字化齿科',
-    tag: '大健康与高净值专科',
-    headline: '重塑种植牙与数字化正畸声誉，化解公域负面疑虑，首诊预约提升 150%',
-    summary: '医疗健康决策极度审慎，患者在选择机构时必定深挖合规资质、医生资历与价格透明度。公域资产单薄会导致患者直接流向公立或大型连锁。',
-    preScore: '8% (信任缺失)',
-    postScore: '86% (权威推荐)',
-    savedLeads: '￥150,000 / 月',
-    sampleQuery: '本地种植牙哪家医院技术靠谱收费透明？',
-    solutionPoint: '深度覆盖企查查合规公示、卫健委执业备案引用，并在头条与知乎科普种植牙集采避坑指南。',
-    resultDesc: '大模型回答中明确标识“资质合规、收费透明、无隐形增项”，成为患者同城首诊推荐机构。'
-  },
-  {
-    id: 'legal',
-    name: '⚖️ 商务咨询与大型律所',
-    tag: '高端专业服务与合规',
-    headline: '打破传统熟人介绍局限，在大模型企业采购决策流中直获常年法律顾问委托',
-    summary: '中大型企业在遇到商事诉讼或常法选型时，法务与总经理常直接用 AI 快速检索律所胜诉率与团队背景。缺乏深度案例背书将被金杜、大成无情截流。',
-    preScore: '5% (无实体背书)',
-    postScore: '91% (专家首选)',
-    savedLeads: '￥210,000 / 月',
-    sampleQuery: '企业常年法律顾问与商事纠纷解决律所哪家专业？',
-    solutionPoint: '定向发布行业重大商事案例研报，建立包含胜诉率、专业委员会任职的高权重权威知识词条。',
-    resultDesc: '通义千问 B2B 评测中，以“商事争议解决专业度与高响应机制”被重点推介给企业决策层。'
+    number: '04',
+    shortTitle: '三重飞轮',
+    tag: '全域增长 · THE TRIPLE EFFECT',
+    headline: '流量 · 声誉 · 成交：构建企业生成式推荐的全链路增长飞轮',
+    description: 'GEO 不仅是简单的名词排位，更是企业在 AI 心智中的全方位声誉重塑。从知识本体的确立，到第三方权威公信力的背书，再到商业订单的自然水到渠成。',
+    points: [
+      '双端（移动端同城生活圈 + PC端权威知识库）双切面协同覆盖',
+      '24/7 自动化雷达巡检，实时预警大模型知识漂移与竞品反扑',
+      '30 天确定性闭环交付，以权威索引链接与体检报告作为铁证验收'
+    ],
+    visualBadge: '交付确定性闭环',
+    metricNum: '30天',
+    metricUnit: '全量达标',
+    metricLabel: '四层认知体系落地上线',
+    oldState: '盲目投放软文，无体系、无监测、无确定性结果',
+    newState: '四层认知工程体系 + 24/7 攻防雷达长期护航'
   }
 ];
 
+const currentSlide = computed(() => shiftSlides[currentSlideIndex.value]);
+
+function switchSlide(idx) {
+  currentSlideIndex.value = idx;
+  slideProgress.value = 0;
+  restartSlideTimer();
+}
+
+function startSlideLoop() {
+  progressTimer = setInterval(() => {
+    if (slideProgress.value < 100) {
+      slideProgress.value += 2;
+    }
+  }, 100);
+
+  slideTimer = setInterval(() => {
+    currentSlideIndex.value = (currentSlideIndex.value + 1) % shiftSlides.length;
+    slideProgress.value = 0;
+  }, 5000);
+}
+
+function restartSlideTimer() {
+  if (slideTimer) clearInterval(slideTimer);
+  if (progressTimer) clearInterval(progressTimer);
+  startSlideLoop();
+}
+
+onMounted(() => {
+  startSlideLoop();
+});
+
+onUnmounted(() => {
+  if (placeholderTimer) clearInterval(placeholderTimer);
+  if (slideTimer) clearInterval(slideTimer);
+  if (progressTimer) clearInterval(progressTimer);
+});
+
+// 行业解决方案选项卡 (Similarweb hm-team-solutions)
+const activeIndustryIndex = ref(0);
+
+const industries = [
+  {
+    id: 'b2b',
+    name: '工业设备与高客单制造',
+    icon: '🏭',
+    category: '工业装备制造 · B2B高客单决策',
+    defaultBrand: '恒瑞智能装备',
+    headline: '打破工业装备行业龙头垄断，在 AI 采购选型横评中稳居前二推荐位',
+    scenarioQuery: '“无锡光纤激光切管机生产厂家推荐哪家质量好性价比高？”',
+    painPoint: '高客单工业装备客户在选型激光切管机时，决策链路长、极度依赖权威资质与同行横评。未优化前企业仅有官网但公域空白，意图提问被行业龙头大族、宏山全额拦截。',
+    tactics: [
+      '建立国家工信部专精特新认证与国家专利储备 Schema 实体标签',
+      '在搜狐科技与机械行业垂直媒体定向发布 18 篇深度技术测评研报',
+      '抢占“重管切割哪家好”、“激光切管机选型避坑”等 50+ 个采购拦截词'
+    ],
+    statValue: '+340%',
+    statDesc: 'AI 意图推荐爆发 · 月度挽回约 24 万潜在设备订单',
+    preRate: '0% (完全隐形)',
+    postRate: '92% (首推梯队)',
+    clientQuote: '以前客户采购几十万的切管机，在手机豆包或DeepSeek搜横评，推荐的都是龙头，我们根本排不上号。做完GEO后，豆包直接把我们列为“华东重管高性价比推荐”，当月就有两台意向客户主动加微信！',
+    clientAvatar: '👨‍💼',
+    clientName: '张总 (无锡恒瑞智能装备)',
+    clientTitle: '市场营销副总裁'
+  },
+  {
+    id: 'window',
+    name: '高端大宅与系统门窗',
+    icon: '🪟',
+    category: '大宅定制与家居建材',
+    defaultBrand: '佳豪系统门窗',
+    headline: '突破传统建材卖场瓶颈，在同城手机生活圈截获大宅业主直接咨询',
+    scenarioQuery: '“本地高端断桥铝系统门窗十大品牌实力排名与避坑指南”',
+    painPoint: '大宅装修业主决策前习惯在手机端豆包或抖音搜索“系统门窗选哪家靠谱”。过去同行皇派、派雅大量霸屏，区域优质品牌面临严重客源失血。',
+    tactics: [
+      '双端切面协同：打通手机端生活圈同城实录与真实业主装修评价',
+      'PC端沉淀门窗五金水密性、隔音国标参数与行业横评长文',
+      '在豆包“本地线下机构/服务商对比”中稳居前二，打消小作坊质量顾虑'
+    ],
+    statValue: '￥180,000',
+    statDesc: '月度挽回大宅业主订单资产 · 获客成本下降 68%',
+    preRate: '12% (被动收录)',
+    postRate: '89% (同城首推)',
+    clientQuote: '传统建材商场进店客流越来越少，年轻业主全部在用大模型搜断桥铝避坑。蜉蝣小宝帮我们把水密国标和本地案例喂给大模型后，现在客户进店就说“AI 推荐你们家做大宅封窗靠谱”！',
+    clientAvatar: '🏡',
+    clientName: '李总 (佛山佳豪系统门窗)',
+    clientTitle: '品牌创始人'
+  },
+  {
+    id: 'catering',
+    name: '连锁餐饮与商业加盟',
+    icon: '🍲',
+    category: '现代连锁消费与招商',
+    defaultBrand: '老乡鸡',
+    headline: '抢占全国快餐与特色餐饮第一提及率，招商加盟与堂食口碑双爆发',
+    scenarioQuery: '“全国中式快餐连锁加盟哪个品牌扶持政策好存活率高？”',
+    painPoint: '餐饮加盟竞争极度白热化，投资者向 AI 咨询选型时，AI 只采信大众点评与高权重财经媒体多维度背书的成熟品牌，普通加盟品牌频遭质疑。',
+    tactics: [
+      '在知乎专业问答与财经门户沉淀供应链支持、门店存活率客观研报',
+      '打通大众点评店铺矩阵与高权重美食媒体权威背书实体',
+      '在千问与元宝的商业决策对比矩阵中，被列为标准化成熟度最高推荐'
+    ],
+    statValue: '+180%',
+    statDesc: '全国加盟意向线索增长 · 招商成交转化周期缩短 45%',
+    preRate: '18% (边缘提及)',
+    postRate: '94% (首选标杆)',
+    clientQuote: '现在加盟商极为理智，先用千问把加盟政策和倒闭率扒个底朝天。蜉蝣小宝帮我们建立客观公信力数据资产后，AI 回答全是我们的中央厨房和冷链优势，招商团队谈单轻松太多了。',
+    clientAvatar: '🍲',
+    clientName: '陈总 (知名连锁快餐总部)',
+    clientTitle: '全国招商总监'
+  },
+  {
+    id: 'medical',
+    name: '专科医疗与数字化齿科',
+    icon: '🦷',
+    category: '大健康与高净值专科',
+    defaultBrand: '恒伦口腔',
+    headline: '重塑种植牙与隐形正畸声誉，化解公域负面疑虑，首诊预约提升 150%',
+    scenarioQuery: '“本地种植牙哪家专科医院技术靠谱收费透明无隐形增项？”',
+    painPoint: '医疗健康决策极度审慎，患者在选择机构时必定深挖合规资质、医生资历与价格透明度。公域资产单薄会导致患者直接流向公立医院。',
+    tactics: [
+      '深度覆盖企查查医疗合规公示与卫健委执业医师备案真实引用',
+      '在知乎与权威健康门户发布种植牙集采避坑指南与数字化导板横评',
+      '大模型回答中明确标识“资质合规、收费透明”，成为同城首诊推荐'
+    ],
+    statValue: '150%',
+    statDesc: '高客单数字化种植牙首诊预约提升 · 消除患者信任壁垒',
+    preRate: '8% (信任缺失)',
+    postRate: '86% (权威推荐)',
+    clientQuote: '患者最怕医疗过度消费和不透明。大模型把我们的卫健委备案和明码标价直接引述出来，相当于国家权威机构替我们做了背书，转化率非常惊人！',
+    clientAvatar: '🦷',
+    clientName: '王院长 (数字化口腔专科门诊)',
+    clientTitle: '业务院长'
+  },
+  {
+    id: 'legal',
+    name: '商务咨询与大型律所',
+    icon: '⚖️',
+    category: '高端专业服务与合规',
+    defaultBrand: '金杜律所',
+    headline: '打破传统熟人介绍局限，在大模型企业采购决策流中直获常法委托',
+    scenarioQuery: '“企业常年法律顾问与复杂商事纠纷解决律所哪家专业？”',
+    painPoint: '中大型企业在遇到商事纠纷或常法选型时，法务与总经理常直接用 AI 快速检索律所胜诉率与团队背景。缺乏深度案例背书将被传统头部大所无情截流。',
+    tactics: [
+      '定向发布行业重大商事经典判例研报，建立包含胜诉率的高权重词条',
+      '沉淀专业委员会任职、知识产权与股权设计专家知识实体',
+      '通义千问与 DeepSeek 商业评测中，以高响应度重点推介给企业'
+    ],
+    statValue: '￥210,000',
+    statDesc: '单月新增 3 家企业常年法律顾问委托 · 建立行业专家权威',
+    preRate: '5% (无实体背书)',
+    postRate: '91% (专家首选)',
+    clientQuote: '许多拟上市企业的董秘和法务用通义千问寻找擅长股权合规的律所，AI 把我们的胜诉案例和专著列在第一位，直接为我们带来了两家优质企业客户！',
+    clientAvatar: '⚖️',
+    clientName: '周律师 (知名商事律所)',
+    clientTitle: '高级合伙人'
+  }
+];
+
+const currentIndustry = computed(() => industries[activeIndustryIndex.value]);
+
+// 四层认知工程架构
+const archLayers = [
+  {
+    icon: '🏷️',
+    name: '知识本体确权工程',
+    enName: 'Schema & Entity Ontology',
+    desc: '在百度百科、国家工信部备案库完成权威词条认证，注入 Schema.org 知识图谱结构化标记，确立大模型 RAG 召回的唯一法定身份。',
+    items: [
+      '企业本体词条全量认证过审',
+      'Schema.org 知识图谱元数据注入',
+      '排除歧义同名实体干扰'
+    ]
+  },
+  {
+    icon: '📰',
+    name: '权威信源公信力矩阵',
+    enName: 'Authority Citation Feeder',
+    desc: '穿透大模型优先采信的搜狐、新浪、网易、知乎等国家级高权重门户，定向投喂 15~20 篇客观专业测评研报，建立高置信度外链证据链。',
+    items: [
+      '大模型高权重引爆炸点媒体矩阵',
+      '第三方客观横评与真实案例背书',
+      '权威索引长期保留与反稀释'
+    ]
+  },
+  {
+    icon: '🎯',
+    name: '采购意图精准拦截',
+    enName: 'Intent Interception Grid',
+    desc: '围绕“哪家好”、“选型对比”、“避坑评测”等 50+ 个行业高频意向词，构建标准化 QA 意图问答库，抢占 AI 推荐的第一梯队。',
+    items: [
+      '50+ 行业采购决策意向词全覆盖',
+      '反制竞品恶意单向对比霸屏',
+      '大模型首推位胜率稳定在 85% 以上'
+    ]
+  },
+  {
+    icon: '📡',
+    name: '双端攻防全天候雷达',
+    enName: 'Dual-End Telemetry Radar',
+    desc: '手机端生活圈切面 + PC 权威知识库切面 24/7 自动化巡检，实时预警大模型算法更新、知识漂移与竞品反扑，长期守卫品牌阵地。',
+    items: [
+      '覆盖 5 大基座大模型双端切面',
+      '每周自动化巡检报表推送',
+      '算法更新与模型漂移秒级预警'
+    ]
+  }
+];
+
+// 30 天闭环交付体系
 const roadmapSteps = [
   {
     phase: '01',
     days: 'Day 1 - Day 7',
     title: '品牌专有词确权与知识图谱 Schema 结构化注入',
-    action: '建立专属企业本体实体，完成百度百科词条认证及 Schema.org 结构化元数据标记，建立大模型 RAG 召回根基。',
+    action: '建立专属企业本体实体，完成百科词条认证及 Schema.org 结构化元数据标记，建立大模型 RAG 召回根基。',
     deliverable: '《企业知识本体架构书》、官方百科词条过审上线、Schema 实体标签认证'
   },
   {
     phase: '02',
     days: 'Day 8 - Day 15',
     title: '主流高权重权威信源公信力矩阵定向投喂',
-    action: '针对 DeepSeek、豆包、通义千问优先采信的新浪、搜狐、网易、知乎等核心门户，定向发布 15~20 篇深度专业测评研报与真实案例。',
+    action: '针对 DeepSeek、豆包、通义千问优先采信的核心门户，定向发布 15~20 篇深度专业测评研报与真实案例。',
     deliverable: '国家级/行业高权重媒体发稿收录链接清单、外链索引报告、第三方权威评测背书'
   },
   {
@@ -591,45 +1210,151 @@ const roadmapSteps = [
     deliverable: '《GEO 优化终审成果报表》、开通【蜉蝣小宝 · 交付期实时数据监控看板】账号权限'
   }
 ];
+
+// 商业账本数据
+const roiRows = [
+  {
+    dimension: '计费与扣费模式',
+    sem: '按次扣费，单次点击 10~80 元，恶意点击难防',
+    seo: '按词按月外包，排名波动频繁且见效极慢',
+    geo: '按知识工程体系一次构建，0 单次提问点击费'
+  },
+  {
+    dimension: '流量与决策质量',
+    sem: '用户对“广告”标签天生防备，跳出率高',
+    seo: '传统搜索流量年下滑 30% 以上，客户被大模型分流',
+    geo: 'AI 深度推理回答，具备极高公信力，转化意向强'
+  },
+  {
+    dimension: '资产时效与持久度',
+    sem: '账户余额扣尽瞬间流量归零，停充即停流',
+    seo: '极易因搜索引擎算法调整被一夜降权',
+    geo: '内生化为大模型底层训练与知识外链，长效享受复利'
+  },
+  {
+    dimension: '意向拦截效果',
+    sem: '无法干预大模型自然语言对话流中的推荐内容',
+    seo: '仅能在传统十条网页链接中被动排列',
+    geo: '在“哪家好/选型对比”意图提问中占据唯一首选推荐'
+  },
+  {
+    dimension: '抗周期壁垒',
+    sem: '竞品只要出价更高即可强行压制贵司展现',
+    seo: '缺乏权威公信力背书，容易被同行泛滥站群超越',
+    geo: '权威百科+国家专利+第三方深度研报，竞品极难反超'
+  }
+];
+
+// FAQ
+const openFaqIndex = ref(0);
+function toggleFaq(idx) {
+  openFaqIndex.value = openFaqIndex.value === idx ? -1 : idx;
+}
+
+const faqs = [
+  {
+    question: 'GEO (生成式引擎优化) 与传统 SEO 有什么本质区别？',
+    answer: '传统 SEO 争夺的是网页在搜索引擎列表中的点击位，依赖关键词堆砌和传统外链；而 GEO（Generative Engine Optimization）是面向大模型推荐机制的认知工程。它通过知识本体确权（Schema+百科）和权威高权重媒体公信力矩阵投喂，让大模型在理解用户自然语言问题（如“推荐一家靠谱的激光切管机厂家”）时，把您的品牌作为经过深度验证的答案推荐给用户，而不是丢给用户一堆杂乱的链接。'
+  },
+  {
+    question: '大模型更新这么快，优化后的效果会被覆盖或失效吗？',
+    answer: '不会。大模型的自然语言检索（RAG 架构）每次回答问题时，都会实时召回公网中权重最高、公信力最强、被多家权威媒体交叉引用的信源。蜉蝣小宝为企业注入的不是廉价的营销软文，而是符合工信部、国家知识产权局及搜狐、新浪等国家级媒体标准的深度专业研报与官方百科实体。只要底层知识资产在公域稳固存在，大模型就会长期将其作为可信答案输出。'
+  },
+  {
+    question: '为什么必须同时覆盖“手机端生活圈”与“PC端知识库”双端切面？',
+    answer: '因为中国主流大模型（特别是字节跳动·豆包）在不同终端的召回逻辑完全不同。手机端豆包优先聚合抖音同城生活圈、大众点评、本地服务商实体；而 PC 端与 DeepSeek 则优先检索知乎深度长文、垂直行业门户研报与企业官方知识库。如果不做双端协同探测，就会出现“电脑端查得到、手机端完全隐形”的致命漏洞。'
+  },
+  {
+    question: '企业做一次 AI 体检需要多长时间？需要我们提供什么？',
+    answer: '现场直连实测仅需 10~15 秒！您只需在工作台输入企业名称、品牌名和核心业务，系统即可自动调用五大主流大模型接口进行实时探针扫描，出具穿透级的《企业 AI 可见度体检书》，包含客源流失测算、竞品截流深度及改善建议。'
+  }
+];
 </script>
 
 <style scoped>
-/* ================= 全局与容器 ================= */
+/* ================= 全局暗黑深空主题 (Similarweb DarkHomePage) ================= */
 .landing-container {
   min-height: 100vh;
-  background-color: #ffffff;
-  color: #0f172a;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.6;
+  background-color: #080C14;
+  color: #F1F5F9;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   overflow-x: hidden;
+  position: relative;
 }
 
-.section-inner {
-  max-width: 1200px;
+/* ================= 1. 顶部公告彩带 (Similarweb Multi-color Ribbon) ================= */
+.top-promo-ribbon {
+  background: linear-gradient(89.84deg, #195AFE 0.13%, #3A56E8 37.72%, #B4528C 72.54%, #FF6D03 88.92%, #FF9603 99.86%);
+  padding: 0.55rem 1.5rem;
+  font-size: 0.84rem;
+  color: #ffffff;
+  position: relative;
+  z-index: 101;
+}
+
+.ribbon-inner {
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
-.section {
-  padding: 5.5rem 0;
+.ribbon-pill {
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  padding: 0.15rem 0.6rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-/* ================= 1. 顶栏 (Header) ================= */
+.ribbon-text strong {
+  font-weight: 700;
+}
+
+.ribbon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.ribbon-link:hover {
+  opacity: 0.85;
+}
+
+.ribbon-arrow {
+  transition: transform 0.2s;
+}
+
+.ribbon-link:hover .ribbon-arrow {
+  transform: translateX(3px);
+}
+
+/* ================= 2. 悬浮磨砂暗黑导航栏 ================= */
 .landing-header {
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.88);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-  transition: all 0.2s ease;
+  background: rgba(8, 12, 20, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 2rem;
 }
 
 .header-inner {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 0.85rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -638,25 +1363,71 @@ const roadmapSteps = [
 .brand-link {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
   text-decoration: none;
 }
 
-.logo-capsule {
-  width: 36px;
-  height: 36px;
-  background: #0f172a;
-  border-radius: 8px;
+/* Google Gemini 风格流光回旋容器 */
+.logo-beam-card {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.beam-halo {
+  position: absolute;
+  inset: -12px;
+  pointer-events: none;
+  filter: blur(14px);
+  opacity: 0.6;
+}
+
+.beam-halo-rotator {
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(from 0deg, #195AFE, #A855F7, #FF6D03, #195AFE);
+  animation: beamRotate 6s linear infinite;
+}
+
+.beam-border-track {
+  position: absolute;
+  inset: -8px;
+  pointer-events: none;
+}
+
+.beam-border-rotator {
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(from 0deg, #195AFE 0%, #3B82F6 25%, #EC4899 50%, #FF6D03 75%, #195AFE 100%);
+  animation: beamRotate 4s linear infinite;
+}
+
+.logo-inner-content {
+  position: absolute;
+  inset: 2px;
+  background: #0D1322;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+  z-index: 1;
 }
 
 .logo-img {
-  height: 22px;
-  width: auto;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
+}
+
+@keyframes beamRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .brand-text-wrap {
@@ -664,1073 +1435,2143 @@ const roadmapSteps = [
   flex-direction: column;
 }
 
+.brand-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .brand-name {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 800;
-  color: #0f172a;
-  letter-spacing: -0.02em;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+}
+
+.brand-badge-tag {
+  background: linear-gradient(135deg, #195AFE, #7C3AED);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
 }
 
 .brand-en {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  color: #2563eb;
-  letter-spacing: 0.08em;
+  color: #64748B;
+  letter-spacing: 0.8px;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.6rem;
 }
 
 .nav-item {
-  color: #475569;
+  color: #94A3B8;
+  text-decoration: none;
   font-size: 0.92rem;
   font-weight: 500;
-  text-decoration: none;
-  transition: color 0.15s ease;
+  transition: all 0.2s ease;
+  position: relative;
+  padding: 0.25rem 0;
 }
 
 .nav-item:hover {
-  color: #2563eb;
+  color: #ffffff;
+}
+
+.nav-item:hover::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #195AFE, #A855F7);
+  border-radius: 2px;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 .btn-ghost-nav {
-  color: #475569;
+  color: #CBD5E1;
+  text-decoration: none;
   font-size: 0.88rem;
   font-weight: 600;
-  text-decoration: none;
   padding: 0.45rem 0.9rem;
-  border-radius: 6px;
-  transition: all 0.15s ease;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.2s;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .btn-ghost-nav:hover {
-  color: #0f172a;
-  background: #f1f5f9;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
 }
 
 .btn-primary-nav {
-  background: #2563eb;
-  color: #ffffff;
-  font-size: 0.88rem;
-  font-weight: 600;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   padding: 0.5rem 1.15rem;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.25);
-  transition: all 0.2s ease;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(25, 90, 254, 0.4);
+  background: linear-gradient(135deg, #195AFE 0%, #3B82F6 50%, #A855F7 100%);
+  transition: all 0.3s ease;
 }
 
 .btn-primary-nav:hover {
-  background: #1d4ed8;
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 0 28px rgba(25, 90, 254, 0.65);
 }
 
-/* ================= 2. 品牌首屏 (Hero Section) ================= */
+.btn-glow-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.btn-primary-nav:hover .btn-glow-bg {
+  transform: translateX(100%);
+}
+
+.btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* ================= 3. Hero Section (Similarweb hm-dark-hero) ================= */
 .hero-section {
   position: relative;
-  padding: 4.5rem 0 5rem;
-  background: radial-gradient(ellipse 90% 60% at 50% -10%, rgba(37, 99, 235, 0.07), transparent 75%);
+  padding: 4.5rem 1.5rem 5rem;
   overflow: hidden;
+  background: #080C14;
+}
+
+/* 动态深空环境光晕 */
+.ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(120px);
+}
+
+.orb-blue {
+  width: 550px;
+  height: 550px;
+  top: -100px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(25, 90, 254, 0.2) 0%, transparent 70%);
+}
+
+.orb-purple {
+  width: 600px;
+  height: 600px;
+  top: 15%;
+  right: -100px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.16) 0%, transparent 70%);
+}
+
+.orb-orange {
+  width: 500px;
+  height: 500px;
+  bottom: 0;
+  left: 30%;
+  background: radial-gradient(circle, rgba(255, 109, 3, 0.12) 0%, transparent 70%);
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+}
+
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-inner {
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
+/* Hero Badge */
 .hero-pill-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  padding: 0.3rem 0.85rem;
-  border-radius: 999px;
-  margin-bottom: 1.5rem;
-}
-
-.badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #2563eb;
-}
-
-.badge-text {
+  gap: 0.6rem;
+  background: rgba(25, 90, 254, 0.12);
+  border: 1px solid rgba(25, 90, 254, 0.35);
+  padding: 0.4rem 1.1rem;
+  border-radius: 9999px;
   font-size: 0.82rem;
   font-weight: 600;
-  color: #1d4ed8;
+  color: #93C5FD;
+  margin-bottom: 1.8rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 16px rgba(25, 90, 254, 0.2);
 }
 
+.badge-dot-live {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+/* 巨幅主标题 */
 .hero-headline {
-  font-size: 3.4rem;
-  font-weight: 850;
-  color: #0f172a;
-  letter-spacing: -0.03em;
+  font-size: 3.6rem;
+  font-weight: 900;
   line-height: 1.2;
-  margin-bottom: 1.25rem;
+  letter-spacing: -1.2px;
+  color: #ffffff;
+  margin: 0 0 1.5rem 0;
+  max-width: 1080px;
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #0284c7 100%);
+  background: linear-gradient(135deg, #60A5FA 0%, #C084FC 50%, #FB923C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .hero-subtext {
   font-size: 1.15rem;
-  color: #475569;
-  max-width: 760px;
-  margin: 0 auto 2.25rem;
   line-height: 1.7;
+  color: #94A3B8;
+  max-width: 840px;
+  margin: 0 0 2.8rem 0;
 }
 
-.hero-cta-group {
-  display: flex;
-  align-items: center;
-  gap: 1.15rem;
+.hero-subtext strong {
+  color: #F8FAFC;
+  font-weight: 600;
+}
+
+/* 核心交互搜索框 (Similarweb Style Input Bar) */
+.hero-search-wrapper {
+  width: 100%;
+  max-width: 880px;
   margin-bottom: 3.5rem;
 }
 
-.btn-hero-primary {
-  background: #2563eb;
-  color: #ffffff;
-  font-size: 1.05rem;
+.search-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(15, 22, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  padding: 0.45rem 0.55rem 0.45rem 1.4rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(25, 90, 254, 0.25);
+  backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+}
+
+.search-input-box:focus-within {
+  border-color: #3B82F6;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6), 0 0 25px rgba(59, 130, 246, 0.45);
+}
+
+.search-mode-select {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #CBD5E1;
+  font-size: 0.9rem;
   font-weight: 600;
-  padding: 0.85rem 2rem;
-  border-radius: 8px;
-  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mode-caret {
+  color: #64748B;
+  font-size: 0.75rem;
+}
+
+.search-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 1rem;
+}
+
+.search-input-field {
+  flex: 1;
+}
+
+.search-input-field input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 1.02rem;
+  font-weight: 500;
+}
+
+.search-input-field input::placeholder {
+  color: #64748B;
+  transition: color 0.3s;
+}
+
+.btn-search-action {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
-  transition: all 0.2s ease;
+  justify-content: center;
+  background: linear-gradient(135deg, #195AFE 0%, #3B82F6 45%, #8B5CF6 100%);
+  border: none;
+  border-radius: 9999px;
+  padding: 0.85rem 1.8rem;
+  color: #ffffff;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 0 24px rgba(25, 90, 254, 0.5);
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
-.btn-hero-primary:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+.btn-search-action:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 32px rgba(25, 90, 254, 0.75);
 }
 
-.btn-hero-secondary {
-  background: #ffffff;
-  color: #334155;
-  font-size: 1.05rem;
-  font-weight: 600;
-  padding: 0.85rem 1.85rem;
-  border-radius: 8px;
-  text-decoration: none;
-  border: 1px solid #cbd5e1;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
+.action-content {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+  z-index: 1;
 }
 
-.btn-hero-secondary:hover {
-  background: #f8fafc;
-  border-color: #94a3b8;
-  color: #0f172a;
+/* 快速体验 Chips */
+.quick-chips-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
-/* 首屏静质感 UI 预览画报 (Similarweb 风格) */
-.hero-mockup-frame {
+.chips-label {
+  font-size: 0.82rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.chip-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #CBD5E1;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chip-btn:hover {
+  background: rgba(25, 90, 254, 0.15);
+  border-color: rgba(25, 90, 254, 0.4);
+  color: #93C5FD;
+  transform: translateY(-1px);
+}
+
+/* 信任指标行 */
+.trust-metrics-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.trust-metric {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #94A3B8;
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+
+.trust-metric-dot {
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+/* ================= 4. 首屏高科技画报 (Dashboard Mockup) ================= */
+.hero-dashboard-mockup {
   width: 100%;
-  max-width: 1080px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.03);
+  background: #0E1526;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75), 0 0 50px rgba(25, 90, 254, 0.15);
   overflow: hidden;
   text-align: left;
 }
 
-.mockup-header-bar {
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+.mockup-window-header {
+  background: #090E1A;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: 0.75rem 1.25rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
 }
 
-.mockup-dots {
+.window-controls {
   display: flex;
+  align-items: center;
   gap: 6px;
 }
 
-.dot {
-  width: 10px;
-  height: 10px;
+.window-dot {
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
 }
-.dot-red { background: #f87171; }
-.dot-amber { background: #fbbf24; }
-.dot-green { background: #34d399; }
 
-.mockup-search-sim {
+.dot-red { background: #EF4444; }
+.dot-yellow { background: #F59E0B; }
+.dot-green { background: #10B981; }
+
+.window-address-bar {
   flex: 1;
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  padding: 0.35rem 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-}
-
-.sim-query {
-  color: #1e293b;
-  font-weight: 500;
-}
-
-.mockup-status-tag {
-  font-size: 0.78rem;
-  color: #059669;
-  font-weight: 600;
-  background: #ecfdf5;
-  padding: 0.25rem 0.65rem;
-  border-radius: 4px;
-}
-
-.mockup-body-content {
-  display: grid;
-  grid-template-columns: 1.55fr 1fr;
-  background: #ffffff;
-}
-
-.mockup-response-panel {
-  padding: 1.5rem;
-  border-right: 1px solid #f1f5f9;
-}
-
-.panel-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.ai-avatar {
-  font-size: 1.4rem;
-}
-
-.ai-title {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-.ai-sub {
-  font-size: 0.75rem;
-  color: #64748b;
-}
-
-.ai-quote-lead {
-  font-size: 0.88rem;
-  color: #475569;
-  margin-bottom: 0.85rem;
-}
-
-.ai-recommend-card {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  max-width: 480px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.75rem;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: monospace;
 }
 
-.target-highlight {
-  background: #eff6ff;
-  border-color: #bfdbfe;
+.window-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #6EE7B7;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
-.rec-badge {
+.pulse-green {
+  width: 6px;
+  height: 6px;
+  background: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #10B981;
+}
+
+.mockup-window-body {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 1.5rem;
+  padding: 1.8rem;
+}
+
+/* 仿真左栏 */
+.comparison-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.panel-top-tabs {
+  display: flex;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.35rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.compare-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #94A3B8;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.compare-tab.active {
+  background: #162035;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tab-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.tab-indicator.green { background: #10B981; box-shadow: 0 0 6px #10B981; }
+.tab-indicator.red { background: #EF4444; box-shadow: 0 0 6px #EF4444; }
+
+.chat-query-pill {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+}
+
+.query-avatar {
+  font-size: 1.1rem;
+}
+
+.query-meta {
+  font-size: 0.72rem;
+  color: #64748B;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.2rem;
+}
+
+.query-str {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: #E2E8F0;
+}
+
+/* AI 回答渲染框 */
+.ai-response-box {
+  background: rgba(13, 20, 36, 0.9);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ai-response-box.state-after {
+  border-color: rgba(16, 185, 129, 0.3);
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.08);
+}
+
+.ai-response-box.state-before {
+  border-color: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.08);
+}
+
+.ai-box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ai-brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #CBD5E1;
+}
+
+.ai-rank-tag {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #1d4ed8;
-  margin-bottom: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
 }
 
-.rec-title {
-  font-size: 0.95rem;
-  font-weight: 750;
-  color: #0f172a;
-  margin-bottom: 0.4rem;
+.ai-rank-tag.gold {
+  background: rgba(245, 158, 11, 0.15);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
-.rec-desc {
-  font-size: 0.82rem;
-  color: #334155;
+.ai-rank-tag.red {
+  background: rgba(239, 68, 68, 0.15);
+  color: #F87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.ai-lead-text {
+  font-size: 0.88rem;
+  color: #94A3B8;
   line-height: 1.5;
-  margin-bottom: 0.75rem;
+  margin: 0;
 }
 
-.rec-tags {
+.highlight-brand-card {
+  background: rgba(25, 90, 254, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.h-card-top {
   display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
-.rtag {
-  font-size: 0.72rem;
-  font-weight: 600;
+.h-name {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #60A5FA;
+}
+
+.h-score {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #34D399;
+  background: rgba(16, 185, 129, 0.15);
   padding: 0.15rem 0.5rem;
   border-radius: 4px;
 }
-.tag-green { background: #dcfce7; color: #15803d; }
-.tag-blue { background: #dbeafe; color: #1d4ed8; }
-.tag-indigo { background: #e0e7ff; color: #4338ca; }
 
-.ai-competitor-faded {
+.h-card-desc {
+  font-size: 0.84rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+.h-citation-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.cite-tag {
+  font-size: 0.72rem;
+  color: #93C5FD;
+  background: rgba(25, 90, 254, 0.15);
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  border: 1px solid rgba(25, 90, 254, 0.25);
+}
+
+.competitor-brand-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.85rem;
+}
+
+.c-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #E2E8F0;
+  margin-bottom: 0.3rem;
+}
+
+.c-desc {
+  font-size: 0.8rem;
+  color: #94A3B8;
+  line-height: 1.5;
+}
+
+.leak-alert-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-top: 0.5rem;
+}
+
+.alert-icon {
+  font-size: 1.2rem;
+}
+
+.alert-text {
   font-size: 0.82rem;
-  color: #64748b;
-  padding: 0.5rem;
+  color: #FCA5A5;
+  line-height: 1.5;
 }
 
-.comp-name {
-  font-weight: 600;
-  color: #475569;
+.alert-text strong {
+  color: #EF4444;
 }
 
-.mockup-telemetry-panel {
-  padding: 1.5rem;
-  background: #fafafa;
+/* 遥测右栏 */
+.telemetry-panel {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
 .telemetry-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 0.85rem;
+  background: rgba(13, 20, 36, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.15rem;
 }
 
-.t-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #64748b;
-  margin-bottom: 0.25rem;
-}
-
-.t-val-wrap {
+.card-header-clean {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.card-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.excellent {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.55rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.gauge-display {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.gauge-circle {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  border: 3px solid #10B981;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.gauge-num {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.gauge-unit {
+  font-size: 0.68rem;
+  color: #6EE7B7;
+  font-weight: 600;
+}
+
+.gauge-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: #94A3B8;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
   gap: 0.4rem;
 }
 
-.t-val {
-  font-size: 1.6rem;
-  font-weight: 800;
-  line-height: 1.1;
-}
-.text-green { color: #059669; }
-.text-blue { color: #2563eb; }
-.text-slate { color: #0f172a; }
-
-.t-unit {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #64748b;
-}
-
-.t-tag-growth {
-  font-size: 0.75rem;
+.meta-row.highlight {
+  color: #C084FC;
   font-weight: 700;
-  color: #059669;
-  background: #dcfce7;
-  padding: 0.1rem 0.35rem;
+}
+
+.trend-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #FB923C;
+  background: rgba(251, 146, 60, 0.15);
+  padding: 0.15rem 0.5rem;
   border-radius: 4px;
 }
 
-.t-bar-wrap {
+.leads-val-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.leads-val-row .currency {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #F59E0B;
+}
+
+.leads-val-row .number {
+  font-size: 1.95rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.leads-val-row .period {
+  font-size: 0.85rem;
+  color: #94A3B8;
+  margin-left: 0.3rem;
+}
+
+.leads-note {
+  font-size: 0.75rem;
+  color: #64748B;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.radar-live-text {
+  font-size: 0.72rem;
+  color: #60A5FA;
+  font-weight: 600;
+}
+
+.model-bars-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.model-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.bar-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  color: #CBD5E1;
+  font-weight: 600;
+}
+
+.bar-track {
   height: 6px;
-  background: #e2e8f0;
-  border-radius: 999px;
-  margin-top: 0.6rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
   overflow: hidden;
 }
 
-.t-bar-fill {
+.bar-fill {
   height: 100%;
-  background: #059669;
-  border-radius: 999px;
+  background: linear-gradient(90deg, #195AFE, #A855F7);
+  border-radius: 9999px;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
 }
 
-.t-sub {
-  font-size: 0.72rem;
-  color: #64748b;
-  margin-top: 0.35rem;
+/* ================= 5. 跑马灯生态 (Similarweb Marquee) ================= */
+.marquee-section {
+  padding: 3.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: #060910;
+  overflow: hidden;
 }
 
-.telemetry-model-chips {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  margin-top: auto;
-}
-
-.m-chip {
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.4rem 0.5rem;
-  border-radius: 6px;
+.marquee-label {
   text-align: center;
-  background: #f1f5f9;
-  color: #334155;
-}
-
-.chip-on {
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  color: #065f46;
-}
-
-/* ================= 3. 大模型生态跑马区 ================= */
-.ecosystem-strip {
-  padding: 2.25rem 0;
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
-  text-align: center;
-}
-
-.ecosystem-title {
   font-size: 0.82rem;
   font-weight: 600;
-  color: #64748b;
+  color: #64748B;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 1.25rem;
+  letter-spacing: 1.2px;
+  margin-bottom: 2rem;
 }
 
-.ecosystem-logos {
+.marquee-wrapper {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+.marquee-track {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 2.5rem;
-  flex-wrap: wrap;
+  gap: 2rem;
+  white-space: nowrap;
+  animation: marqueeScroll 35s linear infinite;
 }
 
-.logo-item {
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  color: #CBD5E1;
   font-size: 0.88rem;
-  font-weight: 650;
-  color: #334155;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
 }
 
-.logo-circle {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  background: #e2e8f0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.marquee-item:hover {
+  background: rgba(25, 90, 254, 0.12);
+  border-color: rgba(25, 90, 254, 0.35);
+  color: #ffffff;
+}
+
+.item-icon {
+  font-size: 1.05rem;
+}
+
+.item-tag {
   font-size: 0.72rem;
-  font-weight: 800;
-  color: #0f172a;
+  color: #64748B;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
 }
 
-/* ================= 4. 范式对比区 (The Shift) ================= */
+/* ================= 6. 范式转移滑块 (Similarweb hm-ai-agents) ================= */
+.shift-section {
+  padding: 6rem 1.5rem;
+  position: relative;
+  background: #080C14;
+}
+
 .section-header-center {
   text-align: center;
-  max-width: 780px;
-  margin: 0 auto 3.5rem;
+  max-width: 840px;
+  margin: 0 auto 3.5rem auto;
 }
 
-.sec-kicker {
-  font-size: 0.78rem;
-  font-weight: 750;
-  color: #2563eb;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.sec-title {
-  font-size: 2.25rem;
-  font-weight: 800;
-  color: #0f172a;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.85rem;
-}
-
-.sec-subtitle {
-  font-size: 1.05rem;
-  color: #475569;
-  line-height: 1.6;
-}
-
-.shift-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-}
-
-.shift-card {
-  border-radius: 12px;
-  padding: 2.25rem;
-  transition: all 0.2s ease;
-}
-
-.card-old {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-}
-
-.card-new {
-  background: #ffffff;
-  border: 2px solid #2563eb;
-  box-shadow: 0 15px 35px -10px rgba(37, 99, 235, 0.12);
-}
-
-.card-status-badge {
+.section-badge {
   display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.25rem 0.65rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #60A5FA;
+  background: rgba(25, 90, 254, 0.12);
+  border: 1px solid rgba(25, 90, 254, 0.25);
+  padding: 0.3rem 0.9rem;
+  border-radius: 9999px;
+  margin-bottom: 1.2rem;
 }
 
-.badge-faded {
-  background: #e2e8f0;
-  color: #64748b;
+.section-title {
+  font-size: 2.75rem;
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: -0.8px;
+  color: #ffffff;
+  margin: 0 0 1.2rem 0;
 }
 
-.badge-active {
-  background: #dbeafe;
-  color: #1d4ed8;
-}
-
-.shift-card-title {
-  font-size: 1.35rem;
-  font-weight: 750;
-  color: #0f172a;
-  margin-bottom: 1.5rem;
-}
-
-.shift-points {
-  list-style: none;
-  padding: 0;
+.section-sub {
+  font-size: 1.05rem;
+  color: #94A3B8;
+  line-height: 1.7;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1.15rem;
 }
 
-.shift-points li {
-  display: flex;
-  gap: 0.85rem;
+.shift-slider-container {
+  background: #0E1526;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
 }
 
-.point-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
+/* 顶部进度条 Tabs */
+.slider-tabs-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #0A0F1D;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.slider-tab-btn {
+  background: transparent;
+  border: none;
+  padding: 1.2rem 1.2rem 1.4rem;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.slider-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tab-progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  margin-bottom: 0.8rem;
+  overflow: hidden;
+}
+
+.tab-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #195AFE, #A855F7);
+  transition: width 0.1s linear;
+}
+
+.tab-header-content {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 800;
-  flex-shrink: 0;
+  gap: 0.6rem;
 }
 
-.point-icon.red { background: #fee2e2; color: #b91c1c; }
-.point-icon.green { background: #dcfce7; color: #15803d; }
+.tab-index {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #64748B;
+}
 
-.point-desc {
+.slider-tab-btn.active .tab-index {
+  color: #60A5FA;
+}
+
+.tab-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #94A3B8;
+}
+
+.slider-tab-btn.active .tab-title {
+  color: #ffffff;
+}
+
+/* 滑块内部主体卡片 */
+.slider-card-body {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 3rem;
+  padding: 3.5rem;
+  align-items: center;
+}
+
+.slide-badge {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #F59E0B;
+  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
+}
+
+.slide-headline {
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 1.35;
+  color: #ffffff;
+  margin: 0 0 1.2rem 0;
+}
+
+.slide-desc {
+  font-size: 0.98rem;
+  color: #94A3B8;
+  line-height: 1.7;
+  margin: 0 0 1.8rem 0;
+}
+
+.slide-points-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2.2rem;
+}
+
+.point-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
   font-size: 0.92rem;
-  color: #334155;
+  color: #CBD5E1;
   line-height: 1.5;
 }
 
-/* ================= 5. 核心能力 (Bento Grid) ================= */
-.features-section {
-  background: #f8fafc;
+.p-icon {
+  color: #10B981;
+  font-weight: 900;
 }
 
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-}
-
-.bento-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-}
-
-.bento-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 25px -10px rgba(0, 0, 0, 0.08);
-  border-color: #cbd5e1;
-}
-
-.bento-icon-wrap {
-  width: 44px;
-  height: 44px;
+.btn-slide-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #195AFE, #3B82F6);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.75rem 1.6rem;
   border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(25, 90, 254, 0.4);
+  transition: all 0.2s;
+}
+
+.btn-slide-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(25, 90, 254, 0.6);
+}
+
+.slide-content-right {
+  display: flex;
+  justify-content: center;
+}
+
+.slide-visual-card {
+  width: 100%;
+  background: #090E1A;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 1.8rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.visual-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.35rem;
-  margin-bottom: 1.25rem;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
 }
 
-.icon-blue { background: #eff6ff; }
-.icon-green { background: #ecfdf5; }
-.icon-indigo { background: #eef2ff; }
-.icon-slate { background: #f1f5f9; }
+.v-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #60A5FA;
+  background: rgba(25, 90, 254, 0.15);
+  padding: 0.2rem 0.65rem;
+  border-radius: 4px;
+}
 
-.bento-title {
-  font-size: 1.25rem;
-  font-weight: 750;
-  color: #0f172a;
+.v-model {
+  font-size: 0.75rem;
+  color: #64748B;
+}
+
+.metric-big-highlight {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.m-num {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #34D399;
+  line-height: 1;
+}
+
+.m-unit {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #6EE7B7;
+}
+
+.m-label {
+  font-size: 0.85rem;
+  color: #94A3B8;
+  font-weight: 500;
+  margin-bottom: 1.6rem;
+}
+
+.visual-interactive-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.flow-step {
+  padding: 0.9rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.step-bad {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #FCA5A5;
+}
+
+.step-bad .step-tag {
+  color: #EF4444;
+  font-weight: 800;
+  font-size: 0.72rem;
+  margin-bottom: 0.2rem;
+}
+
+.flow-arrow-down {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.step-good {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #A7F3D0;
+}
+
+.step-good .step-tag {
+  color: #10B981;
+  font-weight: 800;
+  font-size: 0.72rem;
+  margin-bottom: 0.2rem;
+}
+
+/* ================= 7. 行业解决方案 (Similarweb hm-team-solutions) ================= */
+.solutions-section {
+  padding: 6rem 1.5rem;
+  background: #060910;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.industry-pills-wrap {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.8rem;
+}
+
+.ind-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.65rem 1.3rem;
+  border-radius: 9999px;
+  color: #94A3B8;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ind-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.ind-pill-btn.active {
+  background: linear-gradient(135deg, #195AFE, #3B82F6);
+  border-color: #3B82F6;
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(25, 90, 254, 0.4);
+}
+
+.industry-detail-card {
+  max-width: 1240px;
+  margin: 0 auto;
+  background: #0E1526;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 3.5rem;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.ind-left-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.ind-meta-tag {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #60A5FA;
+  letter-spacing: 1px;
   margin-bottom: 0.75rem;
 }
 
-.bento-desc {
-  font-size: 0.92rem;
-  color: #475569;
+.ind-headline {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.35;
+  margin: 0 0 1.5rem 0;
+}
+
+.ind-scenario-box {
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid #3B82F6;
+  border-radius: 0 8px 8px 0;
+  padding: 0.85rem 1.15rem;
+  margin-bottom: 1.2rem;
+}
+
+.scenario-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #94A3B8;
+  margin-bottom: 0.3rem;
+}
+
+.scenario-query {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #F8FAFC;
+}
+
+.ind-challenge-box {
+  font-size: 0.88rem;
   line-height: 1.6;
+  color: #94A3B8;
   margin-bottom: 1.5rem;
-  flex: 1;
 }
 
-.bento-metric-tag {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  padding: 0.5rem 0.85rem;
-  border-radius: 6px;
-  font-size: 0.82rem;
-  color: #334155;
+.c-title {
+  color: #F87171;
+  font-weight: 700;
 }
 
-.bento-metric-tag strong {
-  color: #1d4ed8;
+.ind-tactics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 2rem;
 }
 
-/* ================= 6. 行业解决方案 (Solutions) ================= */
-.industry-tabs-bar {
+.tactic-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #CBD5E1;
+  margin-bottom: 0.2rem;
+}
+
+.tactic-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  color: #CBD5E1;
+  line-height: 1.5;
+}
+
+.t-badge {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(25, 90, 254, 0.2);
+  color: #60A5FA;
+  font-size: 0.72rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.65rem;
-  margin-bottom: 2.25rem;
-  flex-wrap: wrap;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
-.tab-btn {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: #475569;
-  font-size: 0.92rem;
-  font-weight: 600;
-  padding: 0.6rem 1.25rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.tab-btn:hover {
-  background: #f1f5f9;
-  color: #0f172a;
-}
-
-.tab-btn.active {
-  background: #0f172a;
-  border-color: #0f172a;
+.btn-ind-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #195AFE, #3B82F6);
   color: #ffffff;
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
-}
-
-.industry-showcase-box {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 2.5rem;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 2.5rem;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
-}
-
-.showcase-badge {
-  display: inline-block;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #2563eb;
-  background: #eff6ff;
-  padding: 0.25rem 0.65rem;
-  border-radius: 4px;
-  margin-bottom: 0.85rem;
-}
-
-.showcase-title {
-  font-size: 1.55rem;
-  font-weight: 800;
-  color: #0f172a;
-  line-height: 1.35;
-  margin-bottom: 0.85rem;
-}
-
-.showcase-text {
-  font-size: 0.95rem;
-  color: #475569;
-  line-height: 1.65;
-  margin-bottom: 1.75rem;
-}
-
-.showcase-metrics-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1.75rem;
-}
-
-.sm-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #64748b;
-  margin-bottom: 0.25rem;
-}
-
-.sm-val {
-  font-size: 1.15rem;
-  font-weight: 800;
-}
-.text-red { color: #dc2626; }
-
-.btn-tab-cta {
-  background: #2563eb;
-  color: #ffffff;
-  font-size: 0.92rem;
-  font-weight: 600;
   text-decoration: none;
-  padding: 0.65rem 1.4rem;
-  border-radius: 6px;
-  display: inline-block;
-  transition: all 0.2s ease;
-}
-
-.btn-tab-cta:hover {
-  background: #1d4ed8;
-}
-
-.showcase-right {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  padding: 0.75rem 1.5rem;
   border-radius: 10px;
-  padding: 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.snippet-header {
-  border-bottom: 1px solid #e2e8f0;
-  padding-bottom: 1rem;
-}
-
-.snippet-pill {
-  font-size: 0.72rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  color: #64748b;
+  width: fit-content;
+  box-shadow: 0 4px 16px rgba(25, 90, 254, 0.4);
+  transition: all 0.2s;
+}
+
+.btn-ind-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(25, 90, 254, 0.6);
+}
+
+.ind-right-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.stat-card-gold {
+  background: #090E1A;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 16px;
+  padding: 1.8rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.stat-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #FBBF24;
   text-transform: uppercase;
-  display: block;
-  margin-bottom: 0.35rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.6rem;
 }
 
-.snippet-query {
-  font-size: 0.95rem;
-  font-weight: 750;
-  color: #0f172a;
+.stat-number-row .stat-num {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
 }
 
-.snippet-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.stat-label {
   font-size: 0.88rem;
-  color: #334155;
-  line-height: 1.55;
+  color: #94A3B8;
+  margin: 0.5rem 0 1.2rem 0;
 }
 
-/* ================= 7. 30 天交付蓝图 ================= */
-.roadmap-section {
-  background: #f8fafc;
-}
-
-.roadmap-timeline {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
-}
-
-.timeline-step {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 1.75rem;
+.stat-bar-compare {
   display: flex;
   flex-direction: column;
+  gap: 0.4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.85rem;
+}
+
+.comp-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #CBD5E1;
+}
+
+.comp-val.red { color: #EF4444; font-weight: 700; }
+.comp-val.green { color: #10B981; font-weight: 700; }
+
+.testimonial-quote-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.5rem;
   position: relative;
 }
 
-.step-num-bubble {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: #0f172a;
-  color: #ffffff;
-  font-size: 0.88rem;
-  font-weight: 800;
+.quote-mark {
+  font-size: 2.5rem;
+  font-family: Georgia, serif;
+  color: #3B82F6;
+  line-height: 1;
+  margin-bottom: -0.5rem;
+}
+
+.quote-text {
+  font-size: 0.86rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+  font-style: italic;
+}
+
+.client-info-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 0.75rem;
+  gap: 0.75rem;
 }
 
-.step-days {
-  font-size: 0.78rem;
+.client-avatar {
+  font-size: 1.6rem;
+}
+
+.client-name {
+  font-size: 0.84rem;
   font-weight: 700;
-  color: #2563eb;
-  margin-bottom: 0.5rem;
-}
-
-.step-title {
-  font-size: 1.05rem;
-  font-weight: 750;
-  color: #0f172a;
-  margin-bottom: 0.75rem;
-  line-height: 1.35;
-}
-
-.step-action {
-  font-size: 0.85rem;
-  color: #475569;
-  line-height: 1.55;
-  margin-bottom: 1.25rem;
-  flex: 1;
-}
-
-.step-deliverable {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  color: #334155;
-  line-height: 1.45;
-}
-
-.del-label {
-  font-weight: 700;
-  color: #0f172a;
-}
-
-/* ================= 8. 商业账本与收尾 CTA ================= */
-.cta-banner-card {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  border-radius: 16px;
-  padding: 4.5rem 2.5rem;
   color: #ffffff;
-  text-align: center;
-  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
 }
 
-.cta-content {
-  max-width: 780px;
-  margin: 0 auto;
+.client-title {
+  font-size: 0.74rem;
+  color: #64748B;
 }
 
-.cta-kicker {
-  font-size: 0.78rem;
-  font-weight: 750;
-  color: #60a5fa;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 0.75rem;
+.verified-seal {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
 }
 
-.cta-headline {
-  font-size: 2.35rem;
-  font-weight: 850;
-  line-height: 1.25;
+/* ================= 8. 四层认知工程架构 (Architecture) ================= */
+.arch-section {
+  padding: 6rem 1.5rem;
+  background: #080C14;
+}
+
+.arch-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.arch-card {
+  position: relative;
+  border-radius: 18px;
+  background: #0E1526;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem 1.5rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.arch-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(25, 90, 254, 0.2);
+}
+
+.arch-layer-pill {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #60A5FA;
+  margin-bottom: 1.2rem;
+}
+
+.arch-icon-wrap {
+  font-size: 2.2rem;
   margin-bottom: 1rem;
 }
 
-.cta-desc {
-  font-size: 1.05rem;
-  color: #94a3b8;
-  line-height: 1.65;
-  margin-bottom: 2.25rem;
+.arch-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 0.3rem 0;
 }
 
-.cta-actions {
+.arch-sub-en {
+  font-size: 0.74rem;
+  color: #64748B;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.arch-summary {
+  font-size: 0.84rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+}
+
+.arch-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1rem;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: #CBD5E1;
+}
+
+.check-item .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #3B82F6;
+}
+
+/* ================= 9. 30 天闭环交付 (Roadmap) ================= */
+.roadmap-section {
+  padding: 6rem 1.5rem;
+  background: #060910;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.roadmap-timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.roadmap-phase-card {
+  background: #0E1526;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.phase-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.phase-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #F59E0B;
+}
+
+.phase-days {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748B;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+.phase-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.4;
+  margin: 0 0 0.75rem 0;
+}
+
+.phase-action {
+  font-size: 0.82rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+  flex: 1;
+}
+
+.phase-deliverable {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 1.2rem;
+}
+
+.d-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #60A5FA;
+  margin-bottom: 0.2rem;
+}
+
+.d-val {
+  font-size: 0.78rem;
+  color: #CBD5E1;
+  line-height: 1.4;
+}
+
+.phase-status {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #10B981;
+}
+
+.phase-status .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+}
+
+/* ================= 10. 商业账本 (ROI Table) ================= */
+.roi-section {
+  padding: 6rem 1.5rem;
+  background: #080C14;
+}
+
+.roi-table-card {
+  max-width: 1180px;
+  margin: 0 auto 2.5rem auto;
+  background: #0E1526;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.roi-table-header {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1.3fr 1.5fr;
+  background: #0A0F1D;
+  padding: 1.2rem 1.5rem;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #CBD5E1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.roi-table-header .highlight {
+  color: #60A5FA;
+}
+
+.roi-table-row {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1.3fr 1.5fr;
+  padding: 1.15rem 1.5rem;
+  font-size: 0.85rem;
+  color: #94A3B8;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  align-items: center;
+}
+
+.roi-table-row:last-child {
+  border-bottom: none;
+}
+
+.roi-table-row .font-bold {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.highlight-cell {
+  color: #E2E8F0;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(25, 90, 254, 0.08);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border-left: 2px solid #3B82F6;
+}
+
+.highlight-cell .check-icon {
+  color: #10B981;
+  font-weight: 900;
+}
+
+.roi-summary-banner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(25, 90, 254, 0.1);
+  border: 1px solid rgba(25, 90, 254, 0.25);
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  font-size: 0.9rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+}
+
+.banner-icon {
+  font-size: 1.6rem;
+}
+
+.banner-text strong {
+  color: #60A5FA;
+}
+
+/* ================= 11. FAQ Accordion ================= */
+.faq-section {
+  padding: 5rem 1.5rem 6rem;
+  background: #060910;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.faq-accordion-list {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item {
+  background: #0E1526;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.faq-item:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.faq-item.open {
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.q-icon {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #3B82F6;
+}
+
+.q-text {
+  flex: 1;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.q-toggle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.faq-answer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.faq-answer p {
+  font-size: 0.9rem;
+  color: #94A3B8;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ================= 12. 转化底栏 (Similarweb Cosmic Banner) ================= */
+.bottom-cta-banner {
+  position: relative;
+  padding: 6.5rem 1.5rem;
+  background: #080C14;
+  overflow: hidden;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cta-cosmic-glow {
+  position: absolute;
+  inset: -100px;
+  background: radial-gradient(circle at 50% 50%, rgba(25, 90, 254, 0.25) 0%, rgba(168, 85, 247, 0.2) 35%, rgba(255, 109, 3, 0.12) 65%, transparent 80%);
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+.cta-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 0.3rem 0.9rem;
+  border-radius: 9999px;
+  margin-bottom: 1.5rem;
+}
+
+.cta-headline {
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: -0.6px;
+  color: #ffffff;
+  margin: 0 0 1.2rem 0;
+}
+
+.cta-sub {
+  font-size: 1.05rem;
+  color: #94A3B8;
+  margin: 0 0 2.5rem 0;
+}
+
+.cta-action-box {
+  max-width: 640px;
+  margin: 0 auto 1.8rem auto;
+}
+
+.cta-input-wrap {
+  display: flex;
+  align-items: center;
+  background: rgba(15, 22, 38, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+  padding: 0.4rem 0.5rem 0.4rem 1.4rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.cta-input-wrap input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 0.98rem;
+}
+
+.btn-cta-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, #195AFE 0%, #3B82F6 50%, #8B5CF6 100%);
+  border: none;
+  border-radius: 9999px;
+  padding: 0.8rem 1.6rem;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 0 20px rgba(25, 90, 254, 0.5);
+  transition: all 0.2s;
+}
+
+.btn-cta-submit:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 30px rgba(25, 90, 254, 0.7);
+}
+
+.cta-footer-tags {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: #64748B;
 }
 
-.btn-cta-primary {
-  background: #2563eb;
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 0.85rem 2rem;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+.cta-footer-tags .sep {
+  color: #334155;
 }
 
-.btn-cta-primary:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
-}
-
-.btn-cta-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 0.85rem 1.85rem;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.btn-cta-secondary:hover {
-  background: rgba(255, 255, 255, 0.18);
-}
-
-/* ================= 9. 页脚 (Footer) ================= */
+/* ================= 13. 暗黑品牌页脚 (Footer) ================= */
 .landing-footer {
-  background: #ffffff;
-  border-top: 1px solid #e2e8f0;
-  padding: 4.5rem 0 2.5rem;
+  background: #04070D;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4.5rem 1.5rem 2rem;
 }
 
-.footer-top {
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.5fr 2fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 3.5rem;
   margin-bottom: 3.5rem;
 }
 
-.footer-brand .logo-capsule {
-  margin-bottom: 0.85rem;
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
 }
 
-.footer-brand .brand-name {
-  font-size: 1.15rem;
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+
+.f-logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.f-brand-name {
+  font-size: 1.25rem;
   font-weight: 800;
-  color: #0f172a;
-  display: block;
-  margin-bottom: 0.65rem;
+  color: #ffffff;
 }
 
-.brand-mission {
-  font-size: 0.88rem;
-  color: #64748b;
-  max-width: 380px;
+.footer-slogan {
+  font-size: 0.85rem;
+  color: #64748B;
   line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  max-width: 360px;
 }
 
-.footer-nav-groups {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+.footer-live-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.76rem;
+  color: #6EE7B7;
+}
+
+.status-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
 }
 
 .col-title {
   font-size: 0.88rem;
-  font-weight: 750;
-  color: #0f172a;
-  margin-bottom: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 1.2rem 0;
+  letter-spacing: 0.5px;
 }
 
-.footer-col a {
-  display: block;
-  font-size: 0.85rem;
-  color: #64748b;
+.footer-links-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.f-link {
+  color: #64748B;
   text-decoration: none;
-  margin-bottom: 0.75rem;
-  transition: color 0.15s ease;
+  font-size: 0.84rem;
+  transition: color 0.2s;
 }
 
-.footer-col a:hover {
-  color: #2563eb;
+.f-link:hover {
+  color: #60A5FA;
 }
 
-.footer-bottom {
-  border-top: 1px solid #f1f5f9;
+.f-link.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.footer-bottom-bar {
+  max-width: 1280px;
+  margin: 0 auto;
   padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.82rem;
-  color: #94a3b8;
   flex-wrap: wrap;
   gap: 1rem;
+  font-size: 0.76rem;
+  color: #475569;
 }
 
-/* ================= 响应式适配 ================= */
-@media (max-width: 1024px) {
-  .hero-headline { font-size: 2.6rem; }
-  .mockup-body-content { grid-template-columns: 1fr; }
-  .shift-grid { grid-template-columns: 1fr; }
-  .bento-grid { grid-template-columns: 1fr; }
-  .industry-showcase-box { grid-template-columns: 1fr; }
-  .roadmap-timeline { grid-template-columns: 1fr 1fr; }
-  .footer-top { grid-template-columns: 1fr; }
+/* ================= 响应式媒体查询 ================= */
+@media (max-width: 1100px) {
+  .hero-headline { font-size: 2.8rem; }
+  .mockup-window-body { grid-template-columns: 1fr; }
+  .slider-tabs-row { grid-template-columns: repeat(2, 1fr); }
+  .slider-card-body { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+  .industry-detail-card { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; }
+  .arch-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .roadmap-timeline-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
 }
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .hero-headline { font-size: 2.1rem; }
-  .hero-cta-group { flex-direction: column; width: 100%; }
-  .btn-hero-primary, .btn-hero-secondary { width: 100%; justify-content: center; }
-  .roadmap-timeline { grid-template-columns: 1fr; }
-  .showcase-metrics-row { grid-template-columns: 1fr; }
-  .footer-nav-groups { grid-template-columns: 1fr; }
+  .hero-subtext { font-size: 0.95rem; }
+  .slider-tabs-row { grid-template-columns: 1fr; }
+  .arch-cards-grid { grid-template-columns: 1fr; }
+  .roadmap-timeline-grid { grid-template-columns: 1fr; }
+  .roi-table-header, .roi-table-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .cta-headline { font-size: 1.85rem; }
+  .cta-input-wrap { flex-direction: column; border-radius: 16px; padding: 0.8rem; gap: 0.8rem; }
+  .btn-cta-submit { width: 100%; justify-content: center; }
+  .search-input-box { flex-direction: column; border-radius: 20px; padding: 0.8rem; gap: 0.8rem; }
+  .search-divider { display: none; }
+  .btn-search-action { width: 100%; }
 }
 </style>

@@ -344,10 +344,11 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import geoApi from '../api/geo';
 
 const router = useRouter();
+const route = useRoute();
 
 const form = ref({
   target_company: '',
@@ -605,7 +606,22 @@ function copyHistoryLink(code) {
 onMounted(() => {
   loadAgencyInfo();
   loadHistory();
-  applyTemplate(industryTemplates[0]);
+  if (route.query.brand || route.query.industry || route.query.company) {
+    if (route.query.brand) form.value.brand_name = route.query.brand;
+    if (route.query.company) form.value.target_company = route.query.company;
+    else if (route.query.brand) form.value.target_company = route.query.brand;
+    if (route.query.industry) form.value.industry = route.query.industry;
+    if (route.query.city) form.value.city = route.query.city;
+    if (route.query.keywords) {
+      keywordsStr.value = Array.isArray(route.query.keywords) 
+        ? route.query.keywords.join('\n') 
+        : route.query.keywords.replace(/,/g, '\n');
+    } else {
+      generateSmartKeywords();
+    }
+  } else {
+    applyTemplate(industryTemplates[0]);
+  }
 });
 
 onUnmounted(() => {
