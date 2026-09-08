@@ -4,7 +4,14 @@
     <header class="console-header">
       <div class="header-inner">
         <div class="brand-badge">
-          <img src="/logo-white.png" alt="蜉蝣小宝" class="brand-logo-img" />
+          <!-- Google Gemini 风格：流光绕周回旋光效容器 -->
+          <router-link to="/diagnostic" class="logo-beam-card" title="蜉蝣小宝 · AI 营销智能大脑 (点击回到首页)">
+            <div class="beam-halo"><div class="beam-halo-rotator"></div></div>
+            <div class="beam-border-track"><div class="beam-border-rotator"></div></div>
+            <div class="logo-inner-content">
+              <img src="/logo-white.png" alt="蜉蝣小宝" class="brand-logo-img" />
+            </div>
+          </router-link>
           <span class="brand-tag">全国企业智能营销云 · 售前拓客引擎</span>
           <span class="live-status-pill">🟢 官方五大引擎直连在线</span>
         </div>
@@ -617,11 +624,142 @@ onUnmounted(() => {
   flex-wrap: wrap;
 }
 
+/* Google Gemini 风格：流光绕周回旋光效容器 */
+.logo-beam-card {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  padding: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.logo-beam-card:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* 外层弥散环境光晕 (Ambient Aura) */
+.beam-halo {
+  position: absolute;
+  inset: -8px;
+  border-radius: 18px;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.65;
+  transition: opacity 0.3s ease;
+}
+
+.logo-beam-card:hover .beam-halo {
+  opacity: 1;
+}
+
+.beam-halo-rotator {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 130deg,
+    rgba(0, 240, 255, 0.2) 160deg,
+    #00f0ff 190deg,
+    #4f46e5 220deg,
+    #9333ea 250deg,
+    #ec4899 275deg,
+    #f59e0b 305deg,
+    #10b981 330deg,
+    #38bdf8 348deg,
+    #ffffff 356deg,
+    transparent 360deg
+  );
+  animation: rotateBeam 3.8s linear infinite;
+  filter: blur(14px);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* 核心高精度环形光轨 (Crisp Border Beam) */
+.beam-border-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.beam-border-rotator {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 130deg,
+    rgba(0, 240, 255, 0.2) 160deg,
+    #00f0ff 190deg,
+    #6366f1 220deg,
+    #a855f7 250deg,
+    #ec4899 275deg,
+    #f59e0b 305deg,
+    #10b981 330deg,
+    #38bdf8 348deg,
+    #ffffff 356deg,
+    transparent 360deg
+  );
+  animation: rotateBeam 3.8s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.logo-beam-card:hover .beam-halo-rotator,
+.logo-beam-card:hover .beam-border-rotator {
+  animation-duration: 2s;
+}
+
+@keyframes rotateBeam {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 内部深色底座，只露出 2px 的环绕流动光边 */
+.logo-inner-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #0d1527 0%, #080d1a 100%);
+  border-radius: 10px;
+  padding: 4px 12px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 12px rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 .brand-logo-img {
-  height: 40px;
+  height: 38px;
   width: auto;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.25));
+  transition: filter 0.3s ease;
+}
+
+.logo-beam-card:hover .brand-logo-img {
+  filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.6));
 }
 
 .brand-logo-text {
