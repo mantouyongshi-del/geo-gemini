@@ -844,11 +844,11 @@
       </div>
     </footer>
 
-    <!-- 10. 企业 AI 体检预约与 1V1 专家演示弹窗 (Lead Capture Modal) -->
+    <!-- 10. 简约大气商务风 · 企业 1V1 专家演示预约弹窗 (Similarweb Style Lead Modal) -->
     <Teleport to="body">
       <div v-if="isLeadModalOpen" class="lead-modal-backdrop" @click.self="closeLeadModal">
-        <div class="lead-modal-card">
-          <!-- 关闭按钮 -->
+        <!-- 状态 A: 填写预约信息表单 (双栏商务大气布局) -->
+        <div v-if="!isLeadSubmitted" class="lead-modal-card">
           <button class="modal-close-btn" @click="closeLeadModal" title="关闭">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -856,173 +856,211 @@
             </svg>
           </button>
 
-          <!-- 弹窗流光背景 -->
-          <div class="modal-ambient-glow"></div>
-
-          <!-- 状态 A: 填写预约信息表单 -->
-          <div v-if="!isLeadSubmitted" class="modal-form-content">
-            <div class="modal-header">
-              <span class="modal-badge">
-                <span class="dot-pulse"></span>
-                <span>1V1 专属营销顾问实测演示</span>
-              </span>
-              <h3 class="modal-title">申请《企业 AI 可见度穿透体检书》</h3>
-              <p class="modal-desc">
-                由于深度体检需真实调度 5 大基座大模型商业探针与国家级高权重信源深度核验，系统将由资深 GEO 顾问为您一对一排期实测并现场演示。
+          <!-- 左侧：品牌价值与权威背书 -->
+          <div class="modal-sidebar">
+            <div class="sidebar-header">
+              <div class="brand-pill">
+                <span>GEO 认知工程 · 专家演示</span>
+              </div>
+              <h3 class="sidebar-title">预约 1对1 专家演示与品牌诊断</h3>
+              <p class="sidebar-desc">
+                与资深行业顾问一对一深度交流，实测您所在行业的基座大模型采信格局与流量机会。
               </p>
             </div>
 
-            <form class="modal-form" @submit.prevent="handleLeadSubmit">
-              <div class="form-group">
-                <label class="form-label">企业或品牌全称 <span class="req-star">*</span></label>
-                <div class="input-wrap">
-                  <svg class="input-icon" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4zm3 1h6v4H7V5zm8 8v2h1v-2h-1zm-2-2H7v4h6v-4zm2 0h1V9h-1v2zm1-4V5h-1v2h1zM5 5v2H4V5h1zm0 4h1v2H4V9zm1 4H4v2h1v-2z" clip-rule="evenodd" />
+            <div class="benefit-list">
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                   </svg>
+                </div>
+                <div class="benefit-text">
+                  <h4>定制行业大模型实测</h4>
+                  <p>调取主流大模型，实测品牌在主流采购意图下的推荐顺位与采信来源。</p>
+                </div>
+              </div>
+
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div class="benefit-text">
+                  <h4>竞品拦截与流失归因</h4>
+                  <p>透视同业竞品如何截流潜在商机，定位权威信源短板与认知盲区。</p>
+                </div>
+              </div>
+
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div class="benefit-text">
+                  <h4>专属优化策略路线</h4>
+                  <p>由资深顾问提供一对一解答，评估品牌知识资产构建可行性与投入产出。</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="sidebar-footer">
+              <div class="trust-badge">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>严格遵守保密协议 · 数据仅用于方案评估</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧：极简清晰输入表单 -->
+          <div class="modal-main">
+            <div class="form-header">
+              <h2 class="form-title">填写您的企业信息</h2>
+              <p class="form-subtitle">我们将在 2 小时内安排专属行业顾问与您联系并确认演示时间</p>
+            </div>
+
+            <form class="form-grid" @submit.prevent="handleLeadSubmit">
+              <div class="field-group">
+                <label class="field-label">企业或品牌全称 <span class="req">*</span></label>
+                <input
+                  class="field-input"
+                  type="text"
+                  v-model="leadForm.brand"
+                  placeholder="请输入企业或品牌全称"
+                  required
+                />
+              </div>
+
+              <div class="field-group">
+                <label class="field-label">主营产品 / 核心检索词 <span class="req">*</span></label>
+                <input
+                  class="field-input"
+                  type="text"
+                  v-model="leadForm.industry"
+                  placeholder="例如：工业激光切管机 / 高端系统门窗"
+                  required
+                />
+              </div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label class="field-label">您的姓名与职务</label>
                   <input
+                    class="field-input"
                     type="text"
-                    v-model="leadForm.brand"
-                    placeholder="如：无锡恒瑞智能装备科技有限公司"
+                    v-model="leadForm.contact"
+                    placeholder="例如：张总 / 营销总监"
+                  />
+                </div>
+                <div class="field-group">
+                  <label class="field-label">联系电话 / 微信号 <span class="req">*</span></label>
+                  <input
+                    class="field-input"
+                    type="tel"
+                    v-model="leadForm.phone"
+                    placeholder="用于接收演示排期与资料"
                     required
                   />
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="form-label">核心主营业务 / 关注关键词 <span class="req-star">*</span></label>
-                <div class="input-wrap">
-                  <svg class="input-icon" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                  </svg>
-                  <input
-                    type="text"
-                    v-model="leadForm.industry"
-                    placeholder="如：工业激光切管机制造 / 高端断桥铝门窗"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div class="form-row-two">
-                <div class="form-group">
-                  <label class="form-label">您的姓名 / 职务</label>
-                  <div class="input-wrap">
-                    <svg class="input-icon" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                    </svg>
-                    <input
-                      type="text"
-                      v-model="leadForm.contact"
-                      placeholder="如：张总 / 营销负责人"
-                    />
+              <div class="field-group">
+                <label class="field-label">期望交流方式</label>
+                <div class="demo-options">
+                  <div
+                    class="demo-option"
+                    :class="{ selected: leadForm.demoType === 'online' }"
+                    @click="leadForm.demoType = 'online'"
+                  >
+                    <span class="demo-option-title">线上实操演示</span>
+                    <span class="demo-option-sub">腾讯会议 20分钟</span>
                   </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">手机号码 / 微信号 <span class="req-star">*</span></label>
-                  <div class="input-wrap">
-                    <svg class="input-icon" viewBox="0 0 20 20" fill="currentColor">
-                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z" />
-                    </svg>
-                    <input
-                      type="tel"
-                      v-model="leadForm.phone"
-                      placeholder="用于接收体检数据报告"
-                      required
-                    />
+                  <div
+                    class="demo-option"
+                    :class="{ selected: leadForm.demoType === 'wechat' }"
+                    @click="leadForm.demoType = 'wechat'"
+                  >
+                    <span class="demo-option-title">发送方案资料</span>
+                    <span class="demo-option-sub">微信直接发送</span>
+                  </div>
+                  <div
+                    class="demo-option"
+                    :class="{ selected: leadForm.demoType === 'call' }"
+                    @click="leadForm.demoType = 'call'"
+                  >
+                    <span class="demo-option-title">电话初步探讨</span>
+                    <span class="demo-option-sub">资深顾问致电</span>
                   </div>
                 </div>
               </div>
 
-              <!-- 期望演示沟通方式 -->
-              <div class="form-group">
-                <label class="form-label">期望演示方式</label>
-                <div class="demo-type-grid">
-                  <label class="demo-type-card" :class="{ active: leadForm.demoType === 'online' }">
-                    <input type="radio" v-model="leadForm.demoType" value="online" class="sr-only" />
-                    <div class="type-icon-dot"></div>
-                    <div class="type-meta">
-                      <span class="type-t">线上会议实操</span>
-                      <span class="type-d">现场调取大模型</span>
-                    </div>
-                  </label>
-
-                  <label class="demo-type-card" :class="{ active: leadForm.demoType === 'wechat' }">
-                    <input type="radio" v-model="leadForm.demoType" value="wechat" class="sr-only" />
-                    <div class="type-icon-dot"></div>
-                    <div class="type-meta">
-                      <span class="type-t">微信接收报告</span>
-                      <span class="type-d">直接发送体检书</span>
-                    </div>
-                  </label>
-
-                  <label class="demo-type-card" :class="{ active: leadForm.demoType === 'call' }">
-                    <input type="radio" v-model="leadForm.demoType" value="call" class="sr-only" />
-                    <div class="type-icon-dot"></div>
-                    <div class="type-meta">
-                      <span class="type-t">电话沟通风险</span>
-                      <span class="type-d">10分钟分析失血</span>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              <button type="submit" class="btn-lead-submit" :disabled="leadSubmitting">
-                <span v-if="!leadSubmitting">立即提交 · 锁定专属顾问体检演示</span>
+              <button type="submit" class="btn-submit" :disabled="leadSubmitting">
+                <span v-if="!leadSubmitting">立即预约专属顾问演示</span>
                 <span v-else>正在排期提交中...</span>
-                <svg v-if="!leadSubmitting" class="btn-arrow" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                <svg v-if="!leadSubmitting" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
                 </svg>
               </button>
 
-              <div class="modal-privacy-note">
+              <div class="privacy-footer">
                 <svg viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
                 </svg>
-                <span>商业保密承诺：企业诊断数据仅用于本次 AI 可见度测评，绝不对外公开。</span>
+                <span>承诺严格保密 · 不向任何第三方透露您的经营信息</span>
               </div>
             </form>
           </div>
+        </div>
 
-          <!-- 状态 B: 提交成功受理确认 -->
-          <div v-else class="modal-success-content">
-            <div class="success-icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-            </div>
+        <!-- 状态 B: 提交成功受理确认 (简约大气卡片) -->
+        <div v-else class="lead-modal-card modal-success-card">
+          <button class="modal-close-btn" @click="closeLeadModal" title="关闭">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
 
-            <h3 class="success-title">体检预约已成功受理！</h3>
-            <p class="success-subtitle">
-              系统已为您建立企业专属演示工单【<span class="highlight-code">GEO-{{ successTicketId }}</span>】
-            </p>
-
-            <div class="success-info-panel">
-              <div class="info-row">
-                <span class="info-lbl">申请企业：</span>
-                <span class="info-val font-bold text-white">{{ leadForm.brand }}</span>
-              </div>
-              <div class="info-row">
-                <span class="info-lbl">接收手机：</span>
-                <span class="info-val">{{ leadForm.phone }}</span>
-              </div>
-              <div class="info-row">
-                <span class="info-lbl">实测安排：</span>
-                <span class="info-val text-cyan">资深 GEO 营销顾问将在 10 分钟内与您联系，现场调用主流基座大模型进行全域探针演示。</span>
-              </div>
-            </div>
-
-            <div class="advisor-hotline-box">
-              <span class="hotline-title">专属顾问直连热线：</span>
-              <span class="hotline-num">400-800-2026</span>
-              <span class="hotline-time">（工作日 09:00 - 21:00 在线响应）</span>
-            </div>
-
-            <button class="btn-success-close" @click="closeLeadModal">
-              <span>完成并返回官网</span>
-            </button>
+          <div class="success-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
           </div>
+
+          <h2 class="success-title">预约已成功提交</h2>
+          <p class="success-desc">
+            专属企业顾问将在 2 小时内与您电话沟通，确认演示时间并为您准备针对贵司的定制化方案。
+          </p>
+
+          <div class="success-summary">
+            <div class="summary-row">
+              <span class="summary-label">预约企业</span>
+              <span class="summary-val">{{ leadForm.brand }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">核心业务</span>
+              <span class="summary-val">{{ leadForm.industry }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">联系电话</span>
+              <span class="summary-val">{{ leadForm.phone }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">期望交流方式</span>
+              <span class="summary-val">{{ demoTypeLabel }}</span>
+            </div>
+          </div>
+
+          <div class="hotline-banner">
+            <span>如需加急安排，可直接致电官方顾问专线：</span>
+            <strong>400-800-2026</strong>
+          </div>
+
+          <button class="btn-done" @click="closeLeadModal">完成并返回官网</button>
         </div>
       </div>
     </Teleport>
@@ -1351,6 +1389,12 @@ const leadForm = ref({
   phone: '',
   demoType: 'online', // 'online' | 'wechat' | 'call'
   source: 'direct'
+});
+
+const demoTypeLabel = computed(() => {
+  if (leadForm.value.demoType === 'online') return '线上实操演示（腾讯会议 20分钟）';
+  if (leadForm.value.demoType === 'wechat') return '发送方案资料（微信直接发送）';
+  return '电话初步探讨（资深顾问致电）';
 });
 
 function openLeadModal(source = 'general', prefillBrand = '', prefillIndustry = '') {
@@ -4147,65 +4191,57 @@ function toggleFaq(idx) {
 }
 
 /* ================= 10. 企业 AI 体检预约弹窗样式 (Lead Modal) ================= */
+/* ================= 简约大气商务风 · 企业顾问预约弹窗 (Similarweb / Stripe 风格) ================= */
 .lead-modal-backdrop {
   position: fixed;
   inset: 0;
   z-index: 2000;
-  background: rgba(5, 8, 16, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+  box-sizing: border-box;
 }
 
 .lead-modal-card {
   position: relative;
   width: 100%;
-  max-width: 540px;
-  max-height: 90vh;
-  overflow-y: auto;
-  background: #0B1120;
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  border-radius: 22px;
-  box-shadow: 0 25px 80px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(25, 90, 254, 0.2);
-  padding: 2.2rem;
+  max-width: 860px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 340px 1fr;
   box-sizing: border-box;
+  text-align: left;
 }
 
-.modal-ambient-glow {
-  position: absolute;
-  top: -80px;
-  right: -80px;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(124, 58, 237, 0.12) 50%, transparent 70%);
-  filter: blur(50px);
-  pointer-events: none;
-}
-
+/* 关闭按钮 */
 .modal-close-btn {
   position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
+  top: 18px;
+  right: 18px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #94A3B8;
+  border: none;
+  background: #F1F5F9;
+  color: #64748B;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: all 0.15s ease;
   z-index: 10;
 }
 
 .modal-close-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #FFFFFF;
+  background: #E2E8F0;
+  color: #0F172A;
 }
 
 .modal-close-btn svg {
@@ -4213,328 +4249,418 @@ function toggleFaq(idx) {
   height: 16px;
 }
 
-.modal-header {
-  margin-bottom: 1.5rem;
-  text-align: left;
+/* 左侧栏：品牌价值亮点 */
+.modal-sidebar {
+  background: #F8FAFC;
+  border-right: 1px solid #E2E8F0;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
-.modal-badge {
+.sidebar-header {
+  margin-bottom: 24px;
+}
+
+.brand-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  font-size: 0.75rem;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #195AFE;
+  background: #EEF2FF;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  letter-spacing: 0.3px;
+}
+
+.sidebar-title {
+  font-size: 20px;
   font-weight: 700;
-  color: #38BDF8;
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  padding: 0.2rem 0.65rem;
-  border-radius: 9999px;
-  margin-bottom: 0.8rem;
+  color: #0F172A;
+  line-height: 1.35;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.3px;
 }
 
-.dot-pulse {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #38BDF8;
-  box-shadow: 0 0 6px #38BDF8;
-}
-
-.modal-title {
-  font-size: 1.45rem;
-  font-weight: 800;
-  color: #FFFFFF;
-  margin: 0 0 0.5rem 0;
-  line-height: 1.3;
-}
-
-.modal-desc {
-  font-size: 0.85rem;
+.sidebar-desc {
+  font-size: 13px;
+  color: #64748B;
   line-height: 1.6;
-  color: #94A3B8;
   margin: 0;
 }
 
-.modal-form {
+.benefit-list {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
-  text-align: left;
+  gap: 18px;
+  margin-bottom: 24px;
 }
 
-.form-group {
+.benefit-item {
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  gap: 12px;
+  align-items: flex-start;
 }
 
-.form-row-two {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.form-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #CBD5E1;
-}
-
-.req-star {
-  color: #EF4444;
-}
-
-.input-wrap {
+.benefit-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #E0E7FF;
+  color: #195AFE;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  padding: 0.65rem 0.9rem;
-  transition: all 0.2s;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
 }
 
-.input-wrap:focus-within {
-  border-color: #38BDF8;
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+.benefit-icon svg {
+  width: 12px;
+  height: 12px;
 }
 
-.input-icon {
+.benefit-text h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1E293B;
+  margin: 0 0 3px 0;
+}
+
+.benefit-text p {
+  font-size: 12px;
+  color: #64748B;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.sidebar-footer {
+  border-top: 1px solid #E2E8F0;
+  padding-top: 18px;
+}
+
+.trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #475569;
+  font-weight: 500;
+}
+
+.trust-badge svg {
   width: 16px;
   height: 16px;
-  color: #64748B;
+  color: #10B981;
   flex-shrink: 0;
 }
 
-.input-wrap input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #FFFFFF;
-  font-size: 0.88rem;
-}
-
-.input-wrap input::placeholder {
-  color: #475569;
-}
-
-.demo-type-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.6rem;
-}
-
-.demo-type-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  padding: 0.6rem 0.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.4rem;
-  transition: all 0.2s;
-}
-
-.demo-type-card.active {
-  background: rgba(25, 90, 254, 0.18);
-  border-color: #38BDF8;
-}
-
-.type-icon-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #64748B;
-  margin-top: 4px;
-}
-
-.demo-type-card.active .type-icon-dot {
-  background: #38BDF8;
-  box-shadow: 0 0 6px #38BDF8;
-}
-
-.type-meta {
+/* 右侧主表单区 */
+.modal-main {
+  padding: 40px 36px;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
-.type-t {
-  font-size: 0.76rem;
+.form-header {
+  margin-bottom: 24px;
+}
+
+.form-title {
+  font-size: 20px;
   font-weight: 700;
-  color: #E2E8F0;
+  color: #0F172A;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.3px;
 }
 
-.type-d {
-  font-size: 0.68rem;
+.form-subtitle {
+  font-size: 13px;
   color: #64748B;
+  margin: 0;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.btn-lead-submit {
-  display: inline-flex;
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.req {
+  color: #EF4444;
+  margin-left: 2px;
+}
+
+.field-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #0F172A;
+  background: #FFFFFF;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.field-input:focus {
+  border-color: #195AFE;
+  box-shadow: 0 0 0 3px rgba(25, 90, 254, 0.12);
+}
+
+.field-input::placeholder {
+  color: #9CA3AF;
+}
+
+/* 交流方式单选选项 */
+.demo-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.demo-option {
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: #FAFAFA;
+}
+
+.demo-option:hover {
+  border-color: #CBD5E1;
+  background: #F1F5F9;
+}
+
+.demo-option.selected {
+  border-color: #195AFE;
+  background: #EEF2FF;
+}
+
+.demo-option-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1E293B;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.demo-option.selected .demo-option-title {
+  color: #195AFE;
+}
+
+.demo-option-sub {
+  font-size: 11px;
+  color: #64748B;
+  display: block;
+}
+
+.demo-option.selected .demo-option-sub {
+  color: #4F46E5;
+}
+
+/* 提交按钮 */
+.btn-submit {
+  width: 100%;
+  height: 46px;
+  background: #195AFE;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  background: linear-gradient(135deg, #195AFE 0%, #3B82F6 45%, #7C3AED 100%);
-  border: none;
-  border-radius: 10px;
-  padding: 0.85rem;
-  color: #ffffff;
-  font-size: 0.94rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 0 24px rgba(25, 90, 254, 0.5);
-  transition: all 0.2s;
-  margin-top: 0.5rem;
+  gap: 8px;
+  margin-top: 6px;
 }
 
-.btn-lead-submit:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 0 32px rgba(25, 90, 254, 0.75);
+.btn-submit:hover:not(:disabled) {
+  background: #0D47E0;
+  box-shadow: 0 4px 12px rgba(25, 90, 254, 0.25);
 }
 
-.btn-lead-submit:disabled {
+.btn-submit:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
 
-.modal-privacy-note {
+.privacy-footer {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.74rem;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 12px;
   color: #64748B;
-  justify-content: center;
 }
 
-.modal-privacy-note svg {
-  width: 13px;
-  height: 13px;
-  color: #10B981;
+.privacy-footer svg {
+  width: 14px;
+  height: 14px;
+  color: #94A3B8;
+  flex-shrink: 0;
 }
 
-/* 成功状态 */
-.modal-success-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* 成功状态卡片 */
+.modal-success-card {
+  display: block;
+  max-width: 560px;
+  padding: 48px 40px;
   text-align: center;
-  padding: 1rem 0;
 }
 
-.success-icon-wrap {
-  width: 60px;
-  height: 60px;
+.success-icon-box {
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.35);
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #059669;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.2rem;
-  box-shadow: 0 0 24px rgba(16, 185, 129, 0.2);
+  margin: 0 auto 20px auto;
 }
 
-.success-icon-wrap svg {
+.success-icon-box svg {
   width: 32px;
   height: 32px;
 }
 
 .success-title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #FFFFFF;
-  margin: 0 0 0.5rem 0;
-}
-
-.success-subtitle {
-  font-size: 0.88rem;
-  color: #94A3B8;
-  margin: 0 0 1.5rem 0;
-}
-
-.highlight-code {
-  color: #38BDF8;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  color: #0F172A;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.3px;
 }
 
-.success-info-panel {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 1rem 1.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  text-align: left;
-  margin-bottom: 1.5rem;
-}
-
-.info-row {
-  display: flex;
-  font-size: 0.84rem;
-  line-height: 1.5;
-}
-
-.info-lbl {
+.success-desc {
+  font-size: 14px;
   color: #64748B;
-  width: 80px;
-  flex-shrink: 0;
+  line-height: 1.6;
+  max-width: 440px;
+  margin: 0 auto 28px auto;
 }
 
-.info-val {
-  color: #CBD5E1;
+.success-summary {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 16px 20px;
+  text-align: left;
+  margin-bottom: 24px;
 }
 
-.text-white { color: #FFFFFF; }
-.text-cyan { color: #38BDF8; }
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 13px;
+  border-bottom: 1px dashed #E2E8F0;
+}
 
-.advisor-hotline-box {
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-label {
+  color: #64748B;
+}
+
+.summary-val {
+  color: #0F172A;
+  font-weight: 600;
+}
+
+.hotline-banner {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  font-size: 0.82rem;
-  color: #94A3B8;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: #475569;
+  margin-bottom: 24px;
 }
 
-.hotline-num {
-  font-size: 1rem;
-  font-weight: 800;
-  color: #10B981;
+.hotline-banner strong {
+  color: #195AFE;
 }
 
-.btn-success-close {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  padding: 0.7rem 2.2rem;
+.btn-done {
+  width: 100%;
+  height: 44px;
+  background: #0F172A;
   color: #FFFFFF;
-  font-size: 0.9rem;
+  font-size: 14px;
   font-weight: 600;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s ease;
 }
 
-.btn-success-close:hover {
-  background: rgba(255, 255, 255, 0.15);
+.btn-done:hover {
+  background: #1E293B;
+}
+
+/* 弹窗移动端适配 */
+@media (max-width: 768px) {
+  .lead-modal-card {
+    grid-template-columns: 1fr;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-sidebar {
+    padding: 24px 20px;
+    border-right: none;
+    border-bottom: 1px solid #E2E8F0;
+  }
+  .modal-main {
+    padding: 24px 20px;
+  }
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+  .demo-options {
+    grid-template-columns: 1fr;
+  }
+  .modal-success-card {
+    padding: 32px 20px;
+  }
 }
 
 /* ================= 响应式处理 ================= */
