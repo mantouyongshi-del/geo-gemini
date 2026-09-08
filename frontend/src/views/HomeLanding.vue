@@ -22,16 +22,15 @@
           <a href="#faq" class="nav-item">常见问题</a>
         </nav>
 
+        <!-- 顶部操作区 (已移除标杆报告和工作台两个对外按钮) -->
         <div class="header-actions">
-          <router-link to="/diagnostic_report" class="btn-ghost-nav">标杆报告</router-link>
-          <router-link to="/console" class="btn-ghost-nav">工作台</router-link>
-          <router-link to="/console" class="btn-primary-nav">
+          <button class="btn-primary-nav" @click="openLeadModal('header')">
             <span class="btn-glow-bg"></span>
-            <span class="btn-text">免费启动体检</span>
+            <span class="btn-text">预约企业体检</span>
             <svg class="btn-svg-arrow" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
-          </router-link>
+          </button>
         </div>
       </div>
     </header>
@@ -45,19 +44,7 @@
 
       <!-- 首屏核心内容区 (居中限制 1320px，饱满充实) -->
       <div class="section-inner hero-inner">
-        <!-- 顶部公告胶囊 -->
-        <div class="hero-pill-badge">
-          <span class="badge-dot-live"></span>
-          <span class="badge-text">2026 生成式 AI 搜索优化 · GEO 认知工程中枢</span>
-          <router-link to="/console" class="badge-link">
-            <span>白皮书解读</span>
-            <svg class="pill-arrow" viewBox="0 0 16 16" fill="currentColor">
-              <path fill-rule="evenodd" d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z" clip-rule="evenodd" />
-            </svg>
-          </router-link>
-        </div>
-
-        <!-- 极简大气主标题 -->
+        <!-- 极简大气主标题 (已移除顶部白皮书胶囊) -->
         <h1 class="hero-headline">
           当 5 亿客户向 AI 提问<br />
           让您的品牌成为 <span class="text-gradient">第一推荐</span>
@@ -120,8 +107,11 @@
           </div>
         </div>
 
-        <!-- ================= 核心重构：方案 A 智能雷达交互中枢看板 (彻底填补首屏空洞) ================= -->
+        <!-- ================= 方案 A 智能雷达交互中枢看板 (带淡淡的流光特效) ================= -->
         <div class="hero-console-showcase">
+          <!-- 内部悬浮环境流光光晕 -->
+          <div class="console-streaming-glow"></div>
+
           <!-- 看板顶部门户状态条 -->
           <div class="console-top-bar">
             <div class="bar-left">
@@ -283,22 +273,22 @@
                 </div>
               </div>
 
-              <!-- 跳转完整体检报告 CTA 按钮 -->
-              <router-link
-                :to="{ path: '/console', query: { brand: currentCase.brandName } }"
+              <!-- 预约专家 1v1 演示 CTA 按钮 -->
+              <button
                 class="btn-console-explore"
+                @click="openLeadModal('console_case', currentCase.brandName, currentCase.chipLabel)"
               >
-                <span>查看该标杆企业穿透报告</span>
+                <span>预约该标杆案例专家演示</span>
                 <svg viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
-              </router-link>
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 首屏全宽跑马灯 (脱离 1280px 限制，贯穿全屏左右 100% 视口边缘，与上方控制台呼应) -->
+      <!-- 首屏全宽跑马灯 (脱离 1280px 限制，贯穿全屏左右 100% 视口边缘) -->
       <div class="hero-trust-marquee-container">
         <div class="trust-marquee-header">
           <span class="trust-line"></span>
@@ -528,12 +518,15 @@
               <h3 class="sol-headline">{{ currentIndustry.headline }}</h3>
             </div>
             <div class="sol-header-right">
-              <router-link :to="{ path: '/console', query: { brand: currentIndustry.defaultBrand } }" class="btn-ind-try">
-                <span>实测该行业大模型表现</span>
+              <button
+                class="btn-ind-try"
+                @click="openLeadModal('industry', currentIndustry.defaultBrand, currentIndustry.category)"
+              >
+                <span>预约该行业现场实测演示</span>
                 <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
-              </router-link>
+              </button>
             </div>
           </div>
 
@@ -774,7 +767,7 @@
           准备好在 AI 搜索时代，彻底终结客源被同行截流的局面了吗？
         </h2>
         <p class="cta-sub">
-          无需部署任何插件 · 现场直连 5 大主流基座大模型 · 10秒快速出具专属体检书
+          无需部署任何插件 · 现场直连 5 大主流基座大模型 · 专属顾问 1 对 1 实测演示
         </p>
 
         <div class="cta-action-box">
@@ -786,7 +779,7 @@
               @keyup.enter="handleBottomSubmit"
             />
             <button class="btn-cta-submit" @click="handleBottomSubmit">
-              <span>免费启动体检</span>
+              <span>预约专家体检演示</span>
               <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
               </svg>
@@ -813,10 +806,10 @@
           <div class="footer-links-group">
             <div class="links-col">
               <span class="links-title">产品与服务</span>
-              <router-link to="/console">全网AI透视体检</router-link>
-              <router-link to="/diagnostic_report">标杆深度案例</router-link>
-              <router-link to="/console">手机+PC双端探测</router-link>
-              <router-link to="/console">竞品截流深度测算</router-link>
+              <a href="#" @click.prevent="openLeadModal('footer_audit')">企业 AI 穿透体检</a>
+              <a href="#" @click.prevent="openLeadModal('footer_case')">标杆深度实测案例</a>
+              <a href="#" @click.prevent="openLeadModal('footer_probe')">手机+PC双端探测</a>
+              <a href="#" @click.prevent="openLeadModal('footer_defense')">竞品截流深度测算</a>
             </div>
             <div class="links-col">
               <span class="links-title">底层架构</span>
@@ -838,20 +831,203 @@
           <div class="copyright">
             © 2026 蜉蝣小宝 (北京) 智能科技有限公司 · 版权所有 · 京ICP备20260888号-1
           </div>
-          <div class="legal-text">
-            声明：测评数据基于公域公开信源抓取与大模型标准接口客观召回。
+          <div class="legal-and-portal">
+            <span class="legal-text">声明：测评数据基于公域公开信源抓取与大模型标准接口客观召回。</span>
+            <span class="portal-sep">|</span>
+            <!-- 销售/顾问专用工作台入口 -->
+            <router-link to="/console" class="sales-portal-link" title="内部顾问与销售工作台">顾问专用通道 ➔</router-link>
           </div>
         </div>
       </div>
     </footer>
+
+    <!-- 10. 企业 AI 体检预约与 1V1 专家演示弹窗 (Lead Capture Modal) -->
+    <Teleport to="body">
+      <div v-if="isLeadModalOpen" class="lead-modal-backdrop" @click.self="closeLeadModal">
+        <div class="lead-modal-card">
+          <!-- 关闭按钮 -->
+          <button class="modal-close-btn" @click="closeLeadModal" title="关闭">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <!-- 弹窗流光背景 -->
+          <div class="modal-ambient-glow"></div>
+
+          <!-- 状态 A: 填写预约信息表单 -->
+          <div v-if="!isLeadSubmitted" class="modal-form-content">
+            <div class="modal-header">
+              <span class="modal-badge">
+                <span class="dot-pulse"></span>
+                <span>1V1 专属营销顾问实测演示</span>
+              </span>
+              <h3 class="modal-title">申请《企业 AI 可见度穿透体检书》</h3>
+              <p class="modal-desc">
+                由于深度体检需真实调度 5 大基座大模型商业探针与国家级高权重信源深度核验，系统将由资深 GEO 顾问为您一对一排期实测并现场演示。
+              </p>
+            </div>
+
+            <form class="modal-form" @submit.prevent="handleLeadSubmit">
+              <div class="form-group">
+                <label class="form-label">企业或品牌全称 <span class="req-star">*</span></label>
+                <div class="input-wrap">
+                  <svg class="input-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4zm3 1h6v4H7V5zm8 8v2h1v-2h-1zm-2-2H7v4h6v-4zm2 0h1V9h-1v2zm1-4V5h-1v2h1zM5 5v2H4V5h1zm0 4h1v2H4V9zm1 4H4v2h1v-2z" clip-rule="evenodd" />
+                  </svg>
+                  <input
+                    type="text"
+                    v-model="leadForm.brand"
+                    placeholder="如：无锡恒瑞智能装备科技有限公司"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">核心主营业务 / 关注关键词 <span class="req-star">*</span></label>
+                <div class="input-wrap">
+                  <svg class="input-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                  </svg>
+                  <input
+                    type="text"
+                    v-model="leadForm.industry"
+                    placeholder="如：工业激光切管机制造 / 高端断桥铝门窗"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-row-two">
+                <div class="form-group">
+                  <label class="form-label">您的姓名 / 职务</label>
+                  <div class="input-wrap">
+                    <svg class="input-icon" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                    </svg>
+                    <input
+                      type="text"
+                      v-model="leadForm.contact"
+                      placeholder="如：张总 / 营销负责人"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">手机号码 / 微信号 <span class="req-star">*</span></label>
+                  <div class="input-wrap">
+                    <svg class="input-icon" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z" />
+                    </svg>
+                    <input
+                      type="tel"
+                      v-model="leadForm.phone"
+                      placeholder="用于接收体检数据报告"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- 期望演示沟通方式 -->
+              <div class="form-group">
+                <label class="form-label">期望演示方式</label>
+                <div class="demo-type-grid">
+                  <label class="demo-type-card" :class="{ active: leadForm.demoType === 'online' }">
+                    <input type="radio" v-model="leadForm.demoType" value="online" class="sr-only" />
+                    <div class="type-icon-dot"></div>
+                    <div class="type-meta">
+                      <span class="type-t">线上会议实操</span>
+                      <span class="type-d">现场调取大模型</span>
+                    </div>
+                  </label>
+
+                  <label class="demo-type-card" :class="{ active: leadForm.demoType === 'wechat' }">
+                    <input type="radio" v-model="leadForm.demoType" value="wechat" class="sr-only" />
+                    <div class="type-icon-dot"></div>
+                    <div class="type-meta">
+                      <span class="type-t">微信接收报告</span>
+                      <span class="type-d">直接发送体检书</span>
+                    </div>
+                  </label>
+
+                  <label class="demo-type-card" :class="{ active: leadForm.demoType === 'call' }">
+                    <input type="radio" v-model="leadForm.demoType" value="call" class="sr-only" />
+                    <div class="type-icon-dot"></div>
+                    <div class="type-meta">
+                      <span class="type-t">电话沟通风险</span>
+                      <span class="type-d">10分钟分析失血</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-lead-submit" :disabled="leadSubmitting">
+                <span v-if="!leadSubmitting">立即提交 · 锁定专属顾问体检演示</span>
+                <span v-else>正在排期提交中...</span>
+                <svg v-if="!leadSubmitting" class="btn-arrow" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </button>
+
+              <div class="modal-privacy-note">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span>商业保密承诺：企业诊断数据仅用于本次 AI 可见度测评，绝不对外公开。</span>
+              </div>
+            </form>
+          </div>
+
+          <!-- 状态 B: 提交成功受理确认 -->
+          <div v-else class="modal-success-content">
+            <div class="success-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+
+            <h3 class="success-title">体检预约已成功受理！</h3>
+            <p class="success-subtitle">
+              系统已为您建立企业专属演示工单【<span class="highlight-code">GEO-{{ successTicketId }}</span>】
+            </p>
+
+            <div class="success-info-panel">
+              <div class="info-row">
+                <span class="info-lbl">申请企业：</span>
+                <span class="info-val font-bold text-white">{{ leadForm.brand }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-lbl">接收手机：</span>
+                <span class="info-val">{{ leadForm.phone }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-lbl">实测安排：</span>
+                <span class="info-val text-cyan">资深 GEO 营销顾问将在 10 分钟内与您联系，现场调用主流基座大模型进行全域探针演示。</span>
+              </div>
+            </div>
+
+            <div class="advisor-hotline-box">
+              <span class="hotline-title">专属顾问直连热线：</span>
+              <span class="hotline-num">400-800-2026</span>
+              <span class="hotline-time">（工作日 09:00 - 21:00 在线响应）</span>
+            </div>
+
+            <button class="btn-success-close" @click="closeLeadModal">
+              <span>完成并返回官网</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
 
 // 搜索栏状态
 const heroBrandInput = ref('');
@@ -1159,6 +1335,85 @@ function selectCase(idx) {
   heroBrandInput.value = consoleCases[idx].brandName;
 }
 
+// ================= 预约体检与销售专属演示弹窗业务逻辑 =================
+const isLeadModalOpen = ref(false);
+const isLeadSubmitted = ref(false);
+const leadSubmitting = ref(false);
+const successTicketId = ref('');
+
+const leadForm = ref({
+  brand: '',
+  industry: '',
+  contact: '',
+  phone: '',
+  demoType: 'online', // 'online' | 'wechat' | 'call'
+  source: 'direct'
+});
+
+function openLeadModal(source = 'general', prefillBrand = '', prefillIndustry = '') {
+  leadForm.value.source = source;
+  leadForm.value.brand = prefillBrand || heroBrandInput.value.trim() || currentCase.value.brandName;
+  leadForm.value.industry = prefillIndustry || currentCase.value.chipLabel;
+  isLeadSubmitted.value = false;
+  isLeadModalOpen.value = true;
+}
+
+function closeLeadModal() {
+  isLeadModalOpen.value = false;
+  setTimeout(() => {
+    isLeadSubmitted.value = false;
+  }, 300);
+}
+
+function handleHeroSubmit() {
+  const q = heroBrandInput.value.trim();
+  openLeadModal('hero_search', q || currentCase.value.brandName, currentCase.value.chipLabel);
+}
+
+function handleBottomSubmit() {
+  const q = bottomBrandInput.value.trim();
+  openLeadModal('bottom_cta', q || '优质咨询企业');
+}
+
+function handleLeadSubmit() {
+  if (!leadForm.value.brand.trim()) {
+    alert('请填写您的企业或品牌全称');
+    return;
+  }
+  if (!leadForm.value.phone.trim() || !/^1[3-9]\d{9}$/.test(leadForm.value.phone.trim())) {
+    alert('请填写有效的 11 位手机号码（用于接收体检书与专属链接）');
+    return;
+  }
+  
+  leadSubmitting.value = true;
+  const ticketId = Math.floor(100000 + Math.random() * 900000).toString();
+  successTicketId.value = ticketId;
+  
+  // 模拟持久化到销售线索库
+  try {
+    const leads = JSON.parse(localStorage.getItem('geo_sales_leads') || '[]');
+    leads.unshift({
+      id: Date.now(),
+      ticketId: `GEO-${ticketId}`,
+      brand: leadForm.value.brand,
+      industry: leadForm.value.industry,
+      contact: leadForm.value.contact || '贵宾客户',
+      phone: leadForm.value.phone,
+      demoType: leadForm.value.demoType,
+      source: leadForm.value.source,
+      createdAt: new Date().toLocaleString()
+    });
+    localStorage.setItem('geo_sales_leads', JSON.stringify(leads));
+  } catch (e) {
+    console.error('Save lead error:', e);
+  }
+
+  setTimeout(() => {
+    leadSubmitting.value = false;
+    isLeadSubmitted.value = true;
+  }, 500);
+}
+
 onMounted(() => {
   placeholderTimer = setInterval(() => {
     currentPlaceholderIndex.value = (currentPlaceholderIndex.value + 1) % placeholders.length;
@@ -1215,33 +1470,6 @@ function initScrollObserver() {
   );
 
   targets.forEach((el) => scrollObserver.observe(el));
-}
-
-function handleHeroSubmit() {
-  const q = heroBrandInput.value.trim();
-  if (!q) {
-    router.push({
-      path: '/console',
-      query: { brand: currentCase.value.brandName }
-    });
-    return;
-  }
-  router.push({
-    path: '/console',
-    query: { brand: q }
-  });
-}
-
-function handleBottomSubmit() {
-  const q = bottomBrandInput.value.trim();
-  if (!q) {
-    router.push('/console');
-    return;
-  }
-  router.push({
-    path: '/console',
-    query: { brand: q }
-  });
 }
 
 // 首屏全宽跑马灯品牌列表 (采用专业 SVG 矢量图形，绝无 emoji 符号与低端框框)
@@ -1587,7 +1815,7 @@ const faqs = [
   },
   {
     question: '企业做一次 AI 体检需要多长时间？需要我们提供什么？',
-    answer: '直连实测仅需 10~15 秒！您只需在工作台输入企业名称、品牌名和核心业务，系统即可自动调用五大主流大模型接口进行实时探针扫描，出具穿透级的《企业 AI 可见度体检书》，包含客源流失测算、竞品截流深度及改善建议。'
+    answer: '直连实测仅需 10~15 秒！提交申请后，我们的资深顾问将使用专用工作台现场直连五大基座大模型接口进行实时探针扫描，出具穿透级的《企业 AI 可见度体检书》，包含客源流失测算、竞品截流深度及改善建议，并为您进行 1 对 1 深度演示。'
   },
   {
     question: 'GEO 优化会触犯大模型平台的规则或属于违规作弊吗？',
@@ -1739,32 +1967,18 @@ function toggleFaq(idx) {
   gap: 1rem;
 }
 
-.btn-ghost-nav {
-  color: #E2E8F0;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.45rem 0.9rem;
-  border-radius: 8px;
-  transition: all 0.2s;
-}
-
-.btn-ghost-nav:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: #FFFFFF;
-}
-
 .btn-primary-nav {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   background: linear-gradient(135deg, #195AFE 0%, #3B82F6 100%);
   color: #ffffff;
-  text-decoration: none;
+  border: none;
   font-size: 0.88rem;
   font-weight: 600;
-  padding: 0.5rem 1.15rem;
+  padding: 0.55rem 1.25rem;
   border-radius: 9999px;
+  cursor: pointer;
   box-shadow: 0 0 20px rgba(25, 90, 254, 0.4);
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -1786,7 +2000,7 @@ function toggleFaq(idx) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2.5rem 0 1.2rem 0;
+  padding: 3rem 0 1.2rem 0;
   background: #080C14;
   overflow: hidden;
   color: #F8FAFC;
@@ -1845,58 +2059,13 @@ function toggleFaq(idx) {
   flex: 1;
 }
 
-.hero-pill-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  background: rgba(25, 90, 254, 0.12);
-  border: 1px solid rgba(25, 90, 254, 0.35);
-  padding: 0.34rem 1.1rem;
-  border-radius: 9999px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #93C5FD;
-  margin-bottom: 1.2rem;
-  backdrop-filter: blur(12px);
-}
-
-.badge-dot-live {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #10B981;
-  box-shadow: 0 0 8px #10B981;
-  animation: pulseDot 2s infinite;
-}
-
-@keyframes pulseDot {
-  0% { transform: scale(0.9); opacity: 0.8; }
-  50% { transform: scale(1.3); opacity: 1; }
-  100% { transform: scale(0.9); opacity: 0.8; }
-}
-
-.badge-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  color: #FFFFFF;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  margin-left: 0.4rem;
-}
-
-.pill-arrow {
-  width: 12px;
-  height: 12px;
-}
-
 .hero-headline {
-  font-size: 3.4rem;
+  font-size: 3.6rem;
   font-weight: 900;
   line-height: 1.2;
   letter-spacing: -1.2px;
   color: #ffffff;
-  margin: 0 0 0.8rem 0;
+  margin: 0.5rem 0 0.9rem 0;
   max-width: 980px;
 }
 
@@ -1907,25 +2076,25 @@ function toggleFaq(idx) {
 }
 
 .hero-subtext {
-  font-size: 1.08rem;
-  line-height: 1.7;
+  font-size: 1.12rem;
+  line-height: 1.75;
   color: #94A3B8;
   max-width: 780px;
-  margin: 0 0 1.8rem 0;
+  margin: 0 0 2rem 0;
 }
 
 /* 搜索框 */
 .hero-search-wrapper {
   width: 100%;
   max-width: 860px;
-  margin-bottom: 2rem;
+  margin-bottom: 2.2rem;
 }
 
 .search-input-box {
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(15, 23, 42, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 9999px;
   padding: 0.45rem 0.55rem 0.45rem 1.4rem;
@@ -1994,7 +2163,7 @@ function toggleFaq(idx) {
   background: linear-gradient(135deg, #195AFE 0%, #3B82F6 45%, #7C3AED 100%);
   border: none;
   border-radius: 9999px;
-  padding: 0.75rem 1.7rem;
+  padding: 0.78rem 1.8rem;
   color: #ffffff;
   font-size: 0.94rem;
   font-weight: 700;
@@ -2027,7 +2196,7 @@ function toggleFaq(idx) {
   justify-content: center;
   gap: 0.6rem;
   flex-wrap: wrap;
-  margin-top: 0.9rem;
+  margin-top: 1rem;
 }
 
 .chips-label {
@@ -2069,19 +2238,64 @@ function toggleFaq(idx) {
   box-shadow: 0 0 6px #38BDF8;
 }
 
-/* ================= 方案 A 核心组件：GEO 2.0 实时雷达透视看板 ================= */
+/* ================= 方案 A 核心组件：GEO 2.0 实时雷达透视看板 (带淡淡的流光特效) ================= */
 .hero-console-showcase {
+  position: relative;
   width: 100%;
   max-width: 1240px;
-  background: rgba(13, 20, 36, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(13, 20, 36, 0.78);
+  border: 1px solid rgba(56, 189, 248, 0.22);
   border-radius: 20px;
-  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.8),
+              0 0 40px rgba(25, 90, 254, 0.12),
+              inset 0 1px 1px rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   margin-bottom: 2rem;
   overflow: hidden;
   text-align: left;
+}
+
+/* 顶部横向流光掠影动画 (Subtle Top Border Light Beam) */
+.hero-console-showcase::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #38BDF8, #818CF8, #C084FC, transparent);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.85);
+  animation: consoleLightSweep 5.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* 内部环境微光流光 (Ambient Floating Beam inside) */
+.console-streaming-glow {
+  position: absolute;
+  width: 500px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.16) 0%, rgba(124, 58, 237, 0.08) 50%, transparent 70%);
+  top: -60px;
+  left: 15%;
+  filter: blur(55px);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatingBeam 8s ease-in-out infinite alternate;
+}
+
+@keyframes consoleLightSweep {
+  0% { left: -60%; opacity: 0; }
+  25% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { left: 130%; opacity: 0; }
+}
+
+@keyframes floatingBeam {
+  0% { transform: translateX(0) scale(1); opacity: 0.5; }
+  50% { transform: translateX(350px) scale(1.1); opacity: 0.85; }
+  100% { transform: translateX(650px) scale(1); opacity: 0.5; }
 }
 
 .console-top-bar {
@@ -2091,6 +2305,8 @@ function toggleFaq(idx) {
   padding: 0.75rem 1.4rem;
   background: rgba(255, 255, 255, 0.025);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 2;
 }
 
 .bar-left {
@@ -2192,6 +2408,8 @@ function toggleFaq(idx) {
   grid-template-columns: 1.05fr 1.35fr 1fr;
   gap: 1.2rem;
   padding: 1.4rem;
+  position: relative;
+  z-index: 2;
 }
 
 .console-col {
@@ -2571,9 +2789,9 @@ function toggleFaq(idx) {
   border-radius: 8px;
   padding: 0.55rem;
   color: #E2E8F0;
-  text-decoration: none;
   font-size: 0.82rem;
   font-weight: 600;
+  cursor: pointer;
   transition: all 0.2s;
   margin-top: 0.4rem;
 }
@@ -3124,11 +3342,12 @@ function toggleFaq(idx) {
   gap: 0.5rem;
   background: #0F172A;
   color: #FFFFFF;
-  text-decoration: none;
+  border: none;
   font-size: 0.92rem;
   font-weight: 600;
   padding: 0.65rem 1.4rem;
   border-radius: 9999px;
+  cursor: pointer;
   transition: all 0.2s;
 }
 
@@ -3867,8 +4086,420 @@ function toggleFaq(idx) {
   gap: 1rem;
 }
 
+.legal-and-portal {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
 .legal-text {
   color: #475569;
+}
+
+.portal-sep {
+  color: #334155;
+}
+
+.sales-portal-link {
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.2s;
+}
+
+.sales-portal-link:hover {
+  color: #38BDF8;
+}
+
+/* ================= 10. 企业 AI 体检预约弹窗样式 (Lead Modal) ================= */
+.lead-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(5, 8, 16, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.lead-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #0B1120;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 22px;
+  box-shadow: 0 25px 80px -10px rgba(0, 0, 0, 0.9), 0 0 35px rgba(25, 90, 254, 0.2);
+  padding: 2.2rem;
+  box-sizing: border-box;
+}
+
+.modal-ambient-glow {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(124, 58, 237, 0.12) 50%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+.modal-close-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-header {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.modal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #38BDF8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  margin-bottom: 0.8rem;
+}
+
+.dot-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38BDF8;
+  box-shadow: 0 0 6px #38BDF8;
+}
+
+.modal-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.modal-desc {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #94A3B8;
+  margin: 0;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  text-align: left;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-row-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #CBD5E1;
+}
+
+.req-star {
+  color: #EF4444;
+}
+
+.input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+  transition: all 0.2s;
+}
+
+.input-wrap:focus-within {
+  border-color: #38BDF8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+.input-icon {
+  width: 16px;
+  height: 16px;
+  color: #64748B;
+  flex-shrink: 0;
+}
+
+.input-wrap input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #FFFFFF;
+  font-size: 0.88rem;
+}
+
+.input-wrap input::placeholder {
+  color: #475569;
+}
+
+.demo-type-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+
+.demo-type-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.6rem 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  transition: all 0.2s;
+}
+
+.demo-type-card.active {
+  background: rgba(25, 90, 254, 0.18);
+  border-color: #38BDF8;
+}
+
+.type-icon-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #64748B;
+  margin-top: 4px;
+}
+
+.demo-type-card.active .type-icon-dot {
+  background: #38BDF8;
+  box-shadow: 0 0 6px #38BDF8;
+}
+
+.type-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.type-t {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #E2E8F0;
+}
+
+.type-d {
+  font-size: 0.68rem;
+  color: #64748B;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.btn-lead-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #195AFE 0%, #3B82F6 45%, #7C3AED 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 0.85rem;
+  color: #ffffff;
+  font-size: 0.94rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(25, 90, 254, 0.5);
+  transition: all 0.2s;
+  margin-top: 0.5rem;
+}
+
+.btn-lead-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 0 32px rgba(25, 90, 254, 0.75);
+}
+
+.btn-lead-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.modal-privacy-note {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  color: #64748B;
+  justify-content: center;
+}
+
+.modal-privacy-note svg {
+  width: 13px;
+  height: 13px;
+  color: #10B981;
+}
+
+/* 成功状态 */
+.modal-success-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.success-icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.2);
+}
+
+.success-icon-wrap svg {
+  width: 32px;
+  height: 32px;
+}
+
+.success-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 0.5rem 0;
+}
+
+.success-subtitle {
+  font-size: 0.88rem;
+  color: #94A3B8;
+  margin: 0 0 1.5rem 0;
+}
+
+.highlight-code {
+  color: #38BDF8;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.success-info-panel {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.info-row {
+  display: flex;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.info-lbl {
+  color: #64748B;
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.info-val {
+  color: #CBD5E1;
+}
+
+.text-white { color: #FFFFFF; }
+.text-cyan { color: #38BDF8; }
+
+.advisor-hotline-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: #94A3B8;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.hotline-num {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #10B981;
+}
+
+.btn-success-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 0.7rem 2.2rem;
+  color: #FFFFFF;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-success-close:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* ================= 响应式处理 ================= */
@@ -3902,5 +4533,7 @@ function toggleFaq(idx) {
   .footer-links-group { grid-template-columns: 1fr 1fr; }
   .console-top-bar { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   .bar-right { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+  .form-row-two { grid-template-columns: 1fr; }
+  .demo-type-grid { grid-template-columns: 1fr; }
 }
 </style>
