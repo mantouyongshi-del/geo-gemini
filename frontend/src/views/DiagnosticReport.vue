@@ -4,17 +4,33 @@
     <div class="top-action-bar no-print">
       <div class="action-inner">
         <div class="bar-left">
-          <router-link to="/diagnostic" class="back-link">
-            ← 返回体检工作台
-          </router-link>
+          <button type="button" class="back-link" @click="handleBackToConsole">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bar-btn-icon">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>返回体检工作台</span>
+          </button>
           <span class="report-id-tag">报告单号: {{ report.report_code }}</span>
         </div>
         <div class="bar-right">
           <button class="btn btn-outline" @click="handlePrint">
-            <span>🖨️ 打印 / 导出 A4 彩色诊断书</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bar-btn-icon">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            <span>打印 / 导出 A4 彩色诊断书</span>
           </button>
           <button class="btn btn-primary" @click="copyShareLink">
-            <span>{{ copied ? '已复制微信链接 ✓' : '🔗 复制微信分享链接' }}</span>
+            <svg v-if="!copied" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bar-btn-icon">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+            <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="bar-btn-icon">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>{{ copied ? '已复制微信链接 ✓' : '复制微信分享链接' }}</span>
           </button>
         </div>
       </div>
@@ -621,6 +637,14 @@ function isTargetCite(cite) {
   return false;
 }
 
+function handleBackToConsole() {
+  if (window.location.pathname.includes('console')) {
+    router.push('/');
+  } else {
+    window.location.href = '/console.html';
+  }
+}
+
 function copyShareLink() {
   navigator.clipboard.writeText(window.location.href).then(() => {
     copied.value = true;
@@ -688,10 +712,27 @@ watch(() => route.params.code || route.query.code, (newCode) => {
 }
 
 .back-link {
+  background: none;
+  border: none;
   color: #818cf8;
-  text-decoration: none;
   font-size: 0.85rem;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: #a5b4fc;
+}
+
+.bar-btn-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
 }
 
 .report-id-tag {

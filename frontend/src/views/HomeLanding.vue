@@ -1125,9 +1125,6 @@
           </div>
           <div class="legal-and-portal">
             <span class="legal-text">声明：测评数据基于公域公开信源抓取与大模型标准接口客观召回。</span>
-            <span class="portal-sep">|</span>
-            <!-- 销售/顾问专用工作台入口 -->
-            <router-link to="/console" class="sales-portal-link" title="内部顾问与销售工作台">顾问专用通道 ➔</router-link>
           </div>
         </div>
       </div>
