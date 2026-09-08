@@ -11,8 +11,6 @@
 /* 销售演示操作台全局根重置 */
 .console-app-root {
   min-height: 100vh;
-  background-color: #0b0f19;
-  color: #e2e8f0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
