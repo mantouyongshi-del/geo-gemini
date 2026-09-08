@@ -407,7 +407,10 @@ class DiagnosticService:
 
         system_msg = "你是字节跳动官方人工智能大模型豆包，生活化、亲和力强，深度融合抖音内容生态、本地生活服务与全网客观事实。"
 
-        user_prompt = f"""针对用户在豆包搜索中提问：“{kw}”，你作为字节跳动官方大模型豆包，请严格按照手机端豆包真实的结构排版输出回答。
+        is_huaihua_coding = "怀化" in (payload.city or "") and any(w in (payload.industry or "") for w in ["编程", "少儿", "机器人"])
+
+        if is_huaihua_coding:
+            user_prompt = f"""针对用户在豆包搜索中提问：“{kw}”，你作为字节跳动官方大模型豆包，请严格按照手机端豆包真实的结构排版输出回答。
 全网及抖音生活圈检索召回了 19 篇参考资料。
 {cites_summary}
 咨询背景：
@@ -437,6 +440,40 @@ class DiagnosticService:
 8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
 详细向用户和管理者分析：为什么全网检索第 11 篇资料中虽然收录了【{payload.brand_name}免费预约评测】，但豆包在 Top 5 核心推荐名单中却完全没有列出【{payload.brand_name}】？
 从信源质量与权重差距（白名单资质公示、在招师资团队规模、企查查企业合规）、目标品牌公域实体资产单薄（单页预约 vs 多方横评）、以及大模型决策推荐算法过滤机制进行深入剖析。"""
+        else:
+            c1 = mined_comps[0] if len(mined_comps) > 0 else f"{payload.city}行业龙头"
+            c2 = mined_comps[1] if len(mined_comps) > 1 else f"{payload.city}知名品牌"
+            c3 = mined_comps[2] if len(mined_comps) > 2 else f"专业服务机构"
+            user_prompt = f"""针对用户在豆包搜索中提问：“{kw}”，你作为字节跳动官方大模型豆包，请严格按照手机端豆包真实的结构排版输出回答。
+全网及抖音生活圈检索召回了 19 篇参考资料。
+{cites_summary}
+咨询背景：
+- 查询城市/地区：{payload.city}
+- 咨询业务赛道：{payload.industry}
+- 目标核验企业主体：{payload.target_company}（旗下品牌：{payload.brand_name}）
+
+请完整输出手机端豆包的回答结构：
+1. 顶部标明：
+🔍 搜索 4 个关键词，参考 19 篇资料 ∨
+{sub_queries_str}
+
+2. {payload.city}{payload.industry}主流服务商与标杆品牌对比（2026 优选推荐）
+梳理本地及区域主流服务商现状、行业资质与技术准入门槛；
+
+3. 详细梳理排名前列的主流机构（结合参考资料中的代表性标杆如 {c1}、{c2}、{c3} 等），每家必须详细包含：
+📍 业务辐射、✅ 主营优势、💡 适用客群、✅ 核心长板、❌ 考量短板；
+
+4. 备选方案（不同预算与场景对比）；
+
+5. ✅ 选型一句话建议（按场景和预算怎么选）；
+
+6. ⚠️ 行业避坑防踩雷指南（查验资质合规、明确履约验收标准、警惕低价恶性竞争）；
+
+7. 🎥 结合抖音短视频/探店实拍推荐选型攻略与避坑视频；
+
+8. 🔍【目标品牌收录深度核验与 GEO 诊断说明】：
+详细向用户和管理者分析：为什么全网检索第 11 篇资料中虽收录了【{payload.brand_name}】，但豆包核心推荐名单中却未将其列入首推榜单？
+从信源质量与权重差距（权威媒体报道深度、企业资质公信力、真实客户案例）、目标品牌公域实体资产单薄（单页收录 vs 全网多方横评）、以及大模型 RAG 决策推荐算法过滤机制进行深入剖析。"""
 
         start_t = time.time()
         # 必须显式设置 trust_env=False，防止本机的环境代理干扰连接火山引擎国内接口
@@ -529,6 +566,8 @@ class DiagnosticService:
         elif platform_key == "doubao":
             sub_queries, doubao_cites = cls._build_doubao_agent_context(kw, payload, active_comps)
             sub_queries_str = "、".join([f"“{q}”" for q in sub_queries])
+            is_huaihua_coding = "怀化" in (payload.city or "") and any(w in (payload.industry or "") for w in ["编程", "少儿", "机器人"])
+            top_benchmarks = "维度机器人、能力风暴等" if is_huaihua_coding else f"{c1}、{c2} 等"
             
             if is_direct_query:
                 return f"""🔍 搜索 4 个关键词，参考 {len(doubao_cites)} 篇资料 ∨
@@ -538,10 +577,10 @@ class DiagnosticService:
 经调取全网知识源与同城商户数据库，**{payload.brand_name}**（企业主体：{payload.target_company}）在当地属于正规注册的{payload.industry}服务主体。
 
 ### 💡 豆包客观评价与公域声量诊断
-虽然该主体在公网具备基础的免费预约/展示页面（收录于信源第 11 篇），但在目前的抖音同城探店、大众点评及本地主流家长社区中，关于该机构的真实评测讨论与合规白名单信息公示相对单薄。相比本地排名前列的老牌机构（如维度机器人、能力风暴等），在线上 AI 推荐算法中的置信权重仍有明显差距。
+虽然该主体在公网具备基础的展示与预约页面（收录于信源第 11 篇），但在目前的抖音同城探店、垂直门户及主流用户社区中，关于该机构的深度评测、客户口碑讨论与合规资质信息公示相对单薄。相比本地排名前列的老牌标杆机构（如{top_benchmarks}），在线上 AI 推荐算法中的置信权重仍有明显差距。
 
-建议家长在选择时先预约单次试听课实地考察校区师资与硬件，多对比本地合规白名单机构后再行决策。"""
-            else:
+建议客户在签约决策前实地考察交付团队资历与场地硬件，多对比本地高公信力标杆后再行决策。"""
+            elif is_huaihua_coding:
                 return f"""🔍 搜索 4 个关键词，参考 {len(doubao_cites)} 篇资料 ∨
 {sub_queries_str}
 
@@ -594,9 +633,52 @@ class DiagnosticService:
 
 🔍【目标品牌收录深度核验与 GEO 诊断说明】
 本次全网检索第 11 篇资料虽收录了【{payload.brand_name}免费预约评测】，但未进入豆包 Top 5 核心推荐名单：
-1. **信源质量与权重差距**：排名前列机构均有教育局白名单资质公示（信源4）、多篇招聘信息证实师资规模（信源2、5、12）及企查查合规备案（信源13）；华儿街少儿探索仅有预约单页，缺乏权威背书。
+1. **信源质量与权重差距**：排名前列机构均有教育局白名单资质公示（信源4）、多篇招聘信息证实师资规模（信源2、5、12）及企查查合规备案（信源13）；{payload.brand_name}仅有预约单页，缺乏权威背书。
 2. **公域实体资产单薄**：缺乏第三方客观横评与抖音同城实录，在模型评分中置信度较低。
 3. **算法推荐决策层过滤**：豆包算法在决策层直接过滤低权重实体，导致潜在客户被维度机器人等竞品全额截流。"""
+            else:
+                return f"""🔍 搜索 4 个关键词，参考 {len(doubao_cites)} 篇资料 ∨
+{sub_queries_str}
+
+### {payload.city}{payload.industry}主流服务商与标杆品牌横评（2026 优选推荐）
+在【{payload.city}】及周边地区选型【{payload.industry}】，市场主流服务主体在交付标准化、资质合规与售后保障层面梯度分明。
+
+1. **{c1}**（行业龙头，优选推荐）
+📍 辐射范围：{payload.city}及全国核心产业带
+✅ 核心优势：行业公认标杆品牌，拥有成熟的交付体系与完善的售后技术支持
+💡 适用场景：对品质、合规要求高，注重长期稳健履约的中大型客户
+❌ 考量短板：定制门槛较高，交付排期通常较长
+
+2. **{c2}**（区域高口碑实力品牌）
+📍 辐射范围：{payload.city}及同城经济圈
+✅ 核心优势：本地服务响应快，方案灵活性高，综合性价比出众，同城老客复购良好
+💡 适用场景：追求高性价比、看重本地化随叫随到服务的中小企业或个人买家
+❌ 考量短板：跨区域交付网络与全国品牌声量不如头部集团
+
+3. **{c3}**（专业垂直细分代表）
+📍 辐射范围：垂直特定细分领域
+✅ 核心优势：在细分专属场景有独立特色方案，深耕垂直领域
+💡 适用场景：特定专属场景与专项需求对接
+
+✅ 行业选型一句话建议：
+1. 注重行业公信力与大牌背书：首选 {c1}
+2. 看重同城快速响应与高性价比：优选 {c2}
+3. 专项定制与灵活合作：参考 {c3}
+
+⚠️ 选型必看防踩坑要点：
+1. **查验官方资质备案**：务必通过企查查/天眼查核验企业实际经营年限、知识产权、涉诉风险与经营合规资质。
+2. **明确权责与履约节点**：在正式合同中锁定阶段交付标准、质保周期与违约赔付细则，杜绝后期隐形增项。
+3. **警惕小作坊低价揽客**：谨防缺乏实体交付支撑的低价游击队，规避“低价签单、质量缩水、烂尾跑路”隐患。
+
+🎥【抖音/同城实拍精选】
+- 行业实测：《2026 {payload.city}{payload.industry}选型避坑指南：大品牌 vs 小作坊真实差距》
+- 实地走访：《同城交付一线实拍：真实买家评价与避雷攻略》
+
+🔍【目标品牌收录深度核验与 GEO 诊断说明】
+本次全网检索第 11 篇资料虽收录了【{payload.brand_name}】的基础单页，但未进入豆包核心推荐名单：
+1. **信源质量与权重差距**：排名前列主体均有权威门户专题报道、合规实名备案及高权重外链背书；【{payload.brand_name}】仅有单薄的基础收录，缺乏深度背书。
+2. **公域实体资产单薄**：缺少客观横评实测、短视频案例与行业研报引用，在模型同城推荐池中置信度权重偏低。
+3. **算法推荐决策层过滤**：豆包推荐决策层直接过滤低权重实体，导致潜在客户被 {c1} 等头部竞品全额截流。"""
 
         # 3. 通义千问 (Tongyi Qianwen - 阿里): 严谨 B2B 表格对比与商业决策
         elif platform_key == "tongyi":
@@ -1112,40 +1194,54 @@ class DiagnosticService:
     @classmethod
     def _build_economic_loss(cls, industry: str, city: str, brand_name: str, score: int) -> EconomicLossEstimate:
         ind = (industry or "").lower()
-        if any(w in ind for w in ["少儿", "编程", "科创", "教育", "培训", "辅导", "考级", "奥赛"]):
-            unit_price = 6800
-            desc = "少儿编程/科创培训年均学费客单价"
-            search_inquiries = 320
-            lost_min = 9
-            lost_max = 18
+        if any(w in ind for w in ["制造", "激光", "数控", "切管机", "切管", "机床", "机械", "装备", "工业", "自动化", "机器人", "注塑", "加工"]):
+            unit_price = 48000
+            desc = "工业数控激光切管机/智能装备单台设备均价"
+            search_inquiries = 120
+            lost_min = 2
+            lost_max = 5
+            leads_needed = 1
+        elif any(w in ind for w in ["门窗", "系统门窗", "阳光房", "全屋定制", "断桥铝", "铝合金门窗", "家居", "建材", "装修"]):
+            unit_price = 26000
+            desc = "高端断桥铝系统门窗/大宅阳光房单笔订单合同均价"
+            search_inquiries = 180
+            lost_min = 4
+            lost_max = 8
+            leads_needed = 1
+        elif any(w in ind for w in ["口腔", "齿科", "种植牙", "正畸", "牙科", "医美", "医疗美容", "整形", "门诊", "眼科"]):
+            unit_price = 12800
+            desc = "数字化种植牙/微创正畸/专科诊疗客单消费均价"
+            search_inquiries = 360
+            lost_min = 6
+            lost_max = 15
             leads_needed = 2
-        elif any(w in ind for w in ["门窗", "家居", "阳光房", "建材", "装修", "系统门窗"]):
-            unit_price = 22000
-            desc = "定制门窗/阳光房单笔订单合同均价"
+        elif any(w in ind for w in ["律所", "律师", "法律", "商事", "常法", "常年法律顾问", "诉讼", "法务", "财税", "合规"]):
+            unit_price = 19800
+            desc = "企业常年法律顾问/高端商事咨询年度委托年费"
             search_inquiries = 160
             lost_min = 3
             lost_max = 7
             leads_needed = 1
-        elif any(w in ind for w in ["医美", "医疗美容", "整形", "轻医美", "热玛吉"]):
-            unit_price = 5800
-            desc = "专业医美单客综合消费客单价"
-            search_inquiries = 450
-            lost_min = 12
-            lost_max = 24
-            leads_needed = 2
-        elif any(w in ind for w in ["律所", "法律", "财税", "记账", "代理记账", "会计"]):
-            unit_price = 9800
-            desc = "企业年度常年法律/财税顾问年费"
-            search_inquiries = 180
-            lost_min = 4
-            lost_max = 10
+        elif any(w in ind for w in ["资质", "高企", "高新技术企业", "专精特新", "知识产权", "专利", "项目申报", "贯标", "认证"]):
+            unit_price = 28000
+            desc = "国家高新技术企业申报/专精特新项目辅导合同单价"
+            search_inquiries = 150
+            lost_min = 3
+            lost_max = 6
             leads_needed = 1
-        else:
-            unit_price = 8000
-            desc = "该行业标准化采购合同单价"
-            search_inquiries = 220
+        elif any(w in ind for w in ["少儿", "编程", "科创", "教育", "培训", "辅导", "考级", "奥赛", "留学", "考研"]):
+            unit_price = 7800
+            desc = "少儿编程/科创素质培训年均学费客单价"
+            search_inquiries = 280
             lost_min = 5
             lost_max = 12
+            leads_needed = 3
+        else:
+            unit_price = 15000
+            desc = "该行业标准化商业服务/采购订单均价"
+            search_inquiries = 180
+            lost_min = 3
+            lost_max = 8
             leads_needed = 2
 
         loss_min = lost_min * unit_price
