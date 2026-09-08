@@ -107,8 +107,11 @@
           </div>
         </div>
 
-        <!-- ================= 方案 A 智能雷达交互中枢看板 (带淡淡的流光特效) ================= -->
+        <!-- ================= 方案 A 智能雷达交互中枢看板 (带 360° 全边框环绕流光) ================= -->
         <div class="hero-console-showcase">
+          <!-- 360° 全周径全边框环绕流光 (Border Beam) -->
+          <div class="console-border-beam" aria-hidden="true"></div>
+
           <!-- 内部悬浮环境流光光晕 -->
           <div class="console-streaming-glow"></div>
 
@@ -2256,19 +2259,51 @@ function toggleFaq(idx) {
   text-align: left;
 }
 
-/* 顶部横向流光掠影动画 (Subtle Top Border Light Beam) */
-.hero-console-showcase::after {
+/* 360° 全边框环绕流光动画 (Perimeter Border Beam: 沿圆角矩形四边循环巡航) */
+.console-border-beam {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 1.5px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  z-index: 10;
+}
+
+.console-border-beam::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: -80%;
-  width: 50%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #38BDF8, #818CF8, #C084FC, transparent);
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.85);
-  animation: consoleLightSweep 5.5s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 10;
+  aspect-ratio: 1;
+  width: 460px;
+  background: linear-gradient(to right, #38BDF8, #818CF8, #C084FC, transparent 80%);
+  offset-path: rect(0 auto auto 0 round 20px);
+  offset-anchor: 100% 50%;
+  animation: consoleBorderBeamLoop 9s linear infinite;
+}
+
+@keyframes consoleBorderBeamLoop {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+/* 兼容未支持 offset-path 基础图形的环境：顶部横向流光兜底 */
+@supports not (offset-path: rect(0 auto auto 0 round 20px)) {
+  .console-border-beam::after {
+    top: 0;
+    left: -60%;
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #38BDF8, #818CF8, #C084FC, transparent);
+    animation: consoleLightSweep 5.5s ease-in-out infinite;
+  }
 }
 
 /* 内部环境微光流光 (Ambient Floating Beam inside) */
