@@ -13,13 +13,302 @@
         </router-link>
 
         <nav class="nav-links">
-          <a href="#hero-search" class="nav-item">搜索透视</a>
-          <a href="#market-shift" class="nav-item">流量趋势</a>
-          <a href="#solutions" class="nav-item">行业方案</a>
-          <a href="#architecture" class="nav-item">认知引擎</a>
-          <a href="#roadmap" class="nav-item">30天交付</a>
-          <a href="#roi" class="nav-item">商业账本</a>
-          <a href="#faq" class="nav-item">常见问题</a>
+          <!-- 1. 平台中枢 -->
+          <div
+            class="nav-item-group"
+            :class="{ active: activeDropdown === 'platform' }"
+            @mouseenter="handleMouseEnter('platform')"
+            @mouseleave="handleMouseLeave"
+          >
+            <button class="nav-btn" @click="toggleDropdown('platform')">
+              <span>平台与中枢</span>
+              <svg class="nav-caret" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+
+            <!-- 平台中枢 Mega Dropdown -->
+            <transition name="mega-fade">
+              <div v-if="activeDropdown === 'platform'" class="mega-dropdown align-left width-platform">
+                <div class="dropdown-item-card" @click="scrollToSection('hero-search')">
+                  <div class="item-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                    </svg>
+                  </div>
+                  <div class="item-text-wrap">
+                    <div class="item-title-row">
+                      <span class="item-title">GEO-RADAR 决策透视中枢</span>
+                      <span class="item-badge blue">v2.6 实时</span>
+                    </div>
+                    <p class="item-desc">5 大基座大模型 24/7 探针直连，实时穿透高频采购推荐顺位与信源采信。</p>
+                  </div>
+                </div>
+
+                <div class="dropdown-item-card" @click="scrollToSection('market-shift')">
+                  <div class="item-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+                    </svg>
+                  </div>
+                  <div class="item-text-wrap">
+                    <div class="item-title-row">
+                      <span class="item-title">AI 搜索流量断崖迁移洞察</span>
+                      <span class="item-badge">趋势数据</span>
+                    </div>
+                    <p class="item-desc">直观透视采购客户从传统搜索向大模型提问的心智转移，测算商机流失。</p>
+                  </div>
+                </div>
+
+                <div class="dropdown-item-card" @click="scrollToSection('architecture')">
+                  <div class="item-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+                    </svg>
+                  </div>
+                  <div class="item-text-wrap">
+                    <div class="item-title-row">
+                      <span class="item-title">GEO 认知工程底层架构防线</span>
+                      <span class="item-badge blue">核心底层</span>
+                    </div>
+                    <p class="item-desc">全域知识资产蒸馏、权威证据注入与同业恶意截流三层防御体系。</p>
+                  </div>
+                </div>
+
+                <div class="dropdown-footer">
+                  <span>直连中国 5 大主流基座大模型 · 覆盖国家级权威信源</span>
+                  <a href="javascript:void(0)" @click.stop="openLeadModal('nav_platform')">预约现场实测 ➔</a>
+                </div>
+              </div>
+            </transition>
+          </div>
+
+          <!-- 2. 行业解决方案 -->
+          <div
+            class="nav-item-group"
+            :class="{ active: activeDropdown === 'solutions' }"
+            @mouseenter="handleMouseEnter('solutions')"
+            @mouseleave="handleMouseLeave"
+          >
+            <button class="nav-btn" @click="toggleDropdown('solutions')">
+              <span>行业解决方案</span>
+              <svg class="nav-caret" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+
+            <!-- 行业解决方案 Mega Dropdown -->
+            <transition name="mega-fade">
+              <div v-if="activeDropdown === 'solutions'" class="mega-dropdown align-center width-solutions">
+                <div class="dropdown-grid-two">
+                  <div class="dropdown-item-card" @click="handleNavIndustry(0)">
+                    <div class="item-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                      </svg>
+                    </div>
+                    <div class="item-text-wrap">
+                      <div class="item-title-row">
+                        <span class="item-title">工业制造与切管机</span>
+                        <span class="item-badge">无锡恒瑞</span>
+                      </div>
+                      <p class="item-desc">重型激光切管机精密选型，有效拦截同业快招截流</p>
+                    </div>
+                  </div>
+
+                  <div class="dropdown-item-card" @click="handleNavIndustry(1)">
+                    <div class="item-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+                      </svg>
+                    </div>
+                    <div class="item-text-wrap">
+                      <div class="item-title-row">
+                        <span class="item-title">高端系统门窗定制</span>
+                        <span class="item-badge">欧罗德门窗</span>
+                      </div>
+                      <p class="item-desc">断桥铝隔音隔热性能证据链，大宅别墅首选第一推荐</p>
+                    </div>
+                  </div>
+
+                  <div class="dropdown-item-card" @click="handleNavIndustry(2)">
+                    <div class="item-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+                      </svg>
+                    </div>
+                    <div class="item-text-wrap">
+                      <div class="item-title-row">
+                        <span class="item-title">餐饮连锁招商加盟</span>
+                        <span class="item-badge">老乡鸡加盟</span>
+                      </div>
+                      <p class="item-desc">万店连锁标准化供应链，化解虚假快招信息拦截</p>
+                    </div>
+                  </div>
+
+                  <div class="dropdown-item-card" @click="handleNavIndustry(3)">
+                    <div class="item-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                      </svg>
+                    </div>
+                    <div class="item-text-wrap">
+                      <div class="item-title-row">
+                        <span class="item-title">数字化专科医疗</span>
+                        <span class="item-badge">瑞尔齿科</span>
+                      </div>
+                      <p class="item-desc">数字化正畸与种植专科，国家权威学术信源背书</p>
+                    </div>
+                  </div>
+
+                  <div class="dropdown-item-card span-two" @click="handleNavIndustry(4)">
+                    <div class="item-icon-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                      </svg>
+                    </div>
+                    <div class="item-text-wrap">
+                      <div class="item-title-row">
+                        <span class="item-title">商事争议与常年法务</span>
+                        <span class="item-badge">君泽君律所</span>
+                      </div>
+                      <p class="item-desc">涉税合规民商争议仲裁第一梯队，民商裁判文书权威采信引用</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="dropdown-footer">
+                  <span>点击任意行业，首屏雷达控制台将自动同步联动切换实测数据</span>
+                  <a href="javascript:void(0)" @click.stop="scrollToSection('solutions')">查看全部行业方案 ➔</a>
+                </div>
+              </div>
+            </transition>
+          </div>
+
+          <!-- 3. 商业价值与交付 -->
+          <div
+            class="nav-item-group"
+            :class="{ active: activeDropdown === 'delivery' }"
+            @mouseenter="handleMouseEnter('delivery')"
+            @mouseleave="handleMouseLeave"
+          >
+            <button class="nav-btn" @click="toggleDropdown('delivery')">
+              <span>商业价值与交付</span>
+              <svg class="nav-caret" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+
+            <!-- 交付与价值 Mega Dropdown -->
+            <transition name="mega-fade">
+              <div v-if="activeDropdown === 'delivery'" class="mega-dropdown align-center width-delivery">
+                <div class="dropdown-item-card" @click="scrollToSection('roadmap')">
+                  <div class="item-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                  </div>
+                  <div class="item-text-wrap">
+                    <div class="item-title-row">
+                      <span class="item-title">30 天标准化交付路线图</span>
+                      <span class="item-badge">4阶段保障</span>
+                    </div>
+                    <p class="item-desc">现状深度体检 ➔ 权威证据蒸馏 ➔ 知识图谱注入 ➔ 首推霸榜防御，清晰可控。</p>
+                  </div>
+                </div>
+
+                <div class="dropdown-item-card" @click="scrollToSection('roi')">
+                  <div class="item-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                  </div>
+                  <div class="item-text-wrap">
+                    <div class="item-title-row">
+                      <span class="item-title">企业获客成本对比账本</span>
+                      <span class="item-badge blue">降本 80%+</span>
+                    </div>
+                    <p class="item-desc">对比传统高昂竞价单价，GEO 建立长期数字认知资产，边际获客成本大幅降低。</p>
+                  </div>
+                </div>
+
+                <div class="dropdown-footer">
+                  <span>提供 30 天首推达标承诺，专属行业顾问一对一跟踪进度</span>
+                  <a href="javascript:void(0)" @click.stop="openLeadModal('nav_delivery')">获取定制排期表 ➔</a>
+                </div>
+              </div>
+            </transition>
+          </div>
+
+          <!-- 4. 资源与保障 -->
+          <div
+            class="nav-item-group"
+            :class="{ active: activeDropdown === 'trust' }"
+            @mouseenter="handleMouseEnter('trust')"
+            @mouseleave="handleMouseLeave"
+          >
+            <button class="nav-btn" @click="toggleDropdown('trust')">
+              <span>资源与保障</span>
+              <svg class="nav-caret" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+
+            <!-- 资源与保障 Mega Dropdown -->
+            <transition name="mega-fade">
+              <div v-if="activeDropdown === 'trust'" class="mega-dropdown align-right width-trust">
+                <div class="dropdown-item-card" @click="scrollToSection('faq')">
+                  <div class="item-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                  </div>
+                  <div class="item-text-wrap">
+                    <div class="item-title-row">
+                      <span class="item-title">核心常见问答 (FAQ)</span>
+                      <span class="item-badge">常见关切</span>
+                    </div>
+                    <p class="item-desc">基座大模型推荐机制、知识注入周期、品牌长效防御与合规答疑。</p>
+                  </div>
+                </div>
+
+                <div class="dropdown-item-card" @click="openLeadModal('nav_security')">
+                  <div class="item-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                  </div>
+                  <div class="item-text-wrap">
+                    <div class="item-title-row">
+                      <span class="item-title">商业数据安全与保密承诺</span>
+                      <span class="item-badge blue">严格签署 NDA</span>
+                    </div>
+                    <p class="item-desc">严格遵循企业保密协议，所有诊断数据绝不向任何第三方公开透露。</p>
+                  </div>
+                </div>
+
+                <div class="dropdown-item-card" @click="openLeadModal('nav_hotline')">
+                  <div class="item-icon-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                  </div>
+                  <div class="item-text-wrap">
+                    <div class="item-title-row">
+                      <span class="item-title">官方顾问咨询热线</span>
+                      <span class="item-badge">400-800-2026</span>
+                    </div>
+                    <p class="item-desc">工作日 09:00 - 20:00 资深顾问在线响应，提供快速排期咨询。</p>
+                  </div>
+                </div>
+
+                <div class="dropdown-footer">
+                  <span>如需为集团或上市企业进行私密现场演示，可直接预约顾问</span>
+                  <a href="javascript:void(0)" @click.stop="openLeadModal('nav_trust')">预约专属顾问 ➔</a>
+                </div>
+              </div>
+            </transition>
+          </div>
         </nav>
 
         <!-- 顶部操作区 (已移除标杆报告和工作台两个对外按钮) -->
@@ -1376,6 +1665,44 @@ function selectCase(idx) {
   heroBrandInput.value = consoleCases[idx].brandName;
 }
 
+// ================= 顶部超级导航菜单 (Mega-Menu) 交互逻辑 =================
+const activeDropdown = ref(null);
+let dropdownTimer = null;
+
+function handleMouseEnter(menu) {
+  if (dropdownTimer) clearTimeout(dropdownTimer);
+  activeDropdown.value = menu;
+}
+
+function handleMouseLeave() {
+  dropdownTimer = setTimeout(() => {
+    activeDropdown.value = null;
+  }, 180);
+}
+
+function toggleDropdown(menu) {
+  if (activeDropdown.value === menu) {
+    activeDropdown.value = null;
+  } else {
+    activeDropdown.value = menu;
+  }
+}
+
+function scrollToSection(sectionId) {
+  activeDropdown.value = null;
+  const el = document.getElementById(sectionId);
+  if (el) {
+    const yOffset = -76;
+    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+
+function handleNavIndustry(idx) {
+  selectCase(idx);
+  scrollToSection('solutions');
+}
+
 // ================= 预约体检与销售专属演示弹窗业务逻辑 =================
 const isLeadModalOpen = ref(false);
 const isLeadSubmitted = ref(false);
@@ -1990,22 +2317,234 @@ function toggleFaq(idx) {
   color: #60A5FA;
 }
 
+/* 顶部超级导航菜单 (Mega-Menu) */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 0.35rem;
 }
 
-.nav-item {
+.nav-item-group {
+  position: relative;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
   color: #94A3B8;
-  text-decoration: none;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 500;
-  transition: color 0.2s;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.nav-item:hover {
+.nav-btn:hover, .nav-item-group.active .nav-btn {
   color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-caret {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease;
+  color: #64748B;
+}
+
+.nav-btn:hover .nav-caret, .nav-item-group.active .nav-caret {
+  color: #FFFFFF;
+  transform: rotate(180deg);
+}
+
+/* Mega Dropdown 容器 (Similarweb / Stripe 极简白卡) */
+.mega-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  background: #FFFFFF;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.15);
+  border: 1px solid #E2E8F0;
+  padding: 14px;
+  z-index: 1000;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* 顶部微小连接热区，防止鼠标移动时意外关闭 */
+.mega-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+
+.align-left {
+  left: 0;
+}
+
+.align-center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.align-right {
+  right: 0;
+  left: auto;
+}
+
+.width-platform {
+  width: 530px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.width-solutions {
+  width: 640px;
+}
+
+.width-delivery {
+  width: 540px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.width-trust {
+  width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dropdown-grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.span-two {
+  grid-column: span 2;
+}
+
+.dropdown-item-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dropdown-item-card:hover {
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+  transform: translateY(-1px);
+}
+
+.item-icon-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #EEF2FF;
+  color: #195AFE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.item-icon-box svg {
+  width: 18px;
+  height: 18px;
+}
+
+.item-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.item-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.item-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.item-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #059669;
+  background: #ECFDF5;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.item-badge.blue {
+  color: #195AFE;
+  background: #EEF2FF;
+}
+
+.item-desc {
+  font-size: 11.5px;
+  color: #64748B;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.dropdown-footer {
+  grid-column: span 2;
+  background: #F8FAFC;
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  border: 1px solid #F1F5F9;
+  font-size: 12px;
+  color: #475569;
+}
+
+.dropdown-footer a {
+  font-size: 12px;
+  font-weight: 600;
+  color: #195AFE;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dropdown-footer a:hover {
+  text-decoration: underline;
+}
+
+/* 下拉动画 */
+.mega-fade-enter-active, .mega-fade-leave-active {
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.mega-fade-enter-from, .mega-fade-leave-to {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.align-center.mega-fade-enter-from, .align-center.mega-fade-leave-to {
+  transform: translate(-50%, 6px);
 }
 
 .header-actions {
