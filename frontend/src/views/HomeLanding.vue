@@ -17,22 +17,13 @@
     <!-- 2. 悬浮磨砂暗黑导航栏 (Header) -->
     <header class="landing-header">
       <div class="header-inner">
-        <router-link to="/" class="brand-link">
-          <!-- Google Gemini 风格：流光绕周回旋光效容器 -->
-          <div class="logo-beam-card" title="蜉蝣小宝 · AI 营销智能大脑">
-            <div class="beam-halo"><div class="beam-halo-rotator"></div></div>
-            <div class="beam-border-track"><div class="beam-border-rotator"></div></div>
-            <div class="logo-inner-content">
-              <img src="/logo-white.png" alt="蜉蝣小宝" class="logo-img" />
-            </div>
+        <!-- 左上角自然舒展、大气通透的品牌 Logo (无小气边框拘束) -->
+        <router-link to="/" class="brand-link" title="蜉蝣小宝 · AI 营销智能大脑">
+          <div class="logo-aura-wrap">
+            <div class="logo-soft-glow"></div>
+            <img src="/logo-white.png" alt="蜉蝣小宝" class="logo-unconstrained" />
           </div>
-          <div class="brand-text-wrap">
-            <div class="brand-name-row">
-              <span class="brand-name">蜉蝣小宝</span>
-              <span class="brand-badge-tag">GEO 2.0</span>
-            </div>
-            <span class="brand-en">MAYFLY COGNITIVE AI</span>
-          </div>
+          <div class="brand-badge-tag">GEO 2.0</div>
         </router-link>
 
         <nav class="nav-links">
@@ -56,7 +47,7 @@
       </div>
     </header>
 
-    <!-- 3. 品牌首屏 (Hero Section - 优化后：精炼、大气、深邃留白) -->
+    <!-- 3. 品牌首屏 (Hero Section - 精炼、大气、深邃留白) -->
     <section class="hero-section">
       <!-- 动态深空环境光晕 -->
       <div class="ambient-glow orb-blue"></div>
@@ -77,7 +68,7 @@
           让您的品牌成为 <span class="text-gradient">第一推荐</span>
         </h1>
 
-        <!-- 精炼副标题：剔除冗长字句，突出核心价值 -->
+        <!-- 精炼副标题：突出核心价值 -->
         <p class="hero-subtext">
           穿透豆包、DeepSeek、通义千问等主流大模型推荐决策层<br />
           测算潜在客源流失 · 构建专属于企业的不可替代权威知识资产
@@ -144,7 +135,7 @@
           </div>
         </div>
 
-        <!-- 4. 首屏大模型双端切面遥测控制台 (精炼、去杂质、高质感) -->
+        <!-- 4. 首屏大模型双端切面遥测控制台 -->
         <div class="hero-dashboard-mockup">
           <div class="mockup-window-header">
             <div class="window-controls">
@@ -184,7 +175,7 @@
                 </button>
               </div>
 
-              <!-- 搜索提问模拟 (干净大气) -->
+              <!-- 搜索提问模拟 -->
               <div class="chat-query-pill">
                 <span class="query-avatar">👤</span>
                 <div class="query-content">
@@ -328,30 +319,49 @@
       </div>
     </section>
 
-    <!-- 5. 权威大模型与信源无限循环跑马灯 (带滚动渐入渐出动效) -->
+    <!-- 5. 权威大模型与信源无限循环跑马灯 (大幅强化尺寸与清晰度，大字、大卡、清晰醒目) -->
     <section class="marquee-section scroll-reveal">
-      <div class="marquee-label">
-        <span>直连中国主流基座大模型 · 覆盖国家级及高权重权威信源生态</span>
+      <div class="marquee-header-wrap">
+        <div class="marquee-title-row">
+          <span class="marquee-pulse-dot"></span>
+          <h3 class="marquee-title">直连中国主流基座大模型 · 覆盖国家级及高权重权威信源生态</h3>
+          <span class="marquee-sub-note">全天候 24/7 实时探针检索与数据回溯</span>
+        </div>
       </div>
+
       <div class="marquee-wrapper">
         <div class="marquee-track">
-          <!-- 跑马灯元素 1 组 -->
-          <div class="marquee-item" v-for="(item, i) in marqueePartners" :key="'p1-' + i">
-            <span class="item-icon">{{ item.icon }}</span>
-            <span class="item-name">{{ item.name }}</span>
-            <span class="item-tag">{{ item.tag }}</span>
+          <!-- 跑马灯元素 1 组 (大卡片、大图标、大字号) -->
+          <div
+            v-for="(item, i) in marqueePartners"
+            :key="'p1-' + i"
+            class="marquee-card"
+          >
+            <div class="card-icon-halo">{{ item.icon }}</div>
+            <div class="card-text-block">
+              <div class="card-main-name">{{ item.name }}</div>
+              <div class="card-sub-tag">{{ item.tag }}</div>
+            </div>
+            <div class="card-live-dot" title="实时直连在线"></div>
           </div>
-          <!-- 跑马灯元素 2 组 (无缝衔接) -->
-          <div class="marquee-item" v-for="(item, i) in marqueePartners" :key="'p2-' + i">
-            <span class="item-icon">{{ item.icon }}</span>
-            <span class="item-name">{{ item.name }}</span>
-            <span class="item-tag">{{ item.tag }}</span>
+          <!-- 跑马灯元素 2 组 (无缝平滑衔接) -->
+          <div
+            v-for="(item, i) in marqueePartners"
+            :key="'p2-' + i"
+            class="marquee-card"
+          >
+            <div class="card-icon-halo">{{ item.icon }}</div>
+            <div class="card-text-block">
+              <div class="card-main-name">{{ item.name }}</div>
+              <div class="card-sub-tag">{{ item.tag }}</div>
+            </div>
+            <div class="card-live-dot" title="实时直连在线"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 6. 范式转移动态滑块 (带滚动渐入渐出动效) -->
+    <!-- 6. 范式转移动态滑块 -->
     <section id="shift-slider" class="shift-section scroll-reveal">
       <div class="section-inner">
         <div class="section-header-center scroll-reveal delay-1">
@@ -444,7 +454,7 @@
       </div>
     </section>
 
-    <!-- 7. 行业解决方案选项卡 (带滚动渐入渐出动效) -->
+    <!-- 7. 行业解决方案选项卡 -->
     <section id="solutions" class="solutions-section scroll-reveal">
       <div class="section-inner">
         <div class="section-header-center scroll-reveal delay-1">
@@ -543,7 +553,7 @@
       </div>
     </section>
 
-    <!-- 8. 核心底层：4 层 GEO 认知工程架构 (带滚动渐入渐出动效) -->
+    <!-- 8. 核心底层：4 层 GEO 认知工程架构 -->
     <section id="architecture" class="arch-section scroll-reveal">
       <div class="section-inner">
         <div class="section-header-center scroll-reveal delay-1">
@@ -583,7 +593,7 @@
       </div>
     </section>
 
-    <!-- 9. 30 天闭环交付体系 (带滚动渐入渐出动效) -->
+    <!-- 9. 30 天闭环交付体系 -->
     <section id="roadmap" class="roadmap-section scroll-reveal">
       <div class="section-inner">
         <div class="section-header-center scroll-reveal delay-1">
@@ -623,7 +633,7 @@
       </div>
     </section>
 
-    <!-- 10. 商业账本：传统获客 VS 蜉蝣小宝 GEO (带滚动渐入渐出动效) -->
+    <!-- 10. 商业账本：传统获客 VS 蜉蝣小宝 GEO -->
     <section id="roi" class="roi-section scroll-reveal">
       <div class="section-inner">
         <div class="section-header-center scroll-reveal delay-1">
@@ -665,7 +675,7 @@
       </div>
     </section>
 
-    <!-- 11. 常见问题解答 (带滚动渐入渐出动效) -->
+    <!-- 11. 常见问题解答 -->
     <section id="faq" class="faq-section scroll-reveal">
       <div class="section-inner">
         <div class="section-header-center scroll-reveal delay-1">
@@ -696,7 +706,7 @@
       </div>
     </section>
 
-    <!-- 12. 转化底栏 (带滚动渐入渐出动效) -->
+    <!-- 12. 转化底栏 -->
     <section class="bottom-cta-banner scroll-reveal">
       <div class="cta-cosmic-glow"></div>
       <div class="cta-inner scroll-reveal delay-1">
@@ -741,7 +751,6 @@
         <div class="footer-brand-col">
           <div class="footer-logo">
             <img src="/logo-white.png" alt="蜉蝣小宝" class="f-logo-img" />
-            <span class="f-brand-name">蜉蝣小宝</span>
           </div>
           <p class="footer-slogan">
             新一代企业生成式 AI 搜索引擎商业认知与拓客中枢。帮助中国优质实体企业抢占主流大模型第一推荐位。
@@ -800,7 +809,7 @@ const router = useRouter();
 const heroBrandInput = ref('');
 const bottomBrandInput = ref('');
 
-// 动态循环切换的 Placeholder (更精炼大气)
+// 动态循环切换的 Placeholder
 const placeholders = [
   '例如：无锡恒瑞智能装备（工业数控激光切管机）',
   '例如：佛山佳豪系统门窗（高端断桥铝定制）',
@@ -824,7 +833,7 @@ onMounted(() => {
   initScrollObserver();
 });
 
-// 滚动渐显渐隐监听函数 (Scroll-driven Reveal & Fade-out)
+// 滚动渐显渐隐监听函数
 function initScrollObserver() {
   const targets = document.querySelectorAll('.scroll-reveal');
   if (!targets.length) return;
@@ -836,16 +845,13 @@ function initScrollObserver() {
         const rect = entry.boundingClientRect;
 
         if (entry.isIntersecting) {
-          // 在可视区域内：优雅渐显
           el.classList.add('is-revealed');
           el.classList.remove('is-exited-top');
         } else {
-          // 离开可视区域：如果向上滑出了视口，添加优雅渐隐离开状态
           if (rect.top < 0) {
             el.classList.add('is-exited-top');
             el.classList.remove('is-revealed');
           } else {
-            // 在视口下方尚未进入
             el.classList.remove('is-revealed');
             el.classList.remove('is-exited-top');
           }
@@ -861,7 +867,7 @@ function initScrollObserver() {
   targets.forEach((el) => scrollObserver.observe(el));
 }
 
-// 快速体验 Chips (精炼紧凑)
+// 快速体验 Chips
 const quickChips = [
   { label: '🏭 工业切管机', brand: '恒瑞智能装备', company: '无锡恒瑞智能装备科技有限公司', industry: '工业数控激光切管机制造', city: '无锡' },
   { label: '🏡 高端系统门窗', brand: '佳豪系统门窗', company: '佛山尚品佳豪智能家居系统有限公司', industry: '高端断桥铝系统门窗与阳光房', city: '佛山' },
@@ -1329,21 +1335,18 @@ const faqs = [
   will-change: opacity, transform, filter;
 }
 
-/* 元素滚动进入视口：优雅渐显、清晰浮现 */
 .scroll-reveal.is-revealed {
   opacity: 1;
   transform: translateY(0) scale(1);
   filter: blur(0px);
 }
 
-/* 元素向上滑出视口顶部：自然柔和渐隐，避免生硬跳出 */
 .scroll-reveal.is-exited-top {
   opacity: 0.18;
   transform: translateY(-24px) scale(0.99);
   filter: blur(4px);
 }
 
-/* 级联延迟 (Staggered Delays for Grid Items) */
 .delay-1 { transition-delay: 0.08s; }
 .delay-2 { transition-delay: 0.16s; }
 .delay-3 { transition-delay: 0.24s; }
@@ -1417,7 +1420,7 @@ const faqs = [
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.75rem 2rem;
+  padding: 0.8rem 2rem;
 }
 
 .header-inner {
@@ -1428,108 +1431,61 @@ const faqs = [
   justify-content: space-between;
 }
 
+/* 左上角品牌链接：舒展、大气、无拘束 */
 .brand-link {
   display: flex;
   align-items: center;
   gap: 0.85rem;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.logo-beam-card {
+.logo-aura-wrap {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
-.beam-halo {
+/* 柔和无边框深空光晕：不框住 logo，让其自由发光 */
+.logo-soft-glow {
   position: absolute;
-  inset: -12px;
-  pointer-events: none;
+  inset: -12px -20px;
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.5) 0%, rgba(168, 85, 247, 0.25) 50%, transparent 72%);
   filter: blur(14px);
-  opacity: 0.6;
-}
-
-.beam-halo-rotator {
-  width: 100%;
-  height: 100%;
-  background: conic-gradient(from 0deg, #195AFE, #A855F7, #FF6D03, #195AFE);
-  animation: beamRotate 6s linear infinite;
-}
-
-.beam-border-track {
-  position: absolute;
-  inset: -8px;
   pointer-events: none;
+  opacity: 0.75;
+  transition: opacity 0.3s ease;
 }
 
-.beam-border-rotator {
-  width: 100%;
-  height: 100%;
-  background: conic-gradient(from 0deg, #195AFE 0%, #3B82F6 25%, #EC4899 50%, #FF6D03 75%, #195AFE 100%);
-  animation: beamRotate 4s linear infinite;
+.brand-link:hover .logo-soft-glow {
+  opacity: 1;
 }
 
-.logo-inner-content {
-  position: absolute;
-  inset: 2px;
-  background: #0D1322;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-}
-
-.logo-img {
-  width: 26px;
-  height: 26px;
+/* 品牌原标：完整大图自然展现，不锁在小方格内 */
+.logo-unconstrained {
+  position: relative;
+  height: 38px;
+  width: auto;
+  max-width: 155px;
   object-fit: contain;
+  filter: drop-shadow(0 2px 12px rgba(25, 90, 254, 0.4));
+  transition: transform 0.25s ease;
 }
 
-@keyframes beamRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.brand-text-wrap {
-  display: flex;
-  flex-direction: column;
-}
-
-.brand-name-row {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.brand-name {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.3px;
+.brand-link:hover .logo-unconstrained {
+  transform: scale(1.04);
 }
 
 .brand-badge-tag {
   background: linear-gradient(135deg, #195AFE, #7C3AED);
   color: #ffffff;
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 800;
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
+  padding: 0.18rem 0.55rem;
+  border-radius: 6px;
   letter-spacing: 0.5px;
-}
-
-.brand-en {
-  font-size: 0.66rem;
-  font-weight: 700;
-  color: #64748B;
-  letter-spacing: 0.8px;
+  box-shadow: 0 0 12px rgba(25, 90, 254, 0.45);
 }
 
 .nav-links {
@@ -1626,7 +1582,7 @@ const faqs = [
   z-index: 1;
 }
 
-/* ================= 3. Hero Section (大气、精炼、高级留白) ================= */
+/* ================= 3. Hero Section ================= */
 .hero-section {
   position: relative;
   padding: 5rem 1.5rem 5.5rem;
@@ -1690,7 +1646,6 @@ const faqs = [
   text-align: center;
 }
 
-/* 顶部徽章 */
 .hero-pill-badge {
   display: inline-flex;
   align-items: center;
@@ -1722,7 +1677,6 @@ const faqs = [
   100% { transform: scale(0.9); opacity: 0.8; }
 }
 
-/* 巨幅主标题：磅礴、从容、直击痛点 */
 .hero-headline {
   font-size: 3.8rem;
   font-weight: 900;
@@ -1739,7 +1693,6 @@ const faqs = [
   -webkit-text-fill-color: transparent;
 }
 
-/* 精炼副标题 */
 .hero-subtext {
   font-size: 1.15rem;
   line-height: 1.75;
@@ -1748,7 +1701,6 @@ const faqs = [
   margin: 0 0 2.8rem 0;
 }
 
-/* 核心交互搜索框 */
 .hero-search-wrapper {
   width: 100%;
   max-width: 860px;
@@ -1847,7 +1799,6 @@ const faqs = [
   z-index: 1;
 }
 
-/* 快速体验 Chips */
 .quick-chips-row {
   display: flex;
   align-items: center;
@@ -1882,7 +1833,6 @@ const faqs = [
   transform: translateY(-1px);
 }
 
-/* 信任指标行 */
 .trust-metrics-row {
   display: flex;
   align-items: center;
@@ -1908,7 +1858,7 @@ const faqs = [
   border-radius: 50%;
 }
 
-/* ================= 4. 首屏高科技画报 (Dashboard Mockup) ================= */
+/* ================= 4. 首屏高科技画报 ================= */
 .hero-dashboard-mockup {
   width: 100%;
   background: #0E1526;
@@ -1989,7 +1939,6 @@ const faqs = [
   padding: 1.8rem;
 }
 
-/* 仿真左栏 */
 .comparison-panel {
   display: flex;
   flex-direction: column;
@@ -2219,7 +2168,6 @@ const faqs = [
   color: #EF4444;
 }
 
-/* 遥测右栏 */
 .telemetry-panel {
   display: flex;
   flex-direction: column;
@@ -2391,30 +2339,62 @@ const faqs = [
   box-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
 }
 
-/* ================= 5. 跑马灯生态 (Similarweb Marquee) ================= */
+/* ================= 5. 跑马灯生态 (大幅提升字号与卡片尺寸，醒目清晰) ================= */
 .marquee-section {
-  padding: 3.5rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 4.5rem 0 5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: #060910;
   overflow: hidden;
+  position: relative;
 }
 
-.marquee-label {
+.marquee-header-wrap {
   text-align: center;
+  margin-bottom: 2.6rem;
+}
+
+.marquee-title-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.marquee-pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: pulseDot 2s infinite;
+}
+
+.marquee-title {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: #E2E8F0;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.marquee-sub-note {
   font-size: 0.82rem;
-  font-weight: 600;
   color: #64748B;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  font-weight: 500;
 }
 
 .marquee-wrapper {
   display: flex;
   width: 100%;
   overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  padding: 0.5rem 0;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
 .marquee-track {
@@ -2422,7 +2402,7 @@ const faqs = [
   align-items: center;
   gap: 2rem;
   white-space: nowrap;
-  animation: marqueeScroll 35s linear infinite;
+  animation: marqueeScroll 40s linear infinite;
 }
 
 .marquee-wrapper:hover .marquee-track {
@@ -2434,39 +2414,74 @@ const faqs = [
   100% { transform: translateX(-50%); }
 }
 
-.marquee-item {
+/* 跑马灯大卡片：大图标、大字号、高对比度、清晰不费力 */
+.marquee-card {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.55rem 1.15rem;
-  border-radius: 9999px;
-  color: #CBD5E1;
-  font-size: 0.88rem;
-  font-weight: 600;
-  transition: all 0.2s;
+  gap: 1.1rem;
+  background: rgba(15, 22, 38, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 1rem 1.8rem;
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.marquee-item:hover {
-  background: rgba(25, 90, 254, 0.12);
-  border-color: rgba(25, 90, 254, 0.35);
-  color: #ffffff;
+.marquee-card:hover {
+  background: #162035;
+  border-color: rgba(59, 130, 246, 0.6);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 16px 36px rgba(25, 90, 254, 0.35);
 }
 
-.item-icon {
-  font-size: 1.05rem;
-}
-
-.item-tag {
-  font-size: 0.72rem;
-  color: #64748B;
+.card-icon-halo {
+  font-size: 2.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
   background: rgba(255, 255, 255, 0.05);
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ================= 6. 范式转移滑块 (Similarweb hm-ai-agents) ================= */
+.card-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-main-name {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.2px;
+}
+
+.card-sub-tag {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #93C5FD;
+  background: rgba(25, 90, 254, 0.15);
+  padding: 0.15rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid rgba(25, 90, 254, 0.25);
+  width: fit-content;
+}
+
+.card-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  margin-left: 0.3rem;
+}
+
+/* ================= 6. 范式转移滑块 ================= */
 .shift-section {
   padding: 6rem 1.5rem;
   position: relative;
@@ -2758,7 +2773,7 @@ const faqs = [
   margin-bottom: 0.2rem;
 }
 
-/* ================= 7. 行业解决方案 (Similarweb hm-team-solutions) ================= */
+/* ================= 7. 行业解决方案 ================= */
 .solutions-section {
   padding: 6rem 1.5rem;
   background: #060910;
@@ -3036,7 +3051,7 @@ const faqs = [
   border-radius: 4px;
 }
 
-/* ================= 8. 四层认知工程架构 (Architecture) ================= */
+/* ================= 8. 四层认知工程架构 ================= */
 .arch-section {
   padding: 6rem 1.5rem;
   background: #080C14;
@@ -3121,7 +3136,7 @@ const faqs = [
   background: #3B82F6;
 }
 
-/* ================= 9. 30 天闭环交付 (Roadmap) ================= */
+/* ================= 9. 30 天闭环交付 ================= */
 .roadmap-section {
   padding: 6rem 1.5rem;
   background: #060910;
@@ -3217,7 +3232,7 @@ const faqs = [
   background: #10B981;
 }
 
-/* ================= 10. 商业账本 (ROI Table) ================= */
+/* ================= 10. 商业账本 ================= */
 .roi-section {
   padding: 6rem 1.5rem;
   background: #080C14;
@@ -3489,7 +3504,7 @@ const faqs = [
   color: #334155;
 }
 
-/* ================= 13. 暗黑品牌页脚 (Footer) ================= */
+/* ================= 13. 暗黑品牌页脚 ================= */
 .landing-footer {
   background: #04070D;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -3514,19 +3529,13 @@ const faqs = [
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 }
 
 .f-logo-img {
-  width: 32px;
-  height: 32px;
+  height: 34px;
+  width: auto;
   object-fit: contain;
-}
-
-.f-brand-name {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #ffffff;
 }
 
 .footer-slogan {
@@ -3607,6 +3616,7 @@ const faqs = [
   .arch-cards-grid { grid-template-columns: repeat(2, 1fr); }
   .roadmap-timeline-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .marquee-track { gap: 1.4rem; }
 }
 
 @media (max-width: 768px) {
@@ -3624,5 +3634,8 @@ const faqs = [
   .search-input-box { flex-direction: column; border-radius: 20px; padding: 0.8rem; gap: 0.8rem; }
   .search-divider { display: none; }
   .btn-search-action { width: 100%; }
+  .marquee-card { padding: 0.8rem 1.2rem; }
+  .card-icon-halo { font-size: 1.6rem; width: 40px; height: 40px; }
+  .card-main-name { font-size: 1.02rem; }
 }
 </style>
