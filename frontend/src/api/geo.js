@@ -1,0 +1,52 @@
+import axios from 'axios';
+
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000/api/v1';
+
+const apiClient = axios.create({
+  baseURL: API_BASE,
+  timeout: 60000,
+});
+
+export default {
+  // 报表公开端接口 (带 code 参数)
+  getCompanyInfo(code) {
+    return apiClient.get('/report/company-info', { params: { code } });
+  },
+  getSummary(code) {
+    return apiClient.get('/report/summary', { params: { code } });
+  },
+  getPlatforms(code, taskType = 0) {
+    return apiClient.get('/report/platforms', { params: { code, taskType } });
+  },
+  getTopKeywords(code) {
+    return apiClient.get('/report/top-keywords', { params: { code } });
+  },
+  getRankings(code, data) {
+    return apiClient.post('/report/rankings', data, { params: { code } });
+  },
+  getMatchDetail(code, rid) {
+    return apiClient.get(`/report/match-detail/${rid}`, { params: { code } });
+  },
+  getTrend(code, days = 30) {
+    return apiClient.get('/report/trend', { params: { code, days } });
+  },
+  
+  // 售前体检引擎接口 (核心拓客开单)
+  runDiagnostic(payload) {
+    return apiClient.post('/diagnostic/run', payload);
+  },
+  getDiagnosticReport(code) {
+    return apiClient.get(`/diagnostic/${code}`);
+  },
+  getRecentDiagnostics() {
+    return apiClient.get('/diagnostic/recent/list');
+  },
+
+  // 基础管理接口
+  getCompanies() {
+    return apiClient.get('/companies/');
+  },
+  quickAudit(payload) {
+    return apiClient.post('/companies/quick-audit', payload);
+  }
+};

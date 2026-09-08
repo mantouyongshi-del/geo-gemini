@@ -1,0 +1,38 @@
+# Environment & Secrets (严禁提交任何真实密钥)
+.env
+*.env
+.env.*
+!.env.example
+!*.env.example
+**/.env
+**/*.env
+!**/.env.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+venv/
+**/venv/
+env/
+backend/venv/
+backend/*.db
+backend/*.sqlite3
+*.db
+**/*.db
+**/*.sqlite3
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+node_modules/
+dist/
+*.log
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
