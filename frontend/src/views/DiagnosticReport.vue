@@ -557,10 +557,11 @@
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import geoApi from '../api/geo';
 
 const route = useRoute();
+const router = useRouter();
 const report = ref(null);
 const openItemId = ref(null);
 const copied = ref(false);
@@ -664,8 +665,12 @@ function isTargetCite(cite) {
 }
 
 function handleBackToConsole() {
-  if (window.location.pathname.includes('console')) {
-    router.push('/');
+  if (window.location.pathname.includes('console.html') || window.location.pathname.includes('console')) {
+    if (router) {
+      router.push('/');
+    } else {
+      window.location.href = '/console.html#/';
+    }
   } else {
     window.location.href = '/console.html';
   }

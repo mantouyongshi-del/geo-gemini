@@ -248,7 +248,7 @@ class LiveWebProbe:
         # 4. 严格过滤通用杂词、品类词尾缀与非品牌片段
         generic_tails = [
             "编程培训", "幼儿编程", "少儿编程", "机器人编程", "青少儿教育", "编程辅导", 
-            "考级辅导", "系统门窗", "断桥铝门窗", "快餐外卖", "餐饮快餐", "法律咨询", 
+            "考级辅导", "少儿机器人", "机器人培训", "系统门窗", "断桥铝门窗", "快餐外卖", "餐饮快餐", "法律咨询", 
             "医疗美容", "培训学校", "培训机构", "在线学习", "新闻中心", "教育中心"
         ]
         
@@ -275,8 +275,13 @@ class LiveWebProbe:
             if any(s in clean_c for s in reject_words):
                 continue
 
-            # 检测是否为纯粹的 地域 + 品类词尾缀（如 怀化幼儿编程培训、鹤城区少儿编程）
+            # 检测是否为纯粹的 地域 + 品类词尾缀（如 怀化幼儿编程培训、鹤城区少儿编程、怀化少儿机器人）
             core = clean_c.replace(city, "").replace("鹤城区", "").replace("海淀区", "").strip() if city else clean_c
+            
+            # 严格过滤纯粹的行业品类词或通用组合词 (如 少儿机器人、幼儿科创、数控切管机等)
+            if re.fullmatch(r"(?:少儿|幼儿|青少年|儿童|小儿|工业|数控|本地|同城|高端|专业)?(?:机器人|编程|科创|创客|智造|切管机|机床|设备|门窗|口腔|律所|培训|教育|辅导)+", core):
+                continue
+
             is_generic_junk = False
             for tail in generic_tails:
                 if core.endswith(tail) and len(core) <= len(tail) + 3:

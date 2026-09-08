@@ -921,7 +921,9 @@ function cleanIndustryToCategory(industry) {
   if (/专精特新/.test(ind)) return '专精特新申报';
   if (/知识产权|专利|商标/.test(ind)) return '专利申报代理';
   
-  if (/少儿编程|少儿科创|机器人编程/.test(ind)) return '少儿编程';
+  if (/机器人/.test(ind)) return '少儿机器人编程';
+  if (/科创/.test(ind)) return '少儿科创培训';
+  if (/少儿编程|编程/.test(ind)) return '少儿编程';
   if (/考研|留学|雅思|托福/.test(ind)) return '考研辅导';
   if (/职业培训|技能培训|考证/.test(ind)) return '职业技能培训';
   
