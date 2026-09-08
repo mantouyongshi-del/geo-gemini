@@ -515,7 +515,10 @@
   </div>
 
   <div v-else class="loading-wrap">
-    正在加载体检报告...
+    <div class="report-loading-box">
+      <img src="/logo-icon.png" alt="蜉蝣小宝" class="report-loading-logo" />
+      <p class="report-loading-text">正在载入企业 AI 搜索引擎可见度诊断书...</p>
+    </div>
   </div>
 </template>
 
@@ -1810,8 +1813,37 @@ watch(() => route.params.code || route.query.code, (newCode) => {
 .loading-wrap {
   color: #ffffff;
   text-align: center;
-  padding: 5rem 0;
-  font-size: 1.2rem;
+  padding: 7rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.report-loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.report-loading-logo {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.6));
+  animation: pulseReportLogo 1.8s ease-in-out infinite alternate;
+}
+
+.report-loading-text {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+@keyframes pulseReportLogo {
+  0% { transform: scale(0.94); filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4)); }
+  100% { transform: scale(1.06); filter: drop-shadow(0 0 24px rgba(16, 185, 129, 0.85)); }
 }
 
 /* 打印 A4 媒体样式适配 */

@@ -299,8 +299,9 @@
     <div v-if="isRunning" class="radar-backdrop">
       <div class="radar-box">
         <div class="radar-scanner-wrap">
+          <div class="radar-scanner-halo"></div>
           <div class="radar-scanner"></div>
-          <div class="radar-center-icon">📡</div>
+          <img src="/logo-icon.png" alt="蜉蝣小宝" class="radar-center-logo" />
         </div>
         
         <h3 class="radar-title">正在全网穿透探测中...</h3>
@@ -1240,30 +1241,67 @@ onUnmounted(() => {
 
 .radar-scanner-wrap {
   position: relative;
-  width: 90px;
-  height: 90px;
+  width: 110px;
+  height: 110px;
   margin: 0 auto 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.radar-scanner-halo {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0) 70%);
+  animation: pulseHalo 2.2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
 .radar-scanner {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 3px solid rgba(99, 102, 241, 0.25);
-  border-top-color: #818cf8;
-  border-right-color: #a5b4fc;
-  animation: spin 1.2s linear infinite;
+  border: 3px solid rgba(16, 185, 129, 0.2);
+  border-top-color: #10b981;
+  border-right-color: #34d399;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+  animation: spin 1.4s linear infinite;
 }
 
-.radar-center-icon {
-  font-size: 2rem;
+.radar-center-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  z-index: 2;
+  filter: drop-shadow(0 0 14px rgba(16, 185, 129, 0.5));
+  animation: pulseLogo 2s ease-in-out infinite alternate;
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+@keyframes pulseLogo {
+  0% {
+    transform: scale(0.95);
+    filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4));
+  }
+  100% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 24px rgba(16, 185, 129, 0.85));
+  }
+}
+
+@keyframes pulseHalo {
+  0% {
+    transform: scale(0.88);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(1.18);
+    opacity: 0.85;
+  }
 }
 
 .radar-title {
