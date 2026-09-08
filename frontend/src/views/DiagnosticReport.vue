@@ -14,6 +14,10 @@
           <span class="report-id-tag">报告单号: {{ report.report_code }}</span>
         </div>
         <div class="bar-right">
+          <label class="print-option-toggle" title="默认打印精炼商务报告(约4-5页)；勾选后将展开包含大模型全部万字实测长文与信源">
+            <input type="checkbox" v-model="printExpandAll" />
+            <span>包含大模型全部问答实录</span>
+          </label>
           <button class="btn btn-outline" @click="handlePrint">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bar-btn-icon">
               <polyline points="6 9 6 2 18 2 18 9"></polyline>
@@ -37,7 +41,7 @@
     </div>
 
     <!-- 诊断书主体纸张 -->
-    <div class="paper-container">
+    <div class="paper-container" :class="{ 'print-expand-all': printExpandAll }">
       <!-- 官方抬头 -->
       <header class="paper-header">
         <div class="header-seal-row">
@@ -565,6 +569,7 @@ const router = useRouter();
 const report = ref(null);
 const openItemId = ref(null);
 const copied = ref(false);
+const printExpandAll = ref(false);
 
 const groupedItems = computed(() => {
   if (!report.value || !report.value.items) return [];
@@ -776,7 +781,34 @@ watch(() => route.params.code || route.query.code, (newCode) => {
 
 .bar-right {
   display: flex;
+  align-items: center;
   gap: 0.75rem;
+}
+
+.print-option-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.print-option-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.print-option-toggle input[type="checkbox"] {
+  cursor: pointer;
+  accent-color: #38bdf8;
 }
 
 /* A4 纸张风格主体 */
@@ -2000,34 +2032,297 @@ watch(() => route.params.code || route.query.code, (newCode) => {
   100% { transform: scale(1.06); filter: drop-shadow(0 0 24px rgba(16, 185, 129, 0.85)); }
 }
 
-/* 打印 A4 媒体样式适配 */
+/* 打印 A4 媒体样式高精度商务排版重构 */
 @media print {
-  body {
-    background: #ffffff !important;
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm;
   }
+
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    box-sizing: border-box !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11.5px !important;
+    line-height: 1.35 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
   .no-print {
     display: none !important;
   }
+
   .report-wrapper {
     background: #ffffff !important;
     padding: 0 !important;
+    margin: 0 !important;
+    min-height: auto !important;
   }
+
   .paper-container {
     max-width: 100% !important;
+    width: 100% !important;
     margin: 0 !important;
-    padding: 1.2cm 1.5cm !important;
+    padding: 0 !important;
     box-shadow: none !important;
+    border: none !important;
     border-radius: 0 !important;
+    gap: 1.2rem !important;
   }
-  .section-card, .timeline-phase-card, .scenario-group-card, .economic-card {
+
+  /* 页面断裂控制：避免标题落单在页脚、避免卡片/表格行被水平腰斩 */
+  h1, h2, h3, .sec-title-row, .scenario-header {
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+
+  .section-card,
+  .score-section,
+  .economic-card,
+  .prescription-card,
+  .timeline-phase-card,
+  .scenario-group-card,
+  .funnel-card,
+  .rx-box,
+  .paper-header,
+  .paper-footer,
+  .competitor-table-wrap,
+  .sources-table-wrap,
+  tr {
+    break-inside: avoid-page !important;
     page-break-inside: avoid !important;
-    break-inside: avoid !important;
   }
-  .accordion-body {
-    display: block !important;
+
+  /* 官方抬头 */
+  .paper-header {
+    padding-bottom: 0.8rem !important;
+    margin-bottom: 0.6rem !important;
+    border-bottom: 2px solid #0f172a !important;
+  }
+  .report-brand-logo {
+    height: 36px !important;
+    margin-bottom: 0.2rem !important;
+  }
+  .meta-grid {
+    gap: 0.35rem 1rem !important;
+  }
+  .meta-item {
+    font-size: 0.72rem !important;
+  }
+
+  /* 核心指标 1: 仪表盘紧凑化 */
+  .score-section {
+    margin-bottom: 0.6rem !important;
+  }
+  .score-card {
+    padding: 0.8rem 1.2rem !important;
+    gap: 1.2rem !important;
+  }
+  .score-number-box {
+    min-width: 130px !important;
+    padding-right: 1rem !important;
+  }
+  .score-big {
+    font-size: 2.8rem !important;
+  }
+  .summary-text {
+    font-size: 0.8rem !important;
+    line-height: 1.35 !important;
+  }
+
+  /* 核心指标 2: 四层漏斗紧凑适配 */
+  .funnel-section {
+    padding: 1rem 1.2rem !important;
+  }
+  .funnel-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+  .funnel-card {
+    padding: 0.5rem 0.7rem !important;
+  }
+  .layer-body {
+    font-size: 0.7rem !important;
+    line-height: 1.3 !important;
+    gap: 0.3rem !important;
+  }
+  .layer-evidence, .layer-diag {
+    padding: 0.3rem 0.5rem !important;
+  }
+
+  /* 核心指标 3: 双端监控矩阵 (A4 纸面自适应 5 列优化排版) */
+  .device-matrix-grid {
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 0.35rem !important;
+  }
+  .device-chip-card {
+    padding: 0.35rem !important;
+    border-radius: 5px !important;
+    border-width: 1px !important;
+  }
+  .device-type-tag {
+    font-size: 0.58rem !important;
+    padding: 0.05rem 0.2rem !important;
+  }
+  .chip-name {
+    font-size: 0.68rem !important;
+  }
+  .chip-badge {
+    font-size: 0.62rem !important;
+    padding: 0.08rem 0.3rem !important;
+  }
+  .chip-desc {
+    font-size: 0.58rem !important;
+    line-height: 1.2 !important;
+  }
+
+  /* 核心指标 4 & 5: 表格排版 */
+  .competitor-table, .sources-table {
+    font-size: 0.72rem !important;
+    width: 100% !important;
+  }
+  .competitor-table th, .sources-table th {
+    padding: 0.35rem 0.45rem !important;
+    background: #f1f5f9 !important;
+    font-size: 0.7rem !important;
+  }
+  .competitor-table td, .sources-table td {
+    padding: 0.35rem 0.45rem !important;
+  }
+
+  /* 核心指标 6: 经济损失测算 */
+  .econ-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.45rem !important;
+  }
+  .econ-kpi-box {
+    padding: 0.5rem 0.7rem !important;
+  }
+  .econ-val {
+    font-size: 1.15rem !important;
+  }
+  .roi-banner {
+    padding: 0.5rem 0.7rem !important;
+    margin-top: 0.5rem !important;
+  }
+  .roi-pitch {
+    font-size: 0.72rem !important;
+  }
+
+  /* 核心指标 7: 现场大模型实测证据链 (解决暴力展开20页乱码的根因) */
+  .scenario-groups-wrap {
+    gap: 0.5rem !important;
+  }
+  .scenario-group-card {
+    margin-bottom: 0.5rem !important;
+    padding: 0.5rem 0.7rem !important;
+  }
+  .scenario-header {
+    padding-bottom: 0.35rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+  .scenario-badge {
+    font-size: 0.65rem !important;
+    padding: 0.1rem 0.4rem !important;
+  }
+  .scenario-kw {
+    font-size: 0.75rem !important;
+  }
+  .accordion-item {
+    margin-bottom: 0.3rem !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+  }
+  .accordion-header {
+    padding: 0.35rem 0.6rem !important;
+    background: #f8fafc !important;
+  }
+  .platform-badge {
+    font-size: 0.68rem !important;
+    padding: 0.1rem 0.4rem !important;
+  }
+  .real-api-pill {
+    font-size: 0.62rem !important;
+  }
+  .kw-sub-info {
+    font-size: 0.65rem !important;
+  }
+  .duration-badge {
+    font-size: 0.62rem !important;
+  }
+  .status-stamp {
+    font-size: 0.65rem !important;
+    padding: 0.1rem 0.4rem !important;
   }
   .arrow-indicator {
     display: none !important;
+  }
+  
+  /* 默认商业精炼模式：折叠主体不全量展开，保持清晰紧凑的现场实测矩阵行 */
+  .accordion-body {
+    display: none !important;
+  }
+
+  /* 当用户在屏幕上主动展开了某项，或勾选了“包含大模型实测问答长文”时，优雅打印实测正文 */
+  .accordion-item.open .accordion-body,
+  .print-expand-all .accordion-body {
+    display: block !important;
+    padding: 0.5rem !important;
+    font-size: 0.7rem !important;
+    background: #ffffff !important;
+  }
+
+  .raw-response-box {
+    max-height: none !important;
+    font-size: 0.7rem !important;
+    line-height: 1.35 !important;
+    padding: 0.5rem !important;
+  }
+  .citations-box {
+    margin-top: 0.35rem !important;
+  }
+  .citation-card {
+    padding: 0.3rem 0.45rem !important;
+    margin-bottom: 0.2rem !important;
+    font-size: 0.65rem !important;
+  }
+
+  /* 核心指标 8: 实施路线图 */
+  .phases-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.45rem !important;
+  }
+  .phase-box {
+    padding: 0.45rem 0.55rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* 核心指标 9: 处方 */
+  .prescription-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.45rem !important;
+  }
+  .rx-box {
+    padding: 0.45rem 0.55rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* 页脚认证署名 */
+  .paper-footer {
+    margin-top: 0.8rem !important;
+    padding-top: 0.6rem !important;
+    break-inside: avoid-page !important;
+  }
+  .contact-card {
+    padding: 0.5rem 0.7rem !important;
   }
 }
 </style>
